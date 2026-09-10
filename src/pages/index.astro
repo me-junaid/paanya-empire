@@ -1,17 +1,25 @@
 ---
-
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/home/Hero.astro';
+import Introduction from '../components/home/Introduction.astro';
+import ServicesOverview from '../components/home/ServicesOverview.astro';
+import FeaturedProjects from '../components/home/FeaturedProjects.astro';
+import WhyChooseUs from '../components/home/WhyChooseUs.astro';
+import Process from '../components/home/Process.astro';
+import Testimonials from '../components/home/Testimonials.astro';
+import CTA from '../components/home/CTA.astro';
 ---
 
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1 class="">Astro</h1>
-	</body>
-</html>
+<BaseLayout 
+  title="Turnkey Construction Homepage" 
+  description="Premium turnkey construction and real estate services by Paanya Empire. We build trust, engineering excellence, and deliver luxury."
+>
+  <Hero />
+  <Introduction />
+  <ServicesOverview />
+  <FeaturedProjects />
+  <WhyChooseUs />
+  <Process />
+  <Testimonials />
+  <CTA />
+</BaseLayout>
