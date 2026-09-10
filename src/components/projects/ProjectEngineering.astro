@@ -1,0 +1,245 @@
+---
+import type { Project } from '../../types/project';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const civil = project.civilEngineering;
+const beforeAfter = project.beforeAfter;
+const materials = project.materials;
+const challenges = project.technicalChallenges;
+const qa = project.qaMandate;
+---
+
+<!-- 8. BEHIND THE FINISHED SPACE (Active Engineering) -->
+{civil && (
+  <section class="w-full py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <div class="lg:col-span-6 relative rounded-2xl overflow-hidden shadow-md group">
+        <img 
+          src={civil.image} 
+          alt={civil.imageAlt}
+          class="w-full h-80 sm:h-[400px] object-cover transition-transform duration-700 group-hover:scale-105"
+          loading="lazy"
+        />
+        <div class="absolute top-4 left-4 flex gap-2">
+          {civil.badges.map((b) => (
+            <span class="px-3 py-1 rounded-full bg-black/75 backdrop-blur-md text-white text-[10px] font-bold tracking-wider uppercase border border-white/10">
+              {b}
+            </span>
+          ))}
+        </div>
+      </div>
+
+      <div class="lg:col-span-6 flex flex-col gap-5">
+        <span class="text-[11px] font-bold uppercase tracking-widest text-primary">
+          {civil.tagline}
+        </span>
+        <h2 class="font-headline text-2xl sm:text-3xl font-extrabold text-on-surface leading-tight">
+          {civil.headline}
+        </h2>
+        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+          {civil.description}
+        </p>
+
+        <div class="flex flex-col gap-3 pt-2">
+          {civil.checkpoints.map((cp) => (
+            <div class="flex items-start gap-3 text-xs sm:text-sm text-on-surface">
+              <svg class="w-5 h-5 text-primary shrink-0 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+              </svg>
+              <span>{cp}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<!-- 9. BEFORE & AFTER TRANSFORMATION -->
+{beforeAfter && (
+  <section class="w-full bg-surface-container-low py-16 px-4 sm:px-6 lg:px-8 border-y border-outline-variant/20">
+    <div class="max-w-6xl mx-auto flex flex-col gap-8">
+      <div class="flex flex-col gap-2">
+        <span class="text-[11px] font-bold uppercase tracking-widest text-primary">
+          {beforeAfter.tagline}
+        </span>
+        <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold text-on-surface">
+          {beforeAfter.headline}
+        </h2>
+        <p class="text-xs sm:text-sm text-on-surface-variant max-w-xl leading-relaxed">
+          {beforeAfter.description}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+        <!-- Before -->
+        <div class="relative rounded-2xl overflow-hidden bg-surface-container-high h-80 flex flex-col justify-between p-5 border border-outline-variant/20 shadow-xs group">
+          <img 
+            src={beforeAfter.before.image} 
+            alt={beforeAfter.before.alt}
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div class="relative z-10">
+            <span class="px-3 py-1 rounded-full bg-black/80 backdrop-blur-md text-white text-[10px] font-bold tracking-widest uppercase border border-white/10">
+              {beforeAfter.before.tag}
+            </span>
+          </div>
+          <div class="relative z-10 p-4 rounded-xl bg-black/80 backdrop-blur-md text-white border border-white/10">
+            <h4 class="font-headline text-xs font-bold uppercase">
+              {beforeAfter.before.title}
+            </h4>
+            <p class="text-[11px] text-gray-300 mt-1">
+              {beforeAfter.before.description}
+            </p>
+          </div>
+        </div>
+
+        <!-- After -->
+        <div class="relative rounded-2xl overflow-hidden bg-surface-container-high h-80 flex flex-col justify-between p-5 border border-outline-variant/20 shadow-xs group">
+          <img 
+            src={beforeAfter.after.image} 
+            alt={beforeAfter.after.alt}
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div class="relative z-10">
+            <span class="px-3 py-1 rounded-full bg-primary text-on-primary text-[10px] font-bold tracking-widest uppercase">
+              {beforeAfter.after.tag}
+            </span>
+          </div>
+          <div class="relative z-10 p-4 rounded-xl bg-black/80 backdrop-blur-md text-white border border-white/10">
+            <h4 class="font-headline text-xs font-bold uppercase">
+              {beforeAfter.after.title}
+            </h4>
+            <p class="text-[11px] text-gray-300 mt-1">
+              {beforeAfter.after.description}
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+)}
+
+<!-- 10. MATERIALS, FINISHES & CRAFTSMANSHIP -->
+{materials && (
+  <section class="w-full py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <div class="flex flex-col gap-2 mb-10">
+      <span class="text-[11px] font-bold uppercase tracking-widest text-primary">
+        {materials.tagline}
+      </span>
+      <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold text-on-surface">
+        {materials.headline}
+      </h2>
+      <p class="text-xs sm:text-sm text-on-surface-variant max-w-xl leading-relaxed">
+        {materials.description}
+      </p>
+    </div>
+
+    <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
+      {materials.items.map((mat, i) => (
+        <div class={`p-5 rounded-2xl bg-surface-container border border-outline-variant/30 flex flex-col gap-3 shadow-xs ${
+          i === 4 ? 'col-span-2 sm:col-span-1' : ''
+        }`}>
+          <div class="w-9 h-9 rounded-xl bg-surface-container-high flex items-center justify-center text-primary">
+            <svg class="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z" />
+            </svg>
+          </div>
+          <span class="font-headline text-xs font-bold text-on-surface uppercase tracking-wide">
+            {mat.title}
+          </span>
+          <p class="text-[11px] text-on-surface-variant leading-relaxed">
+            {mat.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+)}
+
+<!-- 11. ENGINEERING CHALLENGES & SOLUTIONS -->
+{challenges && (
+  <section class="w-full bg-surface-container-low py-16 px-4 sm:px-6 lg:px-8 border-y border-outline-variant/20">
+    <div class="max-w-6xl mx-auto flex flex-col gap-8">
+      <div class="flex flex-col gap-2">
+        <span class="text-[11px] font-bold uppercase tracking-widest text-primary">
+          {challenges.tagline}
+        </span>
+        <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold text-on-surface">
+          {challenges.headline}
+        </h2>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {challenges.items.map((ch) => {
+          let badgeColor = 'bg-primary text-on-primary';
+          let symbol = '⚙';
+          if (ch.type === 'challenge') {
+            badgeColor = 'bg-error text-on-primary';
+            symbol = '!';
+          } else if (ch.type === 'outcome') {
+            badgeColor = 'bg-primary-container text-on-primary';
+            symbol = '✓';
+          }
+
+          return (
+            <div class="p-6 sm:p-7 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-xs flex flex-col gap-3">
+              <div class={`w-8 h-8 rounded-full ${badgeColor} flex items-center justify-center text-xs font-black shadow-xs`}>
+                {symbol}
+              </div>
+              <h4 class="font-headline text-xs sm:text-sm font-bold uppercase text-on-surface mt-1">
+                {ch.title}
+              </h4>
+              <p class="text-xs text-on-surface-variant leading-relaxed">
+                {ch.description}
+              </p>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  </section>
+)}
+
+<!-- 12. QUALITY CONTROL & STANDARDS -->
+{qa && (
+  <section class="w-full bg-[#071A33] text-on-primary py-16 px-4 sm:px-6 lg:px-8 border-t border-outline-variant/10">
+    <div class="max-w-6xl mx-auto flex flex-col gap-10">
+      <div class="flex flex-col gap-2">
+        <span class="text-[11px] font-bold uppercase tracking-widest text-primary-fixed">
+          {qa.tagline}
+        </span>
+        <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold text-on-primary">
+          {qa.headline}
+        </h2>
+        <p class="text-xs sm:text-sm text-outline-variant max-w-xl leading-relaxed">
+          {qa.description}
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+        {qa.items.map((item) => (
+          <div class="p-5 rounded-2xl bg-surface-container-lowest/5 border border-white/10 backdrop-blur-sm flex items-start gap-4">
+            <svg class="w-5 h-5 text-primary-fixed shrink-0 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+            </svg>
+            <div>
+              <span class="text-xs sm:text-sm font-bold text-on-primary uppercase block">
+                {item.title}
+              </span>
+              <p class="text-[11px] text-outline-variant mt-1 leading-relaxed">
+                {item.description}
+              </p>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}

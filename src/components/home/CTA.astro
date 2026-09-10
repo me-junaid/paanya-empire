@@ -1,150 +1,25 @@
 ---
 ---
-<div class="flex flex-col w-full">
-  <!-- 11. DESKTOP FAQ (Two-Column Layout) -->
-  <section class="w-full py-14 sm:py-24 lg:py-28 bg-surface">
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-16">
-        
-        <!-- 4 cols left sticky -->
-        <div class="lg:col-span-4 flex flex-col items-start">
-          <span class="font-label text-[11px] sm:text-[12px] uppercase font-semibold tracking-[0.2em] sm:tracking-[0.22em] text-primary block mb-2">
-            Common Queries
-          </span>
-          <h2 class="font-headline text-2xl sm:text-3xl lg:text-[44px] font-bold text-on-surface leading-tight mb-4 sm:mb-6">
-            Questions?<br/>We Have Answers.
-          </h2>
-          <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed mb-6 sm:mb-8">
-            Every site is unique. If you have specific queries regarding zoning, structural engineering, or turnkey contracts, speak directly with our principal desk.
-          </p>
-          <a class="inline-flex items-center gap-2 px-5 sm:px-6 py-3 sm:py-3.5 bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label text-xs uppercase tracking-wider font-semibold rounded-lg transition-colors" href="/contact">
-            Contact Our Team
-            <span class="material-symbols-outlined text-sm">arrow_forward</span>
-          </a>
-        </div>
-        
-        <!-- 8 cols right accordion -->
-        <div class="lg:col-span-8 flex flex-col divide-y divide-outline-variant/30">
-          <div class="py-5 sm:py-6">
-            <button class="w-full text-left flex justify-between items-center py-2 focus:outline-none cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('span:last-child').textContent = this.nextElementSibling.classList.contains('hidden') ? 'add' : 'remove';">
-              <span class="font-headline text-base sm:text-lg font-bold text-on-surface pr-4">What is turnkey construction?</span>
-              <span class="material-symbols-outlined text-primary flex-shrink-0">remove</span>
-            </button>
-            <div class="pt-2 sm:pt-3 pb-2 text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-              Turnkey construction brings architectural design, municipal approvals, civil execution, interior millwork, and warranty handover under a single accountable contract. Paanya Empire takes full ownership of budget, timeline, and delivery, delivering a completed home ready for occupancy.
-            </div>
-          </div>
-          <div class="py-5 sm:py-6">
-            <button class="w-full text-left flex justify-between items-center py-2 focus:outline-none cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('span:last-child').textContent = this.nextElementSibling.classList.contains('hidden') ? 'add' : 'remove';">
-              <span class="font-headline text-base sm:text-lg font-bold text-on-surface pr-4">What services does Paanya Empire handle?</span>
-              <span class="material-symbols-outlined text-primary flex-shrink-0">add</span>
-            </button>
-            <div class="hidden pt-2 sm:pt-3 pb-2 text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-              We cover the entire architectural and structural lifecycle: soil investigations, schematic and 3D BIM design, sanction clearances, civil construction, electrical and plumbing infrastructure, custom cabinetry, smart home automation, and landscaping.
-            </div>
-          </div>
-          <div class="py-5 sm:py-6">
-            <button class="w-full text-left flex justify-between items-center py-2 focus:outline-none cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('span:last-child').textContent = this.nextElementSibling.classList.contains('hidden') ? 'add' : 'remove';">
-              <span class="font-headline text-base sm:text-lg font-bold text-on-surface pr-4">How is project cost calculated?</span>
-              <span class="material-symbols-outlined text-primary flex-shrink-0">add</span>
-            </button>
-            <div class="hidden pt-2 sm:pt-3 pb-2 text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-              Following site evaluation and architectural schematics, we provide an itemized Bill of Quantities (BOQ). Costs are fixed against clear material specifications, preventing budget creep during construction.
-            </div>
-          </div>
-          <div class="py-5 sm:py-6">
-            <button class="w-full text-left flex justify-between items-center py-2 focus:outline-none cursor-pointer" onclick="this.nextElementSibling.classList.toggle('hidden'); this.querySelector('span:last-child').textContent = this.nextElementSibling.classList.contains('hidden') ? 'add' : 'remove';">
-              <span class="font-headline text-base sm:text-lg font-bold text-on-surface pr-4">How long does construction take?</span>
-              <span class="material-symbols-outlined text-primary flex-shrink-0">add</span>
-            </button>
-            <div class="hidden pt-2 sm:pt-3 pb-2 text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-              A standard custom villa (5,000 to 8,000 sq.ft.) typically completes within 12 to 16 months from statutory clearance. We provide a milestone-gated CPM schedule during the design phase.
-            </div>
-          </div>
-        </div>
-        
-      </div>
-    </div>
-  </section>
+<section class="py-24 relative overflow-hidden bg-on-surface">
+  <!-- Background Image with Overlay -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="https://images.unsplash.com/photo-1541888052163-1e5f8ceb6bc1?auto=format&fit=crop&q=80" 
+      alt="Construction site" 
+      class="w-full h-full object-cover opacity-20"
+    />
+  </div>
 
-  <!-- 12. DESKTOP CONSULTATION & INQUIRY -->
-  <section class="w-full py-14 sm:py-24 bg-surface-container-low">
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
-      <div class="bg-surface-container-lowest rounded-2xl p-6 sm:p-8 lg:p-14 shadow-lg">
-        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-14">
-          
-          <!-- Left 5 cols -->
-          <div class="lg:col-span-5 flex flex-col justify-between">
-            <div>
-              <span class="font-label text-[11px] sm:text-[12px] uppercase font-semibold tracking-[0.2em] sm:tracking-[0.22em] text-primary block mb-2">
-                Let's Talk About What You're Building
-              </span>
-              <h2 class="font-headline text-2xl sm:text-3xl lg:text-[44px] font-bold text-on-surface leading-tight mb-4 sm:mb-6">
-                Let's Build Your Next Project.
-              </h2>
-              <p class="text-xs sm:text-sm lg:text-base text-on-surface-variant leading-relaxed mb-6 sm:mb-10">
-                Tell us about your property and architectural vision. Our principal team will schedule a tailored feasibility review within 48 hours.
-              </p>
-              
-              <div class="flex flex-col space-y-4 sm:space-y-5 text-sm text-on-surface mb-6 lg:mb-0">
-                <div class="flex items-center gap-3 sm:gap-4">
-                  <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed flex-shrink-0">
-                    <span class="material-symbols-outlined text-base sm:text-lg">call</span>
-                  </div>
-                  <div>
-                    <span class="text-[10px] sm:text-xs text-on-surface-variant block">Phone Direct Desk</span>
-                    <span class="font-semibold text-xs sm:text-sm">+91 98765 43210</span>
-                  </div>
-                </div>
-                <div class="flex items-center gap-3 sm:gap-4">
-                  <div class="w-9 h-9 sm:w-10 sm:h-10 rounded-full bg-primary-fixed flex items-center justify-center text-on-primary-fixed flex-shrink-0">
-                    <span class="material-symbols-outlined text-base sm:text-lg">mail</span>
-                  </div>
-                  <div>
-                    <span class="text-[10px] sm:text-xs text-on-surface-variant block">Email Inquiries</span>
-                    <span class="font-semibold text-xs sm:text-sm">concierge@paanyaempire.com</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          
-          <!-- Right 7 cols form -->
-          <div class="lg:col-span-7">
-            <form class="flex flex-col space-y-4 sm:space-y-5" action="/api/enquiry" method="POST">
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-                <div>
-                  <label class="font-label text-xs uppercase font-semibold text-on-surface tracking-wider block mb-1.5 sm:mb-2">Full Name</label>
-                  <input class="w-full h-11 sm:h-12 px-4 rounded-lg bg-surface-container-low text-sm text-on-surface focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="e.g. Eleanor Vance" required type="text" name="name"/>
-                </div>
-                <div>
-                  <label class="font-label text-xs uppercase font-semibold text-on-surface tracking-wider block mb-1.5 sm:mb-2">Phone Number</label>
-                  <input class="w-full h-11 sm:h-12 px-4 rounded-lg bg-surface-container-low text-sm text-on-surface focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="+91 98765 43210" required type="tel" name="phone"/>
-                </div>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-5">
-                <div>
-                  <label class="font-label text-xs uppercase font-semibold text-on-surface tracking-wider block mb-1.5 sm:mb-2">Email Address</label>
-                  <input class="w-full h-11 sm:h-12 px-4 rounded-lg bg-surface-container-low text-sm text-on-surface focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="eleanor@domain.com" required type="email" name="email"/>
-                </div>
-                <div>
-                  <label class="font-label text-xs uppercase font-semibold text-on-surface tracking-wider block mb-1.5 sm:mb-2">Project Location</label>
-                  <input class="w-full h-11 sm:h-12 px-4 rounded-lg bg-surface-container-low text-sm text-on-surface focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary outline-none transition-all" placeholder="e.g. Jubilee Hills, Hyderabad" required type="text" name="projectLocation"/>
-                </div>
-              </div>
-              <div>
-                <label class="font-label text-xs uppercase font-semibold text-on-surface tracking-wider block mb-1.5 sm:mb-2">Project Description</label>
-                <textarea class="w-full h-28 sm:h-32 p-4 rounded-lg bg-surface-container-low text-sm text-on-surface focus:bg-surface-container-lowest focus:ring-2 focus:ring-primary outline-none transition-all resize-none" placeholder="Briefly describe your vision, plot size, or specific requirements..." required name="message"></textarea>
-              </div>
-              <button class="w-full h-12 bg-primary hover:bg-primary-container text-on-primary font-label text-xs tracking-widest uppercase font-semibold rounded-lg shadow-xl shadow-primary/20 transition-all flex items-center justify-center gap-2 cursor-pointer" type="submit">
-                Submit Inquiry
-                <span class="material-symbols-outlined text-sm">send</span>
-              </button>
-            </form>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  </section>
-</div>
+  <div class="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h2 class="text-headline-lg text-on-primary mb-6">Ready to Build Your Legacy?</h2>
+    <p class="text-body-md md:text-xl text-on-primary/80 mb-10 max-w-2xl mx-auto">
+      Contact our team today to schedule an initial consultation. Let's discuss how we can turn your architectural vision into reality.
+    </p>
+    <a 
+      href="/contact" 
+      class="inline-block bg-primary text-on-primary px-10 py-4 rounded-lg text-label-md font-bold hover:bg-primary-container transition-colors shadow-lg"
+    >
+      Start Your Project
+    </a>
+  </div>
+</section>

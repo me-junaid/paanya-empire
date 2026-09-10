@@ -1,74 +1,37 @@
 ---
 ---
-<div class="flex flex-col w-full">
-  <!-- 1. HERO SECTION -->
-  <section class="relative w-full -mt-16 sm:-mt-20 min-h-[580px] sm:min-h-[680px] lg:h-[840px] flex items-center overflow-hidden">
-    <div class="absolute inset-0 bg-cover bg-center" style="background-image: url('/images/hero-villa.jpg')"></div>
-    <!-- Editorial Gradient Scrim -->
-    <div class="absolute inset-0 bg-gradient-to-r from-inverse-surface/95 via-inverse-surface/80 to-transparent"></div>
-    <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 via-transparent to-inverse-surface/40"></div>
-    
-    <div class="relative w-full max-w-[1440px] mx-auto px-4 sm:px-8 pt-24 sm:pt-32 pb-12 sm:pb-16 z-10">
-      <div class="max-w-[660px] flex flex-col items-start">
-        <span class="inline-flex items-center gap-2 font-label text-[11px] sm:text-[12px] tracking-[0.2em] sm:tracking-[0.22em] font-semibold text-secondary-container uppercase mb-4 sm:mb-5">
-          <span class="w-2 h-2 rounded-full bg-primary-container inline-block"></span>
-          Turnkey Construction
-        </span>
-        <h1 class="font-display text-3xl sm:text-5xl md:text-6xl lg:text-[72px] font-bold text-on-primary leading-[1.1] sm:leading-[1.05] tracking-tight uppercase">
-          Building Your Vision.<br/>
-          From Start To Finish.
-        </h1>
-        <p class="font-body text-sm sm:text-base lg:text-[20px] text-inverse-on-surface/85 leading-relaxed mt-4 sm:mt-6 max-w-[560px]">
-          From architectural design and statutory approvals through structural execution, bespoke interiors, and zero-defect handover — your entire project under one responsible contract.
-        </p>
-        
-        <div class="flex flex-col sm:flex-row w-full sm:w-auto items-stretch sm:items-center gap-3 sm:gap-4 mt-6 sm:mt-9">
-          <a class="inline-flex items-center justify-center h-12 sm:h-[52px] px-6 sm:px-8 bg-primary hover:bg-primary-container text-on-primary font-medium text-[12px] sm:text-[13px] tracking-wider uppercase rounded-lg shadow-xl shadow-primary/25 transition-all text-center" href="/contact">
-            Get A Free Quote
-          </a>
-          <a class="inline-flex items-center justify-center h-12 sm:h-[52px] px-6 sm:px-8 bg-surface-container-lowest/10 hover:bg-surface-container-lowest/20 backdrop-blur-md text-on-primary font-medium text-[12px] sm:text-[13px] tracking-wider uppercase rounded-lg transition-all text-center" href="/projects">
-            View Our Projects
-          </a>
-        </div>
-      </div>
-    </div>
-  </section>
+<section class="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
+  <!-- Background Image with Overlay -->
+  <div class="absolute inset-0 z-0">
+    <img 
+      src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80" 
+      alt="Modern luxury villa exterior designed by Paanya Empire" 
+      class="w-full h-full object-cover"
+    />
+    <div class="absolute inset-0 bg-on-surface/60"></div>
+  </div>
 
-  <!-- 2. HORIZONTAL TRUST STRIP -->
-  <section class="w-full bg-surface-container-lowest shadow-[0_4px_24px_rgba(0,0,0,0.03)] z-20 overflow-x-auto no-scrollbar">
-    <div class="max-w-[1440px] mx-auto px-4 sm:px-8 py-4 sm:py-6">
-      <div class="flex items-center gap-6 sm:gap-8 whitespace-nowrap min-w-max lg:min-w-0 lg:grid lg:grid-cols-5 lg:gap-6 lg:divide-x divide-outline-variant/30">
-        <div class="flex items-center justify-center lg:justify-start lg:pl-0">
-          <span class="font-label text-[11px] tracking-[0.16em] sm:tracking-[0.18em] uppercase font-semibold text-on-surface-variant flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary text-[18px]">verified</span>
-            Turnkey Construction
-          </span>
-        </div>
-        <div class="flex items-center justify-center lg:justify-start lg:pl-6">
-          <span class="font-label text-[11px] tracking-[0.16em] sm:tracking-[0.18em] uppercase font-semibold text-on-surface-variant flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary text-[18px]">handyman</span>
-            Quality Craftsmanship
-          </span>
-        </div>
-        <div class="flex items-center justify-center lg:justify-start lg:pl-6">
-          <span class="font-label text-[11px] tracking-[0.16em] sm:tracking-[0.18em] uppercase font-semibold text-on-surface-variant flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary text-[18px]">visibility</span>
-            Transparent Process
-          </span>
-        </div>
-        <div class="flex items-center justify-center lg:justify-start lg:pl-6">
-          <span class="font-label text-[11px] tracking-[0.16em] sm:tracking-[0.18em] uppercase font-semibold text-on-surface-variant flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary text-[18px]">hub</span>
-            End-to-End Management
-          </span>
-        </div>
-        <div class="flex items-center justify-center lg:justify-start lg:pl-6">
-          <span class="font-label text-[11px] tracking-[0.16em] sm:tracking-[0.18em] uppercase font-semibold text-on-surface-variant flex items-center gap-2">
-            <span class="material-symbols-outlined text-primary text-[18px]">alarm_on</span>
-            On-Time Execution
-          </span>
-        </div>
-      </div>
+  <!-- Content -->
+  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+    <h1 class="text-headline-lg md:text-[56px] md:leading-[64px] text-on-primary font-bold tracking-tight mb-6 max-w-4xl mx-auto">
+      Building Excellence, Delivering Luxury
+    </h1>
+    <p class="text-body-md md:text-xl text-surface/90 max-w-2xl mx-auto mb-10">
+      Premium turnkey construction and real estate services tailored to your vision. We transform ideas into architectural masterpieces.
+    </p>
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+      <a 
+        href="/projects" 
+        class="bg-primary text-on-primary px-8 py-4 rounded-lg text-label-md font-bold hover:bg-primary-container transition-colors"
+      >
+        Explore Our Work
+      </a>
+      <a 
+        href="/contact" 
+        class="bg-surface text-on-surface px-8 py-4 rounded-lg text-label-md font-bold hover:bg-outline-variant/20 transition-colors"
+      >
+        Start a Project
+      </a>
     </div>
-  </section>
-</div>
+  </div>
+</section>

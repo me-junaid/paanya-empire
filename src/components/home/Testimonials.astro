@@ -1,77 +1,43 @@
 ---
+const testimonials = [
+  {
+    quote: "Paanya Empire delivered our dream villa 2 months ahead of schedule. The quality of finishing is simply unmatched in the market. Absolute professionals.",
+    author: "Sarah & James Sterling",
+    role: "Homeowners, The Obsidian Villa"
+  },
+  {
+    quote: "As a property investor, transparency and timeline adherence are my top priorities. Paanya Empire exceeded my expectations on both fronts.",
+    author: "Michael Chen",
+    role: "Real Estate Developer"
+  }
+];
 ---
-<!-- 10. TRANSPARENCY & INTEGRITY SECTION -->
-<section class="w-full py-14 sm:py-24 bg-surface-container">
-  <div class="max-w-[1440px] mx-auto px-4 sm:px-8">
-    <div class="max-w-2xl mb-8 sm:mb-16">
-      <span class="font-label text-[11px] sm:text-[12px] uppercase font-semibold tracking-[0.2em] sm:tracking-[0.22em] text-primary block mb-2">
-        Structural Integrity
-      </span>
-      <h2 class="font-headline text-2xl sm:text-3xl lg:text-5xl font-bold text-on-surface tracking-tight">
-        No Guesswork. No Surprises.
-      </h2>
+<section class="py-24 bg-surface/50 border-t border-outline-variant/20">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="text-center max-w-3xl mx-auto mb-16">
+      <p class="text-label-md font-bold text-primary tracking-widest uppercase mb-4">Client Stories</p>
+      <h2 class="text-headline-lg text-on-surface">Built on Trust</h2>
     </div>
-    
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-      <div class="bg-surface-container-lowest p-6 sm:p-8 rounded-xl shadow-sm">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed mb-4 sm:mb-6">
-          <span class="material-symbols-outlined text-[20px] sm:text-[24px]">description</span>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+      {testimonials.map(testimonial => (
+        <div class="bg-surface p-10 rounded-2xl border border-outline-variant/30 shadow-sm relative">
+          <!-- Quote icon -->
+          <div class="absolute top-8 left-8 text-primary/10">
+            <svg class="w-12 h-12" fill="currentColor" viewBox="0 0 32 32" aria-hidden="true">
+              <path d="M9.352 4C4.456 7.456 1 13.12 1 19.36c0 5.088 3.072 8.064 6.624 8.064 3.36 0 5.856-2.688 5.856-5.856 0-3.168-2.208-5.472-5.088-5.472-.576 0-1.344.096-1.536.192.48-3.264 3.552-7.104 6.624-9.024L9.352 4zm16.512 0c-4.8 3.456-8.256 9.12-8.256 15.36 0 5.088 3.072 8.064 6.624 8.064 3.264 0 5.856-2.688 5.856-5.856 0-3.168-2.304-5.472-5.184-5.472-.576 0-1.248.096-1.44.192.48-3.264 3.456-7.104 6.528-9.024L25.864 4z" />
+            </svg>
+          </div>
+          
+          <div class="relative z-10">
+            <p class="text-body-md text-on-surface-variant italic mb-8 pt-4">"{testimonial.quote}"</p>
+            <div>
+              <p class="font-bold text-on-surface">{testimonial.author}</p>
+              <p class="text-sm text-on-surface-variant">{testimonial.role}</p>
+            </div>
+          </div>
         </div>
-        <h3 class="font-headline text-base sm:text-lg font-bold text-on-surface mb-2">1. Clear Specifications</h3>
-        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-          Every grade of cement, structural rebar, acoustic double glazing, and conduit line is defined upfront before ground breaking.
-        </p>
-      </div>
-      
-      <div class="bg-surface-container-lowest p-6 sm:p-8 rounded-xl shadow-sm">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed mb-4 sm:mb-6">
-          <span class="material-symbols-outlined text-[20px] sm:text-[24px]">flag</span>
-        </div>
-        <h3 class="font-headline text-base sm:text-lg font-bold text-on-surface mb-2">2. Project Milestones</h3>
-        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-          Critical Path Method (CPM) scheduling ensures every dependency is mapped, tracked, and delivered strictly on time.
-        </p>
-      </div>
-      
-      <div class="bg-surface-container-lowest p-6 sm:p-8 rounded-xl shadow-sm">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed mb-4 sm:mb-6">
-          <span class="material-symbols-outlined text-[20px] sm:text-[24px]">category</span>
-        </div>
-        <h3 class="font-headline text-base sm:text-lg font-bold text-on-surface mb-2">3. Material Selection</h3>
-        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-          Physical material mockups, batch certifications, and curated European samples approved before procurement begins.
-        </p>
-      </div>
-      
-      <div class="bg-surface-container-lowest p-6 sm:p-8 rounded-xl shadow-sm">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed mb-4 sm:mb-6">
-          <span class="material-symbols-outlined text-[20px] sm:text-[24px]">fact_check</span>
-        </div>
-        <h3 class="font-headline text-base sm:text-lg font-bold text-on-surface mb-2">4. Quality Checks</h3>
-        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-          Rigorous ultrasonic weld testing, concrete cube compression checks, and laser plumb line alignments at every stage.
-        </p>
-      </div>
-      
-      <div class="bg-surface-container-lowest p-6 sm:p-8 rounded-xl shadow-sm">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed mb-4 sm:mb-6">
-          <span class="material-symbols-outlined text-[20px] sm:text-[24px]">cloud_sync</span>
-        </div>
-        <h3 class="font-headline text-base sm:text-lg font-bold text-on-surface mb-2">5. Project Updates</h3>
-        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-          Weekly cloud reports featuring high-definition aerial drone photography, structural milestones, and schedule health.
-        </p>
-      </div>
-      
-      <div class="bg-surface-container-lowest p-6 sm:p-8 rounded-xl shadow-sm">
-        <div class="w-10 h-10 sm:w-12 sm:h-12 rounded-lg bg-primary-fixed flex items-center justify-center text-on-primary-fixed mb-4 sm:mb-6">
-          <span class="material-symbols-outlined text-[20px] sm:text-[24px]">payments</span>
-        </div>
-        <h3 class="font-headline text-base sm:text-lg font-bold text-on-surface mb-2">6. Structured Payments</h3>
-        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
-          Protected escrow mechanisms and stage-gated release gates ensure capital safety and absolute transparency throughout.
-        </p>
-      </div>
+      ))}
     </div>
   </div>
 </section>

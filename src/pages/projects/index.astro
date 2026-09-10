@@ -1,0 +1,200 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import ProjectCard from '../../components/projects/ProjectCard.astro';
+import ProjectFilters from '../../components/projects/ProjectFilters.astro';
+import CTA from '../../components/home/CTA.astro';
+import { getProjects, getProjectCategories, getFeaturedProjects } from '../../lib/projects';
+
+const projects = await getProjects();
+const categories = await getProjectCategories();
+const featuredProjects = await getFeaturedProjects();
+const spotlightProject = featuredProjects[0] || projects[0];
+---
+
+<BaseLayout 
+  title="Our Projects — Paanya Empire | Luxury Architectural & Turnkey Construction"
+  description="Explore selected projects by Paanya Empire showcasing our approach to architectural design, precision construction, bespoke interiors, and complete turnkey delivery."
+>
+  <!-- 1. PAGE HERO -->
+  <section class="relative w-full overflow-hidden bg-on-surface text-on-primary min-h-[520px] sm:min-h-[580px] flex flex-col justify-end px-4 sm:px-6 lg:px-8 py-16">
+    <!-- Hero Background with Scrim -->
+    <div 
+      class="absolute inset-0 z-0 bg-cover bg-center"
+      style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80');"
+    >
+      <div class="absolute inset-0 bg-gradient-to-t from-[#071A33] via-[#071A33]/75 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-r from-[#071A33]/90 via-[#071A33]/40 to-transparent"></div>
+    </div>
+
+    <div class="relative z-10 flex flex-col gap-4 max-w-2xl mx-auto w-full">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-lowest/15 backdrop-blur-md self-start text-[11px] tracking-[0.2em] font-medium text-primary-fixed uppercase">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+        Our Projects
+      </div>
+      
+      <h1 class="font-headline text-3xl sm:text-5xl font-bold tracking-tight uppercase leading-[1.1] text-on-primary">
+        Built with purpose.<br />
+        <span class="text-secondary-fixed">Designed to last.</span>
+      </h1>
+      
+      <p class="text-xs sm:text-sm text-surface-container-high leading-relaxed font-normal max-w-lg">
+        Explore selected projects that showcase our approach to architectural design, precision construction, bespoke interiors, and complete turnkey project delivery.
+      </p>
+
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <a 
+          href="/contact"
+          class="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-primary text-on-primary text-xs font-semibold uppercase tracking-wider shadow-lg hover:bg-primary-container transition-colors"
+        >
+          Start Your Project
+        </a>
+        <a 
+          href="/contact"
+          class="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-surface-container-lowest/15 backdrop-blur-md text-on-primary text-xs font-semibold uppercase tracking-wider hover:bg-surface-container-lowest/25 transition-colors"
+        >
+          Get A Free Quote
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- 2. PORTFOLIO INTRODUCTION -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 flex flex-col gap-8">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+      <div class="lg:col-span-7 flex flex-col gap-2">
+        <span class="font-headline text-[11px] font-bold tracking-[0.2em] uppercase text-primary">
+          Our Portfolio
+        </span>
+        <h2 class="font-headline text-2xl sm:text-3xl font-bold uppercase tracking-tight text-on-surface">
+          Ideas Turned Into Spaces.
+        </h2>
+        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+          Every project begins with a distinct vision. Our structural and design engineering role is to distill that vision, coordinate turnkey construction with rigor, and hand over a space crafted for longevity.
+        </p>
+      </div>
+
+      <!-- Micro Architectural Metrics -->
+      <div class="lg:col-span-5 grid grid-cols-3 gap-3">
+        <div class="flex flex-col p-4 rounded-xl bg-surface-container-low border border-outline-variant/20">
+          <span class="text-xl sm:text-2xl font-bold font-headline text-primary">48+</span>
+          <span class="text-[10px] uppercase tracking-wider text-on-surface-variant font-medium mt-1">Bespoke Builds</span>
+        </div>
+        <div class="flex flex-col p-4 rounded-xl bg-surface-container-low border border-outline-variant/20">
+          <span class="text-xl sm:text-2xl font-bold font-headline text-primary">100%</span>
+          <span class="text-[10px] uppercase tracking-wider text-on-surface-variant font-medium mt-1">Structural Code</span>
+        </div>
+        <div class="flex flex-col p-4 rounded-xl bg-surface-container-low border border-outline-variant/20">
+          <span class="text-xl sm:text-2xl font-bold font-headline text-primary">12 Mo</span>
+          <span class="text-[10px] uppercase tracking-wider text-on-surface-variant font-medium mt-1">Post-Care Guar.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 3. INTERACTIVE CATEGORY FILTER -->
+  <ProjectFilters categories={categories} />
+
+  <!-- 4. VISUALLY DOMINANT FEATURED SPOTLIGHT -->
+  {spotlightProject && (
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 project-item" data-category={spotlightProject.categorySlug}>
+      <div class="relative w-full rounded-2xl overflow-hidden bg-surface-container shadow-sm border border-outline-variant/30 flex flex-col lg:flex-row">
+        <!-- Spotlight Media -->
+        <div class="relative w-full lg:w-3/5 min-h-[340px] sm:min-h-[420px] bg-cover bg-center overflow-hidden group">
+          <img 
+            src={spotlightProject.heroImage} 
+            alt={spotlightProject.title}
+            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            loading="lazy"
+          />
+          <div class="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-transparent"></div>
+          
+          <div class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-wider text-primary">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+            Featured Project · {spotlightProject.status}
+          </div>
+
+          <div class="absolute bottom-4 left-4 right-4 text-on-primary">
+            <span class="text-[10px] font-semibold tracking-widest uppercase text-secondary-fixed">
+              {spotlightProject.location} · {spotlightProject.area}
+            </span>
+            <h3 class="font-headline text-2xl sm:text-3xl font-bold uppercase tracking-tight text-on-primary mt-1">
+              {spotlightProject.title}
+            </h3>
+          </div>
+        </div>
+
+        <!-- Spotlight Content -->
+        <div class="p-6 sm:p-8 flex flex-col justify-between gap-6 bg-surface-container-lowest lg:w-2/5">
+          <div class="flex flex-col gap-3">
+            <span class="text-[10px] font-bold uppercase tracking-widest text-primary">Flagship Case Study</span>
+            <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+              {spotlightProject.description}
+            </p>
+
+            <div class="flex flex-wrap gap-1.5 pt-2">
+              {spotlightProject.tags.map((tag) => (
+                <span class="px-2.5 py-1 rounded-md bg-surface-container text-[10px] font-semibold text-secondary uppercase tracking-wider">
+                  {tag}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <a 
+            href={`/projects/${spotlightProject.slug}`}
+            class="inline-flex items-center justify-between w-full h-12 px-5 rounded-xl bg-primary text-on-primary text-xs font-semibold tracking-wider uppercase hover:bg-primary-container transition-colors shadow-xs"
+          >
+            <span>View Project Case Study</span>
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            </svg>
+          </a>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- 5. EDITORIAL PROJECT GRID -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-6" id="projectsGrid">
+    <div class="flex items-center justify-between border-b border-outline-variant/30 pb-4">
+      <h2 class="font-headline text-lg sm:text-xl font-bold tracking-tight uppercase text-on-surface">
+        Curated Showcase
+      </h2>
+      <span class="text-xs font-semibold uppercase tracking-wider text-primary">
+        {projects.length} Active Works
+      </span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+      {projects.map((project) => (
+        <ProjectCard project={project} />
+      ))}
+    </div>
+  </section>
+
+  <!-- 6. PROJECT STORY & PHILOSOPHY BANNER -->
+  <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+    <div class="p-8 sm:p-12 rounded-3xl bg-surface-container-low border border-outline-variant/30 flex flex-col md:flex-row gap-8 items-start md:items-center justify-between">
+      <div class="flex flex-col gap-2 max-w-2xl">
+        <span class="font-headline text-[11px] font-bold tracking-[0.2em] uppercase text-primary">
+          Behind The Project
+        </span>
+        <h2 class="font-headline text-2xl sm:text-3xl font-bold uppercase tracking-tight text-on-surface">
+          Every Project Has A Story.
+        </h2>
+        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+          A successful project is more than the final photograph. It is the result of thousands of coordinated decisions, technical craftsmanship, and unyielding oversight.
+        </p>
+      </div>
+      <a 
+        href="/process"
+        class="inline-flex items-center justify-center px-6 py-3.5 rounded-full bg-on-surface text-surface text-xs font-semibold uppercase tracking-wider hover:bg-primary hover:text-on-primary transition-colors whitespace-nowrap shrink-0"
+      >
+        Explore Our Process
+      </a>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <CTA />
+</BaseLayout>

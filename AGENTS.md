@@ -1159,10 +1159,10 @@ Development follows these phases. Do not skip phases.
 
 ### Phase 3 — Projects
 
-- [ ] Types, data layer, project listing, filtering
-- [ ] Dynamic project detail pages
-- [ ] Gallery, related projects
-- [ ] Verify: dynamic routes work
+- [x] Types, data layer, project listing, filtering
+- [x] Dynamic project detail pages
+- [x] Gallery, related projects
+- [x] Verify: dynamic routes work
 
 ### Phase 4 — Services
 

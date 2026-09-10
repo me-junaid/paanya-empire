@@ -1,0 +1,86 @@
+---
+interface CategoryOption {
+  label: string;
+  slug: string;
+}
+
+interface Props {
+  categories: CategoryOption[];
+  activeCategory?: string;
+}
+
+const { categories, activeCategory = 'all' } = Astro.props;
+---
+
+<nav 
+  aria-label="Filter projects by category"
+  class="sticky top-16 z-40 bg-surface/95 backdrop-blur-md py-3.5 px-4 sm:px-6 lg:px-8 border-y border-outline-variant/30 shadow-xs"
+>
+  <div class="max-w-7xl mx-auto flex items-center gap-2 overflow-x-auto no-scrollbar py-0.5" id="categoryFilter">
+    {categories.map((cat) => {
+      const isActive = cat.slug === activeCategory;
+      return (
+        <button 
+          type="button"
+          data-category-target={cat.slug}
+          class={`filter-btn whitespace-nowrap px-4 py-2 rounded-full text-xs font-semibold uppercase tracking-wider transition-all duration-200 cursor-pointer ${
+            isActive 
+              ? 'active bg-primary text-on-primary shadow-xs' 
+              : 'bg-surface-container text-on-surface-variant hover:bg-surface-container-high hover:text-on-surface'
+          }`}
+        >
+          {cat.label}
+        </button>
+      );
+    })}
+  </div>
+</nav>
+
+<script>
+  function setupCategoryFilters() {
+    const filterButtons = document.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const projectItems = document.querySelectorAll<HTMLElement>('.project-item');
+
+    filterButtons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const targetCategory = btn.getAttribute('data-category-target');
+        if (!targetCategory) return;
+
+        // Update active button styling
+        filterButtons.forEach((b) => {
+          b.classList.remove('active', 'bg-primary', 'text-on-primary', 'shadow-xs');
+          b.classList.add('bg-surface-container', 'text-on-surface-variant');
+        });
+
+        btn.classList.add('active', 'bg-primary', 'text-on-primary', 'shadow-xs');
+        btn.classList.remove('bg-surface-container', 'text-on-surface-variant');
+
+        // Filter items with smooth transition
+        projectItems.forEach((item) => {
+          const itemCat = item.getAttribute('data-category');
+          if (targetCategory === 'all' || itemCat === targetCategory) {
+            item.style.display = '';
+            item.classList.remove('opacity-0', 'scale-95');
+            item.classList.add('opacity-100', 'scale-100');
+          } else {
+            item.style.display = 'none';
+          }
+        });
+      });
+    });
+  }
+
+  // Run on initial load and after Astro page transitions
+  setupCategoryFilters();
+  document.addEventListener('astro:page-load', setupCategoryFilters);
+</script>
+
+<style>
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+</style>

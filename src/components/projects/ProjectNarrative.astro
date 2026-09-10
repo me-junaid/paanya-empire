@@ -1,0 +1,117 @@
+---
+import type { Project } from '../../types/project';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const narrative = project.caseNarrative;
+const philosophy = project.designPhilosophy;
+---
+
+<!-- 3. THE VISION & PROJECT STORY -->
+{narrative && narrative.length > 0 && (
+  <section class="w-full bg-surface-container-low py-16 px-4 sm:px-6 lg:px-8 border-y border-outline-variant/20">
+    <div class="max-w-6xl mx-auto flex flex-col gap-10">
+      <div class="flex flex-col gap-2">
+        <span class="text-[11px] font-bold uppercase tracking-widest text-primary">
+          Four-Part Case Narrative
+        </span>
+        <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold text-on-surface">
+          THE VISION — FROM AN IDEA TO A COMPLETE SPACE
+        </h2>
+        <p class="text-xs sm:text-sm text-on-surface-variant max-w-2xl leading-relaxed">
+          A seamless execution framework uniting architectural imagination with disciplined construction mechanics.
+        </p>
+      </div>
+
+      <!-- 4-Card Story Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-5">
+        {narrative.map((item) => (
+          <div class="p-6 sm:p-8 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-xs flex flex-col gap-3.5 hover:shadow-md transition-shadow">
+            <div class="flex items-center justify-between">
+              <span class="text-xs font-black tracking-widest text-primary uppercase">
+                {item.phaseNumber}
+              </span>
+              <span class="p-2 rounded-lg bg-surface-container text-primary">
+                <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+              </span>
+            </div>
+            <h3 class="font-headline text-base sm:text-lg font-bold text-on-surface">
+              {item.title}
+            </h3>
+            <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+              {item.description}
+            </p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
+
+<!-- 4. DESIGN CONCEPT & PHILOSOPHY -->
+{philosophy && (
+  <section class="w-full py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
+      <!-- Philosophy Content -->
+      <div class="lg:col-span-6 flex flex-col gap-5">
+        <span class="text-[11px] font-bold uppercase tracking-widest text-primary">
+          {philosophy.tagline}
+        </span>
+        <h2 class="font-headline text-2xl sm:text-3xl font-extrabold text-on-surface leading-tight">
+          {philosophy.headline}
+        </h2>
+        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+          {philosophy.description}
+        </p>
+
+        <!-- Three Pillars -->
+        <div class="flex flex-col gap-3.5 mt-2">
+          {philosophy.pillars.map((pillar) => (
+            <div class="p-4 rounded-xl bg-surface-container-low border border-outline-variant/20 flex items-start gap-4">
+              <div class="w-9 h-9 rounded-lg bg-primary text-on-primary flex items-center justify-center shrink-0 font-bold text-xs">
+                {pillar.number}
+              </div>
+              <div>
+                <h4 class="font-headline text-xs font-bold uppercase text-on-surface tracking-wide">
+                  {pillar.title}
+                </h4>
+                <p class="text-xs text-on-surface-variant mt-1 leading-relaxed">
+                  {pillar.description}
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <!-- Paired Interior Shot -->
+      {philosophy.featureImage && (
+        <div class="lg:col-span-6">
+          <div class="relative rounded-2xl overflow-hidden shadow-md group">
+            <img 
+              src={philosophy.featureImage.url} 
+              alt={philosophy.featureImage.alt}
+              class="w-full h-80 sm:h-[440px] object-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent flex items-end p-6">
+              <div class="flex flex-col">
+                <span class="text-[10px] uppercase font-bold text-primary-fixed tracking-widest">
+                  {philosophy.featureImage.label}
+                </span>
+                <span class="text-sm font-semibold text-on-primary mt-0.5">
+                  {philosophy.featureImage.caption}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
+    </div>
+  </section>
+)}

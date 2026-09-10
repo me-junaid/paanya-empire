@@ -1,0 +1,84 @@
+---
+import type { Project } from '../../types/project';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const scope = project.scopeOfWork;
+const milestones = project.milestones;
+---
+
+<!-- 6. OUR SCOPE OF WORK -->
+{scope && scope.length > 0 && (
+  <section class="w-full py-16 px-4 sm:px-6 lg:px-8 max-w-6xl mx-auto">
+    <div class="flex flex-col gap-2 mb-10">
+      <span class="text-[11px] font-bold uppercase tracking-widest text-primary">
+        Complete Delivery Lifecycle
+      </span>
+      <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold text-on-surface">
+        EVERY DETAIL, COORDINATED UNDER ONE TEAM
+      </h2>
+      <p class="text-xs sm:text-sm text-on-surface-variant max-w-xl leading-relaxed">
+        PAANYA EMPIRE acted as the sole point of accountability for all engineering disciplines.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {scope.map((item) => (
+        <div class="p-5 rounded-2xl bg-surface-container border border-outline-variant/30 flex flex-col gap-2.5 shadow-xs hover:border-primary/40 transition-colors">
+          <span class="text-xs font-black text-primary font-headline">
+            {item.number}
+          </span>
+          <h4 class="font-headline text-xs font-bold text-on-surface uppercase tracking-wide">
+            {item.title}
+          </h4>
+          <p class="text-[11px] text-on-surface-variant leading-relaxed">
+            {item.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+)}
+
+<!-- 7. THE PROJECT JOURNEY (Milestone Pathway) -->
+{milestones && milestones.length > 0 && (
+  <section class="w-full bg-[#071A33] text-on-primary py-16 px-4 sm:px-6 lg:px-8 border-t border-outline-variant/10">
+    <div class="max-w-6xl mx-auto flex flex-col gap-10">
+      <div>
+        <span class="text-[11px] font-bold uppercase tracking-widest text-primary-fixed">
+          The Milestone Execution Pathway
+        </span>
+        <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold text-on-primary mt-1">
+          HOW THE PROJECT CAME TO LIFE
+        </h2>
+        <p class="text-xs sm:text-sm text-outline-variant max-w-xl mt-1 leading-relaxed">
+          Verified milestones monitored in real time via our proprietary client construction portal.
+        </p>
+      </div>
+
+      <!-- Milestone Pathway Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-3 lg:grid-cols-9 gap-3">
+        {milestones.map((ms) => (
+          <div class={`p-3.5 rounded-xl border flex flex-col gap-1.5 transition-all ${
+            ms.highlight 
+              ? 'bg-primary/25 border-primary/40 text-on-primary' 
+              : 'bg-surface-container-lowest/5 border-white/10 text-on-primary'
+          }`}>
+            <span class="text-[10px] font-bold text-primary-fixed tracking-wider">
+              {ms.stage}
+            </span>
+            <p class="text-xs font-semibold text-on-primary leading-tight">
+              {ms.title}
+            </p>
+            <span class="text-[10px] text-outline-variant leading-tight">
+              {ms.subtitle}
+            </span>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+)}
