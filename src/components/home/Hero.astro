@@ -1,37 +1,418 @@
 ---
+// Paanya Empire — Pinned Scroll-Driven Architectural Hero Animation
 ---
-<section class="relative h-[90vh] min-h-[600px] flex items-center justify-center overflow-hidden">
-  <!-- Background Image with Overlay -->
-  <div class="absolute inset-0 z-0">
-    <img 
-      src="https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80" 
-      alt="Modern luxury villa exterior designed by Paanya Empire" 
-      class="w-full h-full object-cover"
-    />
-    <div class="absolute inset-0 bg-on-surface/60"></div>
-  </div>
 
-  <!-- Content -->
-  <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-    <h1 class="text-headline-lg md:text-[56px] md:leading-[64px] text-on-primary font-bold tracking-tight mb-6 max-w-4xl mx-auto">
-      Building Excellence, Delivering Luxury
-    </h1>
-    <p class="text-body-md md:text-xl text-surface/90 max-w-2xl mx-auto mb-10">
-      Premium turnkey construction and real estate services tailored to your vision. We transform ideas into architectural masterpieces.
-    </p>
-    <div class="flex flex-col sm:flex-row gap-4 justify-center">
-      <a 
-        href="/projects" 
-        class="bg-primary text-on-primary px-8 py-4 rounded-lg text-label-md font-bold hover:bg-primary-container transition-colors"
-      >
-        Explore Our Work
-      </a>
-      <a 
-        href="/contact" 
-        class="bg-surface text-on-surface px-8 py-4 rounded-lg text-label-md font-bold hover:bg-outline-variant/20 transition-colors"
-      >
-        Start a Project
-      </a>
+<section 
+  id="hero-scroll-container" 
+  class="hero-scroll-container relative w-full min-h-[260vh] md:min-h-[320vh] bg-[#050e1a]"
+  aria-label="Paanya Empire Flagship Architectural Showcase"
+>
+  <!-- Pinned / Sticky Viewport -->
+  <div 
+    id="hero-sticky-frame" 
+    class="hero-sticky-frame sticky top-20 h-[calc(100dvh-5rem)] w-full overflow-hidden bg-[#050e1a] flex items-center justify-center select-none"
+  >
+    <!-- Hardware-Accelerated 2D Frame Canvas -->
+    <canvas 
+      id="hero-frame-canvas" 
+      class="absolute inset-0 w-full h-full block z-0 cursor-default touch-none"
+      aria-hidden="true"
+    ></canvas>
+
+    <!-- Instant First-Frame Fallback (Ensures zero blank/flicker during initial page load) -->
+    <img 
+      id="hero-fallback-img" 
+      src="/paanya-landing-page-animation/frame_001.jpg" 
+      alt="Paanya Empire Luxury Villa - The Obsidian" 
+      class="absolute inset-0 w-full h-full object-cover z-[1] transition-opacity duration-700 pointer-events-none"
+      loading="eager"
+      decoding="async"
+    />
+
+    <!-- Architectural Cinematic Gradient Overlays -->
+    <!-- Dark Vignette for Text Legibility (fades dynamically on scroll) -->
+    <div 
+      id="hero-overlay-dark" 
+      class="absolute inset-0 z-10 pointer-events-none bg-gradient-to-t from-black/85 via-black/45 to-black/35 transition-opacity duration-200"
+    ></div>
+    <!-- Radial Ambient Vignette for Depth -->
+    <div 
+      class="absolute inset-0 z-10 pointer-events-none bg-[radial-gradient(ellipse_at_center,transparent_40%,rgba(0,0,0,0.5)_100%)]"
+    ></div>
+    <!-- Bottom Blend Gradient to seamlessly meet the next section -->
+    <div 
+      id="hero-bottom-blend"
+      class="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#f9f9ff] via-[#f9f9ff]/20 to-transparent z-10 pointer-events-none opacity-0 transition-opacity duration-300"
+    ></div>
+
+    <!-- Hero Content (Headline, Subtitle, CTAs) -->
+    <div 
+      id="hero-content" 
+      class="relative z-20 max-w-5xl mx-auto px-5 sm:px-6 lg:px-8 text-center flex flex-col items-center justify-center will-change-transform"
+    >
+      <!-- Editorial Eyebrow Badge -->
+      <div class="inline-flex items-center gap-2.5 px-4 py-1.5  mb-6 ">
+        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+        <span class="text-[11px] md:text-xs tracking-[0.25em] font-bold text-white uppercase font-headline">
+          ARCHITECTURAL EXCELLENCE
+        </span>
+      </div>
+
+      <!-- Main Headline -->
+      <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white tracking-tight leading-[1.08] mb-6 uppercase font-headline drop-shadow-md max-w-4xl">
+        Building Excellence, <br class="hidden sm:inline" />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-white via-white/95 to-white/80">
+          Delivering Luxury.
+        </span>
+      </h1>
+
+      <!-- Supporting Body -->
+      <p class="text-sm sm:text-base md:text-lg text-white/85 max-w-2xl mx-auto mb-8 font-light leading-relaxed drop-shadow-sm">
+        Premium turnkey construction and bespoke real estate development tailored to your ambition. Experience architectural masterpieces executed with uncompromising precision.
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="flex flex-col sm:flex-row gap-4 justify-center items-center w-full sm:w-auto">
+        <a 
+          href="/projects" 
+          class="w-full sm:w-auto h-13 px-8 rounded-full bg-primary text-on-primary text-xs md:text-sm font-bold tracking-widest uppercase flex items-center justify-center gap-2 shadow-[0_8px_30px_rgb(0,90,180,0.45)] hover:bg-primary-container hover:shadow-[0_12px_35px_rgb(0,90,180,0.6)] active:scale-[0.98] transition-all group"
+        >
+          <span>Explore Our Work</span>
+          <svg class="w-4 h-4 text-on-primary group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3" />
+          </svg>
+        </a>
+        <a 
+          href="/contact" 
+          class="w-full sm:w-auto h-13 px-8 rounded-full border border-white/30 bg-white/10 text-white text-xs md:text-sm font-bold tracking-widest uppercase flex items-center justify-center backdrop-blur-md hover:bg-white/20 active:scale-[0.98] transition-all"
+        >
+          Start a Project
+        </a>
+      </div>
     </div>
   </div>
 </section>
+
+<script>
+  // =========================================================================
+  // ANIMATION CONFIGURATION
+  // =========================================================================
+  const CONFIG = {
+    totalFrames: 149,
+    framePath: (index: number) => `/paanya-landing-page-animation/frame_${String(index).padStart(3, '0')}.jpg`,
+    initialFrame: 1,
+    // Step size for initial sparse preloading (loads 1st frame + keyframes fast)
+    sparseStep: 8,
+    // Lerp factor: lower = smoother/cinematic momentum, higher = snappier
+    lerpFactor: 0.12,
+    // Max parallel background image decoders
+    maxConcurrentDownloads: 4,
+    // Source image aspect ratio (1920 / 1080 = 16:9)
+    imageAspectRatio: 1920 / 1080,
+  };
+
+  // State
+  let currentFrame = 1;
+  let targetFrame = 1;
+  let isAnimating = false;
+  let lastDrawnFrame = -1;
+
+  // DOM Elements
+  const container = document.getElementById('hero-scroll-container');
+  const stickyFrame = document.getElementById('hero-sticky-frame');
+  const canvas = document.getElementById('hero-frame-canvas') as HTMLCanvasElement | null;
+  const fallbackImg = document.getElementById('hero-fallback-img');
+  const overlayDark = document.getElementById('hero-overlay-dark');
+  const bottomBlend = document.getElementById('hero-bottom-blend');
+  const heroContent = document.getElementById('hero-content');
+  const heroScrollHint = document.getElementById('hero-scroll-hint');
+
+  if (canvas && container && stickyFrame) {
+    const ctx = canvas.getContext('2d', { alpha: false });
+
+    // Cache of loaded images (index -> HTMLImageElement)
+    const imageCache = new Map<number, HTMLImageElement>();
+    const loadingSet = new Set<number>();
+    const pendingQueue: number[] = [];
+    let activeDownloads = 0;
+
+    // Check for reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    if (prefersReducedMotion) {
+      // Reduced motion: Set static presentation, disable pinned height
+      container.classList.remove('min-h-[260vh]', 'md:min-h-[320vh]');
+      container.classList.add('min-h-[85vh]');
+      stickyFrame.classList.remove('sticky', 'top-20');
+      stickyFrame.classList.add('relative', 'h-[85vh]');
+      if (heroScrollHint) heroScrollHint.style.display = 'none';
+      if (fallbackImg) fallbackImg.style.opacity = '1';
+    } else {
+      // =========================================================================
+      // CANVAS SIZING & RENDERING (Aspect Ratio Cover with Retinal Sharpness)
+      // =========================================================================
+      let canvasWidth = 0;
+      let canvasHeight = 0;
+
+      function resizeCanvas() {
+        if (!canvas || !ctx) return;
+        const rect = canvas.getBoundingClientRect();
+        // Cap DPR at 2 to balance crispness with memory overhead
+        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+        canvasWidth = Math.round(rect.width * dpr);
+        canvasHeight = Math.round(rect.height * dpr);
+
+        if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
+          canvas.width = canvasWidth;
+          canvas.height = canvasHeight;
+        }
+
+        // Redraw current frame
+        lastDrawnFrame = -1;
+        drawFrame(Math.round(currentFrame));
+      }
+
+      // Draw image onto canvas with cover aspect ratio
+      function renderImageCover(img: HTMLImageElement) {
+        if (!ctx || !canvas) return;
+
+        const imgWidth = img.naturalWidth || 1920;
+        const imgHeight = img.naturalHeight || 1080;
+        const imgRatio = imgWidth / imgHeight;
+        const cRatio = canvas.width / canvas.height;
+
+        let renderW: number;
+        let renderH: number;
+        let renderX: number;
+        let renderY: number;
+
+        if (cRatio > imgRatio) {
+          renderW = canvas.width;
+          renderH = canvas.width / imgRatio;
+          renderX = 0;
+          renderY = (canvas.height - renderH) / 2;
+        } else {
+          renderH = canvas.height;
+          renderW = canvas.height * imgRatio;
+          renderX = (canvas.width - renderW) / 2;
+          renderY = 0;
+        }
+
+        ctx.drawImage(img, renderX, renderY, renderW, renderH);
+      }
+
+      // Find nearest loaded frame so the canvas NEVER flashes blank
+      function getBestAvailableFrame(index: number): { img: HTMLImageElement; exact: boolean } | null {
+        if (imageCache.has(index)) {
+          return { img: imageCache.get(index)!, exact: true };
+        }
+
+        let bestIndex = -1;
+        let smallestDiff = Infinity;
+
+        for (const cachedIndex of imageCache.keys()) {
+          const diff = Math.abs(cachedIndex - index);
+          if (diff < smallestDiff) {
+            smallestDiff = diff;
+            bestIndex = cachedIndex;
+          }
+        }
+
+        if (bestIndex !== -1) {
+          return { img: imageCache.get(bestIndex)!, exact: false };
+        }
+
+        return null;
+      }
+
+      function drawFrame(targetIdx: number) {
+        const frameData = getBestAvailableFrame(targetIdx);
+        if (!frameData) return;
+
+        if (lastDrawnFrame !== targetIdx || !frameData.exact) {
+          renderImageCover(frameData.img);
+          lastDrawnFrame = targetIdx;
+
+          // Hide fallback image once canvas has rendered frame 1
+          if (fallbackImg && fallbackImg.style.opacity !== '0') {
+            fallbackImg.style.opacity = '0';
+          }
+        }
+      }
+
+      // =========================================================================
+      // PROGRESSIVE PRELOADING ENGINE
+      // =========================================================================
+      function fetchFrame(index: number): Promise<void> {
+        if (imageCache.has(index) || loadingSet.has(index)) {
+          return Promise.resolve();
+        }
+
+        loadingSet.add(index);
+        activeDownloads++;
+
+        return new Promise<void>((resolve) => {
+          const img = new Image();
+          img.src = CONFIG.framePath(index);
+
+          // Decode off main thread where supported
+          const onLoaded = () => {
+            imageCache.set(index, img);
+            loadingSet.delete(index);
+            activeDownloads--;
+
+            // If this is the current target frame, render immediately
+            if (Math.round(currentFrame) === index) {
+              drawFrame(index);
+            }
+
+            pumpQueue();
+            resolve();
+          };
+
+          if ('decode' in HTMLImageElement.prototype) {
+            img.decode().then(onLoaded).catch(onLoaded);
+          } else {
+            img.onload = onLoaded;
+            img.onerror = () => {
+              loadingSet.delete(index);
+              activeDownloads--;
+              pumpQueue();
+              resolve();
+            };
+          }
+        });
+      }
+
+      function pumpQueue() {
+        while (activeDownloads < CONFIG.maxConcurrentDownloads && pendingQueue.length > 0) {
+          // Sort remaining queue by proximity to targetFrame
+          pendingQueue.sort((a, b) => Math.abs(a - targetFrame) - Math.abs(b - targetFrame));
+          const nextIndex = pendingQueue.shift();
+          if (nextIndex !== undefined) {
+            fetchFrame(nextIndex);
+          }
+        }
+      }
+
+      function queueFrame(index: number) {
+        if (imageCache.has(index) || loadingSet.has(index) || pendingQueue.includes(index)) {
+          return;
+        }
+        pendingQueue.push(index);
+        pumpQueue();
+      }
+
+      // Priority initialization sequence
+      function initializePreloading() {
+        // 1. Immediately load frame 1
+        fetchFrame(1).then(() => {
+          drawFrame(1);
+
+          // 2. Load sparse keyframes (e.g. 1, 9, 17, 25 ... 149) to ensure instant responsiveness anywhere
+          for (let i = 1; i <= CONFIG.totalFrames; i += CONFIG.sparseStep) {
+            queueFrame(i);
+          }
+          queueFrame(CONFIG.totalFrames);
+
+          // 3. Fill in the remaining frames
+          for (let i = 2; i < CONFIG.totalFrames; i++) {
+            if (!imageCache.has(i)) {
+              queueFrame(i);
+            }
+          }
+        });
+      }
+
+      // =========================================================================
+      // SCROLL POSITION & MOMENTUM LERP LOOP
+      // =========================================================================
+      function calculateScrollProgress(): number {
+        if (!container) return 0;
+        const rect = container.getBoundingClientRect();
+        const headerOffset = 80; // 5rem header
+        const viewportHeight = window.innerHeight - headerOffset;
+        const totalScrollableDistance = rect.height - viewportHeight;
+
+        if (totalScrollableDistance <= 0) return 0;
+
+        const scrolled = headerOffset - rect.top;
+        return Math.min(Math.max(scrolled / totalScrollableDistance, 0), 1);
+      }
+
+      function updateOverlayElements(progress: number) {
+        // 1. Hero Content fade & translate (0% to 25% of scroll)
+        if (heroContent) {
+          const fadeProgress = Math.min(progress / 0.22, 1);
+          const opacity = Math.max(0, 1 - fadeProgress);
+          const translateY = -fadeProgress * 45;
+          const scale = 1 - fadeProgress * 0.04;
+
+          heroContent.style.opacity = String(opacity);
+          heroContent.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
+          heroContent.style.pointerEvents = opacity < 0.1 ? 'none' : 'auto';
+        }
+
+        // 2. Scroll hint indicator fades out immediately
+        if (heroScrollHint) {
+          const hintOpacity = Math.max(0, 1 - progress * 7);
+          heroScrollHint.style.opacity = String(hintOpacity);
+        }
+
+        // 3. Dark Overlay gradually lifts to let the golden sunrise shine
+        if (overlayDark) {
+          // Drops from 0.85 opacity down to ~0.25 as animation progresses
+          const darkProgress = Math.min(progress / 0.45, 1);
+          overlayDark.style.opacity = String(0.85 - darkProgress * 0.6);
+        }
+
+        // 5. Bottom blend into next section
+        if (bottomBlend) {
+          const blendProgress = Math.max(0, (progress - 0.85) / 0.15);
+          bottomBlend.style.opacity = String(blendProgress);
+        }
+      }
+
+      function animationTick() {
+        const delta = targetFrame - currentFrame;
+
+        if (Math.abs(delta) > 0.02) {
+          currentFrame += delta * CONFIG.lerpFactor;
+          drawFrame(Math.round(currentFrame));
+          requestAnimationFrame(animationTick);
+        } else {
+          currentFrame = targetFrame;
+          drawFrame(Math.round(currentFrame));
+          isAnimating = false;
+        }
+      }
+
+      function onScroll() {
+        const progress = calculateScrollProgress();
+        targetFrame = 1 + progress * (CONFIG.totalFrames - 1);
+
+        // Update UI overlays
+        updateOverlayElements(progress);
+
+        // Reprioritize download queue around current frame
+        pumpQueue();
+
+        // Start smooth lerp loop if not already running
+        if (!isAnimating) {
+          isAnimating = true;
+          requestAnimationFrame(animationTick);
+        }
+      }
+
+      // Event Listeners
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', resizeCanvas, { passive: true });
+
+      // Initialize
+      resizeCanvas();
+      initializePreloading();
+      onScroll();
+    }
+  }
+</script>

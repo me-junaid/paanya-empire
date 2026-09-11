@@ -1,0 +1,50 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ProcessHero from '../components/process/ProcessHero.astro';
+import ProcessIntro from '../components/process/ProcessIntro.astro';
+import ProcessRoadmap from '../components/process/ProcessRoadmap.astro';
+import ProcessExperience from '../components/process/ProcessExperience.astro';
+import ProcessTransparency from '../components/process/ProcessTransparency.astro';
+import ProcessOrganization from '../components/process/ProcessOrganization.astro';
+import ProcessComparison from '../components/process/ProcessComparison.astro';
+import ProcessShowcase from '../components/process/ProcessShowcase.astro';
+import ProcessFAQ from '../components/process/ProcessFAQ.astro';
+import CTA from '../components/home/CTA.astro';
+---
+
+<BaseLayout 
+  title="Our Process"
+  description="Explore Paanya Empire's 12-stage turnkey construction roadmap. From site feasibility and architectural BIM modeling to structural build, MEP testing, and keys handover."
+>
+  <div class="flex flex-col w-full bg-surface">
+    <!-- 1. Hero -->
+    <ProcessHero />
+
+    <!-- 2. Process Intro (How It Works & 5-Phase Sequence) -->
+    <ProcessIntro />
+
+    <!-- 3. Detailed 12-Stage Execution Roadmap -->
+    <ProcessRoadmap />
+
+    <!-- 4. Client Experience (You Focus On / We Coordinate) -->
+    <ProcessExperience />
+
+    <!-- 5. Transparency & Governance -->
+    <ProcessTransparency />
+
+    <!-- 6. One Team Coordination Model -->
+    <ProcessOrganization />
+
+    <!-- 7. Contractor Difference Matrix -->
+    <ProcessComparison />
+
+    <!-- 8. Process in Action (Delivered Milestones) -->
+    <ProcessShowcase />
+
+    <!-- 9. Frequently Asked Questions -->
+    <ProcessFAQ />
+
+    <!-- 10. Global Conversion CTA -->
+    <CTA />
+  </div>
+</BaseLayout>

@@ -1,0 +1,93 @@
+---
+---
+
+<!-- 6. END-TO-END CAPABILITY (ONE COMPLETE JOURNEY) -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+  <div class="rounded-3xl bg-[#071A33] text-on-primary p-6 sm:p-12 border border-outline-variant/30 shadow-xl flex flex-col gap-10 relative overflow-hidden">
+    <div class="flex flex-col gap-3 relative z-10">
+      <div class="inline-flex items-center gap-2 self-start px-3 py-1 rounded-full bg-primary/20 text-primary-fixed text-[11px] font-bold tracking-[0.2em] uppercase backdrop-blur-md">
+        <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+        One Complete Journey
+      </div>
+      
+      <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-white leading-tight">
+        From Concept To Handover.
+      </h2>
+      
+      <p class="text-xs sm:text-sm text-surface-container-high leading-relaxed font-light max-w-xl">
+        Our structured 9-stage engineering framework provides clockwork precision, regulatory certainty, and transparent governance across every milestone.
+      </p>
+    </div>
+
+    <!-- 9-Stage Roadmap Grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-4 relative z-10">
+      {[
+        {
+          num: '01',
+          title: 'CONSULTATION',
+          desc: 'Understanding lifestyle brief, spatial aspirations, site parameters, and project schedule.'
+        },
+        {
+          num: '02',
+          title: 'SITE & PLANNING',
+          desc: 'Topographical surveys, soil geotechnical load-bearing analysis, and environmental micro-zoning.'
+        },
+        {
+          num: '03',
+          title: 'ARCHITECTURE',
+          desc: 'Schematic drawings, high-fidelity 3D visual renders, structural engineering, and spatial flow.'
+        },
+        {
+          num: '04',
+          title: 'ESTIMATION',
+          desc: 'Itemized Bill of Quantities (BOQ), material specifications, and transparent cost locking.'
+        },
+        {
+          num: '05',
+          title: 'APPROVALS',
+          desc: 'Statutory municipal building sanctions, environmental clearances, and fire/safety NOC certifications.'
+        },
+        {
+          num: '06',
+          title: 'CONSTRUCTION',
+          desc: 'Monolithic deep foundation, reinforced concrete frame, brickwork, and embedded MEP infrastructure.'
+        },
+        {
+          num: '07',
+          title: 'INTERIORS',
+          desc: 'Bespoke cabinetry, natural stone slabs, architectural lighting, HVAC commissioning, and sanitary fixtures.'
+        },
+        {
+          num: '08',
+          title: 'QUALITY AUDIT',
+          desc: '240-point snag inspection, hydrostatic waterproofing testing, and acoustic balance sign-off.'
+        },
+        {
+          num: '09',
+          title: 'HANDOVER',
+          desc: 'Official warranty dossier, as-built MEP schematics, operations manual, and ceremonial key delivery.'
+        }
+      ].map((stage) => (
+        <div class="p-5 rounded-xl bg-white/5 border border-white/10 hover:border-primary-fixed/40 transition-colors flex flex-col justify-between gap-3">
+          <div class="flex items-center justify-between">
+            <span class="w-8 h-8 rounded-lg bg-primary text-on-primary font-headline font-bold text-xs flex items-center justify-center">
+              {stage.num}
+            </span>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-secondary-fixed">
+              Phase {stage.num}
+            </span>
+          </div>
+
+          <div class="flex flex-col gap-1">
+            <h4 class="font-headline text-sm font-bold uppercase tracking-wider text-primary-fixed">
+              {stage.title}
+            </h4>
+            <p class="text-xs text-surface-container-high leading-relaxed font-light">
+              {stage.desc}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

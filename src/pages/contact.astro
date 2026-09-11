@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ContactHero from '../components/contact/ContactHero.astro';
+import ContactForm from '../components/contact/ContactForm.astro';
+import DirectChannels from '../components/contact/DirectChannels.astro';
+import OfficeLocation from '../components/contact/OfficeLocation.astro';
+import NextSteps from '../components/contact/NextSteps.astro';
+import StrategicAlignment from '../components/contact/StrategicAlignment.astro';
+import PortfolioDomains from '../components/contact/PortfolioDomains.astro';
+import ContactTurnkeyPromise from '../components/contact/ContactTurnkeyPromise.astro';
+import ContactTrust from '../components/contact/ContactTrust.astro';
+import ContactFAQ from '../components/contact/ContactFAQ.astro';
+import CTA from '../components/home/CTA.astro';
+---
+
+<BaseLayout 
+  title="Contact Us"
+  description="Start your architectural project with Paanya Empire. Inquire about turnkey construction, bespoke luxury villas, structural contracting, and schedule a private studio consultation."
+>
+  <div class="flex flex-col w-full bg-surface">
+    <!-- 1. Contact Hero & Architecture Showcase -->
+    <ContactHero />
+
+    <!-- 2. Primary Project Consultation & Inquiry Form -->
+    <ContactForm />
+
+    <!-- 3. Direct Concierge Communication Channels -->
+    <DirectChannels />
+
+    <!-- 4. Studio & Headquarters Location Desk -->
+    <OfficeLocation />
+
+    <!-- 5. What Happens Next (4-Step Onboarding) -->
+    <NextSteps />
+
+    <!-- 6. Strategic Alignment (Why Start With Consultation) -->
+    <StrategicAlignment />
+
+    <!-- 7. Portfolio Domains (Archetypes) -->
+    <PortfolioDomains />
+
+    <!-- 8. The Paanya Turnkey Promise Banner -->
+    <ContactTurnkeyPromise />
+
+    <!-- 9. Trust & Rigor Pillars -->
+    <ContactTrust />
+
+    <!-- 10. Frequently Asked Questions Accordion -->
+    <ContactFAQ />
+
+    <!-- 11. Global Bottom CTA -->
+    <CTA />
+  </div>
+</BaseLayout>

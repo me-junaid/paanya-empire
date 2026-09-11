@@ -1,0 +1,60 @@
+---
+---
+
+<!-- 9. PROCESS ACCORDION FAQ -->
+<section class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex flex-col gap-8">
+  <div class="flex flex-col gap-2 text-center items-center">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-low text-primary text-[11px] font-bold tracking-[0.2em] uppercase">
+      Clarifications
+    </div>
+    <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-on-surface">
+      Frequently Asked Questions
+    </h2>
+    <p class="text-xs sm:text-sm text-on-surface-variant max-w-md leading-relaxed">
+      Common architectural and engineering queries regarding our turnkey execution sequence.
+    </p>
+  </div>
+
+  <div class="flex flex-col gap-3">
+    {[
+      {
+        q: 'When should we bring Paanya into the process?',
+        a: 'Ideally before purchasing the plot or at the earliest schematic stage. Our preliminary site feasibility assessments evaluate soil geotechnical conditions, local setback bylaws, and solar orientation that can save months of redesign later.'
+      },
+      {
+        q: 'Can we collaborate with an external independent architect?',
+        a: 'Yes. While we offer an end-to-end turnkey architectural studio, we frequently partner with independent architects and interior designers, stepping in as the execution engineering partner to bring their drawings into reality with zero dilution.'
+      },
+      {
+        q: 'How are unexpected cost overruns prevented?',
+        a: 'Through exhaustive Stage 04 Bill of Quantities (BOQ). We do not provide loose estimates; every specification, rebar gauge, and finish brand is locked into a fixed-milestone contract. Any subsequent client-requested changes follow formal change orders.'
+      },
+      {
+        q: 'Who handles municipal permits and sanctions?',
+        a: 'Our internal municipal regulatory division prepares, files, coordinates, and expedites all building sanction drawings, environmental clearances, utility approvals, fire NOCs, and final occupancy certificates on your behalf.'
+      },
+      {
+        q: 'How frequently do we receive progress updates?',
+        a: 'Clients receive weekly high-definition drone progress footage, structured photo audits, and milestone schedule summaries, paired with direct access to their Senior Project Director.'
+      },
+      {
+        q: 'What warranty is provided upon final handover?',
+        a: 'Every completed turnkey residence is backed by the Paanya 10-Year Structural Defect Guarantee, coupled with a 24-Month Comprehensive Fit-Out & MEP Assurance covering joinery, plumbing, and electrical installations.'
+      }
+    ].map((faq) => (
+      <details class="group bg-surface-container-low rounded-2xl border border-outline-variant/30 overflow-hidden transition-colors">
+        <summary class="flex items-center justify-between p-5 cursor-pointer font-headline text-xs sm:text-sm font-bold uppercase tracking-wide text-on-surface select-none hover:text-primary transition-colors">
+          <span>{faq.q}</span>
+          <span class="p-1 rounded-full bg-surface-container text-primary group-open:rotate-180 transition-transform duration-200 shrink-0 ml-4">
+            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+            </svg>
+          </span>
+        </summary>
+        <div class="px-5 pb-5 pt-1 text-xs sm:text-sm text-on-surface-variant leading-relaxed border-t border-outline-variant/10">
+          {faq.a}
+        </div>
+      </details>
+    ))}
+  </div>
+</section>

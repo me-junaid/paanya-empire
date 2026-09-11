@@ -1,0 +1,79 @@
+---
+const archetypes = [
+  {
+    title: 'Luxury Villas',
+    desc: 'Private sprawling estates with custom landscape and bespoke infinity pool integration.',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDw3-27-OqSCUZyCoEbylOyx0rkNaVoV3Z876s-_oB_7IYCCgtDhFjBTS05DvUKCkmCIfYJuLSpgY7aWgIOTdAmDkpZV6lVtouIQ9W9Q4BvoGOb4jJuZ1Ed3CoCsiquVwI9SxV5hNwT0e4hqVwVM7G0I58F0hrUgeGJiqQlTQisUbrWKpW40nYpFusb5FDyznLt9CJPO5195zYFC65nottVUNYaISr-22s_BM-iIXe5bWyyU39t23vvGw',
+    link: '/projects?category=Villas',
+  },
+  {
+    title: 'Duplex Estates',
+    desc: 'Multi-tier urban residences prioritizing vertical air circulation, lightwells, and privacy.',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDbsihsx_4MhEzKrLQeQWP6eB09_Xvh_gtrQhuuuXWDcbFfhoToTX4IQogBp-hUrXGZx7i0zfiX3ustFtVNJzJiNgpTrnKFkDQSeGwOap437ddZlkKiLfFV8asMAs28yAdE4cNonZ5bnGjGMMDF7jWHDb6lIwun1dOHFvGpbBjk8paKq8IOYxfbF3is2BVjrdpVsPLCBZjbQRFrIRnMIFr2_qalXMC9Vspml4MwaS86D4UzVgyWOCpJWQ',
+    link: '/projects?category=Residential',
+  },
+  {
+    title: 'Commercial Spaces',
+    desc: 'Prestige retail flagships, corporate studios, and high-specification hospitality boutiques.',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuC9dsOHRz8slFg1I6IfQ7sAKf69jVc_iII-u0hZ2F34Nc7fC4428d-SjiSkZBqWN_E6yGkUx9JMDthJ7WUo8OxtFuBqeOOu9tziznx0vM-1LigKyGP1ghWSwAi6cLhBUDksabfX5L_sPxIH0U0LySirwGjr9XhwdXzxftLtFaSnURz65SXc4ZCK-aDNWtiBXgZQadxA0AtZ0tf77gRO-nADq5kKcbGuZ_GBMtwSmPCOzi9fRlA51v6S_A',
+    link: '/projects?category=Commercial',
+  },
+  {
+    title: 'Heritage & Reno',
+    desc: 'Deep structural reinventions, load-bearing retrofits, and comprehensive interior overhauls.',
+    image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAz-NXZ-0qN_yEx45AFK_ljQ77CiibC5QYfZhCrq3pIwipoTew7v8nCKE3oQ845y0F9CXIMdFTBYmV3nS5Tcg47hztsFaP1FMfTGXJJYonJnejAz1lFGm7wF1FtjrMczGoRhhNIpO-0d7nf17Ve1SgG2X4q7l_gsxnlukKLCyispQhB3nIPT7MXbpCOcyulnBfIc-jIzWdh29Qysww-OSKDHrw7t-4PRv7QD6bJTCbF2mrf_RfSOWGrzA',
+    link: '/projects?category=Interiors',
+  },
+];
+---
+
+<!-- 7. WHAT ARE YOU BUILDING? (PROJECT TYPES) -->
+<section class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col gap-6">
+  <div class="flex flex-col gap-1.5">
+    <div class="flex items-center gap-2">
+      <span class="font-headline text-[10px] sm:text-[11px] font-bold tracking-[0.18em] uppercase text-primary">
+        PORTFOLIO DOMAINS
+      </span>
+      <div class="h-0.5 w-6 bg-primary/30"></div>
+    </div>
+    <h2 class="font-headline text-xl sm:text-2xl font-bold uppercase tracking-tight text-on-surface">
+      WHAT ARE YOU BUILDING?
+    </h2>
+    <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed max-w-2xl">
+      Explore archetypes to understand how Paanya Empire executes precision engineering across various scales.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    {archetypes.map((card) => (
+      <a 
+        href={card.link}
+        class="p-4 rounded-2xl bg-surface-container flex flex-col gap-3.5 shadow-xs border border-outline-variant/30 hover:border-primary/40 hover:-translate-y-1 transition-all group"
+      >
+        <div class="h-36 w-full rounded-xl overflow-hidden relative bg-surface-container-high">
+          <div 
+            class="w-full h-full bg-cover bg-center transition-transform duration-700 group-hover:scale-110" 
+            role="img" 
+            aria-label={card.title} 
+            style={`background-image: url('${card.image}')`}
+          >
+          </div>
+          <div class="absolute inset-0 bg-gradient-to-t from-inverse-surface/60 via-transparent to-transparent"></div>
+        </div>
+        <div class="flex flex-col gap-1">
+          <div class="flex items-center justify-between">
+            <span class="text-xs font-bold uppercase text-on-surface group-hover:text-primary transition-colors">
+              {card.title}
+            </span>
+            <span class="material-symbols-outlined text-[16px] text-outline group-hover:text-primary group-hover:translate-x-1 transition-all">
+              arrow_forward
+            </span>
+          </div>
+          <p class="text-[11px] text-on-surface-variant leading-relaxed font-light">
+            {card.desc}
+          </p>
+        </div>
+      </a>
+    ))}
+  </div>
+</section>

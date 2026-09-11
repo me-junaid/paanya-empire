@@ -1,0 +1,62 @@
+---
+const questions = [
+  {
+    icon: 'visibility',
+    title: 'YOUR VISION',
+    desc: 'What emotions, atmosphere, and lifestyle are you attempting to manifest?',
+  },
+  {
+    icon: 'terrain',
+    title: 'YOUR PROPERTY',
+    desc: 'Where is the plot, how is the sunlight path, and what are the topography constraints?',
+  },
+  {
+    icon: 'tune',
+    title: 'YOUR NEEDS',
+    desc: 'How should the flow, acoustics, privacy, and day-to-day utility work for your family?',
+  },
+  {
+    icon: 'flag',
+    title: 'YOUR NEXT STEP',
+    desc: 'Are you ready to break ground immediately or still shaping early architectural concepts?',
+  },
+];
+---
+
+<!-- 6. WHY START WITH A CONSULTATION? -->
+<section class="w-full bg-surface-container-low border-y border-outline-variant/20 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-6xl mx-auto flex flex-col gap-6">
+    
+    <div class="flex flex-col gap-1.5">
+      <div class="flex items-center gap-2">
+        <span class="font-headline text-[10px] sm:text-[11px] font-bold tracking-[0.18em] uppercase text-primary">
+          STRATEGIC ALIGNMENT
+        </span>
+        <div class="h-0.5 w-6 bg-primary/30"></div>
+      </div>
+      <h2 class="font-headline text-xl sm:text-2xl font-bold uppercase tracking-tight text-on-surface">
+        GOOD PROJECTS START WITH GOOD QUESTIONS.
+      </h2>
+      <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed max-w-2xl">
+        Every enduring residence is built on deep structural clarity established long before the first foundation trench is excavated.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {questions.map((item) => (
+        <div class="p-5 rounded-2xl bg-surface-container-lowest shadow-xs border border-outline-variant/30 flex flex-col gap-3">
+          <div class="w-10 h-10 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center">
+            <span class="material-symbols-outlined text-[20px]">{item.icon}</span>
+          </div>
+          <span class="text-xs font-bold uppercase tracking-wider text-on-surface">
+            {item.title}
+          </span>
+          <p class="text-[11px] sm:text-xs text-on-surface-variant leading-relaxed font-light">
+            {item.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>

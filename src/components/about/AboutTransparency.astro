@@ -1,0 +1,66 @@
+---
+---
+
+<!-- 9. TRANSPARENCY (A CLEARER WAY TO BUILD) -->
+<section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 flex flex-col gap-10">
+  <div class="flex flex-col gap-3">
+    <div class="flex items-center gap-2">
+      <span class="font-headline text-[11px] font-bold tracking-[0.2em] uppercase text-primary">
+        Transparency
+      </span>
+      <div class="h-0.5 w-8 bg-primary/30"></div>
+    </div>
+    
+    <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-on-surface">
+      A Clearer Way To Build.
+    </h2>
+    
+    <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed max-w-2xl">
+      We dismantle the opacity commonly found in conventional contracting with binding technical specifications, scheduled photo logs, and milestone-indexed accounting.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    {[
+      {
+        title: 'Clear Specifications',
+        desc: 'Exact brands, cement ratios, steel rebar grades, and dimensional tolerances specified in your contract up front.'
+      },
+      {
+        title: 'Guarded Milestones',
+        desc: 'A linear critical path broken down into discrete phases with fixed calendar delivery dates.'
+      },
+      {
+        title: 'Material Clarity',
+        desc: 'Complete architectural physical sample boards and finishes signed off before installation begins.'
+      },
+      {
+        title: 'Digital Project Updates',
+        desc: 'Weekly high-definition drone orthomosaics, site photographic dossiers, and schedule tracking reports.'
+      },
+      {
+        title: 'Independent Quality Checks',
+        desc: 'Third-party geotechnical and structural integrity testing performed at critical execution junctions.'
+      },
+      {
+        title: 'Milestone-Linked Payments',
+        desc: 'Progress payments released only upon verified completion and client sign-off of each discrete construction gate.'
+      }
+    ].map((item) => (
+      <div class="p-6 rounded-2xl bg-surface-container-low border border-outline-variant/30 flex flex-col justify-between gap-3 hover:border-primary/40 hover:shadow-xs transition-all">
+        <div class="flex items-center justify-between">
+          <span class="w-2 h-2 rounded-full bg-primary"></span>
+          <span class="text-[10px] uppercase font-bold tracking-widest text-secondary">
+            Verified Policy
+          </span>
+        </div>
+        <h4 class="font-headline text-sm font-bold uppercase tracking-wide text-on-surface">
+          {item.title}
+        </h4>
+        <p class="text-xs text-on-surface-variant leading-relaxed">
+          {item.desc}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>

@@ -1,0 +1,97 @@
+---
+import type { ServiceComparison } from '../../types/service';
+
+interface Props {
+  comparison: ServiceComparison;
+}
+
+const { comparison } = Astro.props;
+---
+
+<!-- 3. TURNKEY VS FRAGMENTED COMPARISON -->
+<section class="w-full bg-surface-container-low py-16 px-4 sm:px-6 lg:px-8 border-y border-outline-variant/20">
+  <div class="max-w-6xl mx-auto flex flex-col gap-10">
+    <div class="flex flex-col gap-2">
+      <span class="text-[11px] font-bold uppercase tracking-widest text-primary">
+        {comparison.subtitle}
+      </span>
+      <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-on-surface">
+        {comparison.title}
+      </h2>
+      <p class="text-sm sm:text-base text-on-surface-variant max-w-2xl leading-relaxed">
+        {comparison.description}
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Fragmented Model -->
+      <div class="p-6 sm:p-8 rounded-2xl bg-surface-container-lowest shadow-xs flex flex-col justify-between gap-6 border border-outline-variant/30">
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center gap-2 text-error">
+            <svg class="w-5 h-5 text-error shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="text-xs font-bold uppercase tracking-wider">{comparison.fragmented.title}</span>
+          </div>
+          
+          <h3 class="text-base font-bold text-on-surface">{comparison.fragmented.description}</h3>
+          
+          <!-- Visual Broken Flow -->
+          <div class="p-4 bg-error-container/25 rounded-xl flex flex-col gap-2 text-xs border border-error/15">
+            <div class="flex flex-wrap items-center gap-1.5 text-on-surface-variant text-[11px]">
+              <span class="px-2 py-0.5 rounded bg-surface-container-high font-medium">Architect</span>
+              <span>→</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high font-medium">Civil Team</span>
+              <span>→</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high font-medium">Electrician</span>
+              <span>→</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high font-medium">Plumber</span>
+              <span>→</span>
+              <span class="px-2 py-0.5 rounded bg-surface-container-high font-medium">Suppliers</span>
+            </div>
+            <p class="font-medium text-error mt-1 text-[11px]">Result: Owner is trapped negotiating contractor disputes, rework, & cost spikes.</p>
+          </div>
+          
+          <div class="flex flex-col gap-2.5 text-xs text-on-surface-variant mt-2">
+            {comparison.fragmented.points.map((point) => (
+              <div class="flex items-start gap-2">
+                <span class="text-error font-bold mt-0.5">•</span>
+                <span>{point}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+      
+      <!-- Paanya Empire Turnkey -->
+      <div class="p-6 sm:p-8 rounded-2xl bg-surface-container-lowest shadow-xs flex flex-col justify-between gap-6 border-2 border-primary/30 relative overflow-hidden">
+        <div class="flex flex-col gap-4">
+          <div class="flex items-center gap-2 text-primary">
+            <svg class="w-5 h-5 text-primary shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            <span class="text-xs font-bold uppercase tracking-wider">{comparison.turnkey.title}</span>
+          </div>
+          
+          <h3 class="text-base font-bold text-on-surface">{comparison.turnkey.description}</h3>
+          
+          <!-- Streamlined Flow -->
+          <div class="p-4 bg-primary-fixed/30 rounded-xl flex flex-col gap-2 border border-primary/20">
+            <div class="flex items-center gap-2 font-bold text-primary text-xs">
+              <span>YOU</span>
+              <span>→</span>
+              <span class="px-3 py-1 rounded-md bg-primary text-on-primary uppercase tracking-wider">PAANYA EMPIRE</span>
+            </div>
+            <p class="text-[11px] text-on-surface-variant font-normal">
+              Unified governance: Architecture • Engineering • Permitting • Structural • MEP • Interiors • Handover
+            </p>
+          </div>
+          
+          <div class="p-4 rounded-xl bg-surface-container-low text-xs text-on-surface font-medium border border-outline-variant/20 leading-relaxed">
+            {comparison.turnkey.highlight}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,64 @@
+---
+---
+
+<!-- 5. WHAT WE BELIEVE (OUR VALUES) -->
+<section class="w-full bg-surface-container-low border-y border-outline-variant/20 py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto flex flex-col gap-10">
+    <div class="flex flex-col gap-3">
+      <div class="flex items-center gap-2">
+        <span class="font-headline text-[11px] font-bold tracking-[0.2em] uppercase text-primary">
+          Our Values
+        </span>
+        <div class="h-0.5 w-8 bg-primary/30"></div>
+      </div>
+      
+      <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-on-surface">
+        The Principles Behind Every Project.
+      </h2>
+      
+      <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed max-w-2xl">
+        Every foundation poured, beam welded, and finish installed is governed by an unyielding ethical code.
+      </p>
+    </div>
+
+    <!-- 4 Values Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+      {[
+        {
+          num: '01',
+          title: 'QUALITY',
+          desc: 'Quality is non-negotiable across every phase—from subterranean soil stabilization to certified batch-mix concrete and precision millwork.'
+        },
+        {
+          num: '02',
+          title: 'TRANSPARENCY',
+          desc: 'Clients receive complete clarity on architectural decisions, milestone progress, and financial indexes with zero hidden clauses.'
+        },
+        {
+          num: '03',
+          title: 'RESPONSIBILITY',
+          desc: 'One coordinated firm assumes full accountability. We never abdicate responsibility or transfer the burden of site coordination to the client.'
+        },
+        {
+          num: '04',
+          title: 'CRAFTSMANSHIP',
+          desc: 'Every millimeter matters. From monolithic stone book-matching to acoustic decoupling, fine craftsmanship defines the enduring legacy of a build.'
+        }
+      ].map((val) => (
+        <div class="p-6 rounded-2xl bg-surface-container-lowest border border-outline-variant/30 shadow-xs flex flex-col justify-between gap-4 hover:border-primary/40 hover:shadow-md transition-all">
+          <div class="flex flex-col gap-3">
+            <span class="text-xs font-bold tracking-widest text-primary font-headline">
+              {val.num} — PRINCIPLE
+            </span>
+            <h3 class="font-headline text-base font-bold uppercase text-on-surface tracking-wider">
+              {val.title}
+            </h3>
+            <p class="text-xs text-on-surface-variant leading-relaxed">
+              {val.desc}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

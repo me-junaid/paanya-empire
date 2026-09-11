@@ -1,0 +1,48 @@
+---
+interface Props {
+  serviceName: string;
+}
+
+const { serviceName } = Astro.props;
+---
+
+<!-- FINAL SERVICE CTA -->
+<section class="relative overflow-hidden bg-on-surface text-on-primary py-20 px-4 sm:px-6 lg:px-8">
+  <!-- Architectural Ambient Image Overlay -->
+  <div 
+    class="absolute inset-0 z-0 bg-cover bg-center opacity-15"
+    style="background-image: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80');"
+  ></div>
+  <div class="absolute inset-0 z-0 bg-gradient-to-t from-[#071A33] via-[#071A33]/80 to-[#071A33]"></div>
+  
+  <div class="relative z-10 max-w-4xl mx-auto flex flex-col items-center text-center gap-6">
+    <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-lowest/15 backdrop-blur-md text-[11px] font-bold tracking-[0.2em] uppercase text-primary-fixed">
+      <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
+      Ready To Build?
+    </div>
+    
+    <h2 class="font-headline text-2xl sm:text-4xl lg:text-5xl font-extrabold uppercase tracking-tight text-on-primary leading-tight">
+      Discuss Your {serviceName} Project
+    </h2>
+    
+    <p class="text-xs sm:text-base text-surface-container-high max-w-xl leading-relaxed font-normal">
+      Schedule a private engineering consultation with our team to review your site parameters, budget, and architectural vision.
+    </p>
+    
+    <div class="flex flex-col sm:flex-row gap-3 pt-2 w-full sm:w-auto justify-center">
+      <a 
+        href="/contact" 
+        class="inline-flex items-center justify-center h-12 px-8 rounded-xl bg-primary text-on-primary text-xs font-semibold tracking-wider uppercase shadow-lg hover:bg-primary-container transition-colors"
+      >
+        Request Consultation
+      </a>
+      
+      <a 
+        href="/projects" 
+        class="inline-flex items-center justify-center h-12 px-8 rounded-xl bg-surface-container-lowest/15 backdrop-blur-md text-on-primary text-xs font-semibold tracking-wider uppercase hover:bg-surface-container-lowest/25 transition-colors"
+      >
+        View Portfolio
+      </a>
+    </div>
+  </div>
+</section>

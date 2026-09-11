@@ -1,0 +1,370 @@
+---
+import { PROPERTY_TYPES, SERVICE_OPTIONS, BUDGET_OPTIONS, PROJECT_STAGES } from '../../types/enquiry';
+---
+
+<!-- 2. PRIMARY CONTACT & PROJECT CONSULTATION FORM -->
+<section id="consultation-form" class="w-full bg-surface-container-low border-y border-outline-variant/20 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto flex flex-col gap-6">
+    
+    <div class="flex flex-col gap-2">
+      <div class="flex items-center gap-2">
+        <span class="font-headline text-[10px] sm:text-[11px] font-bold tracking-[0.18em] uppercase text-primary">
+          PROJECT INQUIRY DESK
+        </span>
+        <div class="h-0.5 w-6 bg-primary/30"></div>
+      </div>
+      <h2 class="font-headline text-xl sm:text-2xl lg:text-3xl font-bold uppercase tracking-tight text-on-surface">
+        START YOUR PROJECT
+      </h2>
+      <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed max-w-2xl">
+        Tell us a little about your project. The more context we understand, the better we can prepare for our architectural consultation.
+      </p>
+    </div>
+
+    <!-- The Consultation Form Card -->
+    <div class="bg-surface-container-lowest rounded-2xl p-6 sm:p-8 border border-outline-variant/30 shadow-sm">
+      <form id="projectConsultForm" class="flex flex-col gap-5">
+        
+        <!-- Grid: Name & Phone -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label for="enquiry-name" class="text-[11px] font-semibold uppercase tracking-wider text-on-surface">
+              Full Name <span class="text-primary">*</span>
+            </label>
+            <input 
+              id="enquiry-name"
+              name="name"
+              type="text" 
+              required 
+              placeholder="e.g. Arun Mehta"
+              class="h-11 px-3.5 rounded-xl bg-surface-container-low text-xs text-on-surface outline-none border border-outline-variant/30 focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline/60"
+            />
+            <span class="error-msg text-[10px] text-error font-medium hidden" data-error-for="name"></span>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label for="enquiry-phone" class="text-[11px] font-semibold uppercase tracking-wider text-on-surface">
+              Phone Number <span class="text-primary">*</span>
+            </label>
+            <input 
+              id="enquiry-phone"
+              name="phone"
+              type="tel" 
+              required 
+              placeholder="+91 98765 43210"
+              class="h-11 px-3.5 rounded-xl bg-surface-container-low text-xs text-on-surface outline-none border border-outline-variant/30 focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline/60"
+            />
+            <span class="error-msg text-[10px] text-error font-medium hidden" data-error-for="phone"></span>
+          </div>
+        </div>
+
+        <!-- Grid: Email & Location -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label for="enquiry-email" class="text-[11px] font-semibold uppercase tracking-wider text-on-surface">
+              Email Address <span class="text-primary">*</span>
+            </label>
+            <input 
+              id="enquiry-email"
+              name="email"
+              type="email" 
+              required 
+              placeholder="arun@example.com"
+              class="h-11 px-3.5 rounded-xl bg-surface-container-low text-xs text-on-surface outline-none border border-outline-variant/30 focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline/60"
+            />
+            <span class="error-msg text-[10px] text-error font-medium hidden" data-error-for="email"></span>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label for="enquiry-location" class="text-[11px] font-semibold uppercase tracking-wider text-on-surface">
+              Project Location / Plot Area <span class="text-primary">*</span>
+            </label>
+            <input 
+              id="enquiry-location"
+              name="projectLocation"
+              type="text" 
+              required 
+              placeholder="e.g. Kozhikode, Wayanad, Kochi"
+              class="h-11 px-3.5 rounded-xl bg-surface-container-low text-xs text-on-surface outline-none border border-outline-variant/30 focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline/60"
+            />
+            <span class="error-msg text-[10px] text-error font-medium hidden" data-error-for="projectLocation"></span>
+          </div>
+        </div>
+
+        <!-- Grid: Property Type & Built-up Area -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label for="enquiry-property-type" class="text-[11px] font-semibold uppercase tracking-wider text-on-surface">
+              Property Type <span class="text-primary">*</span>
+            </label>
+            <div class="relative">
+              <select 
+                id="enquiry-property-type"
+                name="projectType"
+                required
+                class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low text-xs text-on-surface outline-none border border-outline-variant/30 focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 appearance-none transition-all cursor-pointer"
+              >
+                <option value="" disabled selected>Select property archetype</option>
+                {PROPERTY_TYPES.map(type => (
+                  <option value={type}>{type}</option>
+                ))}
+              </select>
+              <span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant text-[18px]">
+                expand_more
+              </span>
+            </div>
+            <span class="error-msg text-[10px] text-error font-medium hidden" data-error-for="projectType"></span>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label for="enquiry-area" class="text-[11px] font-semibold uppercase tracking-wider text-on-surface">
+              Built-up Area (Sq Ft)
+            </label>
+            <input 
+              id="enquiry-area"
+              name="builtUpArea"
+              type="text" 
+              placeholder="e.g. 4,500 sq. ft."
+              class="h-11 px-3.5 rounded-xl bg-surface-container-low text-xs text-on-surface outline-none border border-outline-variant/30 focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline/60"
+            />
+          </div>
+        </div>
+
+        <!-- Grid: Service Required & Budget Scope -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div class="flex flex-col gap-1.5">
+            <label for="enquiry-service" class="text-[11px] font-semibold uppercase tracking-wider text-on-surface">
+              Service Required
+            </label>
+            <div class="relative">
+              <select 
+                id="enquiry-service"
+                name="serviceRequired"
+                class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low text-xs text-on-surface outline-none border border-outline-variant/30 focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 appearance-none transition-all cursor-pointer"
+              >
+                {SERVICE_OPTIONS.map((opt, idx) => (
+                  <option value={opt} selected={idx === 0}>{opt}</option>
+                ))}
+              </select>
+              <span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant text-[18px]">
+                expand_more
+              </span>
+            </div>
+          </div>
+
+          <div class="flex flex-col gap-1.5">
+            <label for="enquiry-budget" class="text-[11px] font-semibold uppercase tracking-wider text-on-surface">
+              Anticipated Capital Scope (Budget)
+            </label>
+            <div class="relative">
+              <select 
+                id="enquiry-budget"
+                name="budget"
+                class="w-full h-11 px-3.5 rounded-xl bg-surface-container-low text-xs text-on-surface outline-none border border-outline-variant/30 focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 appearance-none transition-all cursor-pointer"
+              >
+                <option value="Not Specified">Select budget range (Optional)</option>
+                {BUDGET_OPTIONS.map(budget => (
+                  <option value={budget}>{budget}</option>
+                ))}
+              </select>
+              <span class="material-symbols-outlined absolute right-3 top-3 pointer-events-none text-on-surface-variant text-[18px]">
+                expand_more
+              </span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Project Stage Selector Chips -->
+        <div class="flex flex-col gap-2">
+          <label class="text-[11px] font-semibold uppercase tracking-wider text-on-surface">
+            Current Project Stage
+          </label>
+          <input type="hidden" name="projectStage" id="selectedStageInput" value="Just Exploring" />
+          <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2" id="stageButtonGroup">
+            {PROJECT_STAGES.map((stage, idx) => (
+              <button 
+                type="button" 
+                data-stage={stage}
+                class={`stage-btn py-2 px-2 text-[10px] font-bold rounded-xl tracking-tight uppercase text-center transition-all cursor-pointer border ${
+                  idx === 0 
+                    ? 'bg-primary text-on-primary border-primary shadow-xs' 
+                    : 'bg-surface-container text-on-surface border-outline-variant/30 hover:bg-surface-container-high'
+                }`}
+              >
+                {stage}
+              </button>
+            ))}
+          </div>
+        </div>
+
+        <!-- Project Notes & Questions -->
+        <div class="flex flex-col gap-1.5">
+          <label for="enquiry-message" class="text-[11px] font-semibold uppercase tracking-wider text-on-surface">
+            Project Notes & Specific Ambitions
+          </label>
+          <textarea 
+            id="enquiry-message"
+            name="message"
+            rows="4" 
+            placeholder="Share details regarding your plot orientation, aesthetic influences, desired room layout, or immediate milestone questions..."
+            class="p-3.5 rounded-xl bg-surface-container-low text-xs text-on-surface outline-none border border-outline-variant/30 focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 transition-all placeholder:text-outline/60 resize-none leading-relaxed"
+          ></textarea>
+        </div>
+
+        <!-- General Alert / Error Banner -->
+        <div id="formErrorBanner" class="hidden p-3.5 rounded-xl bg-error-container text-on-error-container text-xs flex items-center gap-3">
+          <span class="material-symbols-outlined text-error text-[20px] shrink-0">error</span>
+          <span id="formErrorMessage" class="leading-relaxed"></span>
+        </div>
+
+        <!-- Success Banner -->
+        <div id="formSuccessMessage" class="hidden p-4 rounded-xl bg-primary-fixed text-on-primary-fixed text-xs flex flex-col gap-2 border border-primary/20">
+          <div class="flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-primary text-[22px] shrink-0">check_circle</span>
+            <span class="font-bold text-sm">Consultation Request Received</span>
+          </div>
+          <p id="successDetail" class="text-on-primary-fixed/90 leading-relaxed text-[11px] sm:text-xs">
+            Thank you. An architectural director has been assigned to review your parameters and will connect with you within 24 business hours.
+          </p>
+          <div class="flex items-center gap-2 pt-1 text-[11px]">
+            <span class="text-primary font-semibold uppercase tracking-wider">Reference Code:</span>
+            <span id="successReferenceId" class="font-mono font-bold bg-surface-container-lowest px-2.5 py-0.5 rounded-md text-primary"></span>
+          </div>
+        </div>
+
+        <!-- CTA Button -->
+        <button 
+          type="submit" 
+          id="submitConsultBtn"
+          class="w-full h-12 rounded-xl bg-primary hover:bg-primary-container text-on-primary font-bold text-xs uppercase tracking-widest shadow-md transition-all flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed mt-2"
+        >
+          <span id="btnText">REQUEST A FREE CONSULTATION</span>
+          <span id="btnIcon" class="material-symbols-outlined text-[18px]">arrow_forward</span>
+          <svg id="btnSpinner" class="hidden animate-spin h-4 w-4 text-on-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+            <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+            <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+          </svg>
+        </button>
+
+        <!-- Confidentiality Disclaimer -->
+        <p class="text-[10px] sm:text-[11px] text-outline text-center leading-normal">
+          By submitting this form, you agree to be contacted regarding your project enquiry. We treat your personal project drawings and details with absolute architectural confidentiality.
+        </p>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function initContactForm() {
+    const form = document.getElementById('projectConsultForm') as HTMLFormElement | null;
+    if (!form) return;
+
+    // Stage button selection logic
+    const stageBtns = form.querySelectorAll('.stage-btn');
+    const stageInput = document.getElementById('selectedStageInput') as HTMLInputElement | null;
+
+    stageBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        stageBtns.forEach(b => {
+          b.classList.remove('bg-primary', 'text-on-primary', 'border-primary', 'shadow-xs');
+          b.classList.add('bg-surface-container', 'text-on-surface', 'border-outline-variant/30');
+        });
+        btn.classList.add('bg-primary', 'text-on-primary', 'border-primary', 'shadow-xs');
+        btn.classList.remove('bg-surface-container', 'text-on-surface', 'border-outline-variant/30');
+        
+        if (stageInput) {
+          stageInput.value = btn.getAttribute('data-stage') || 'Just Exploring';
+        }
+      });
+    });
+
+    // Form submit handler
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('submitConsultBtn') as HTMLButtonElement | null;
+      const btnText = document.getElementById('btnText');
+      const btnIcon = document.getElementById('btnIcon');
+      const btnSpinner = document.getElementById('btnSpinner');
+      const errorBanner = document.getElementById('formErrorBanner');
+      const errorMessage = document.getElementById('formErrorMessage');
+      const successBanner = document.getElementById('formSuccessMessage');
+      const successReferenceId = document.getElementById('successReferenceId');
+      const successDetail = document.getElementById('successDetail');
+
+      // Clear previous error messages
+      form.querySelectorAll('.error-msg').forEach(el => {
+        el.textContent = '';
+        el.classList.add('hidden');
+      });
+      if (errorBanner) errorBanner.classList.add('hidden');
+
+      // Gather form data
+      const formData = new FormData(form);
+      const payload: Record<string, string> = {};
+      formData.forEach((val, key) => {
+        payload[key] = val.toString();
+      });
+
+      // Set Loading State
+      if (submitBtn) submitBtn.disabled = true;
+      if (btnText) btnText.textContent = 'SUBMITTING ENQUIRY...';
+      if (btnIcon) btnIcon.classList.add('hidden');
+      if (btnSpinner) btnSpinner.classList.remove('hidden');
+
+      try {
+        const response = await fetch('/api/enquiry', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          // Success
+          if (successBanner) {
+            successBanner.classList.remove('hidden');
+            if (successReferenceId) successReferenceId.textContent = result.data?.referenceId || 'CONFIRMED';
+            if (successDetail && result.data?.message) successDetail.textContent = result.data.message;
+            successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+          form.reset();
+        } else {
+          // Validation or server error
+          if (errorBanner && errorMessage) {
+            errorMessage.textContent = result.error?.message || 'Please check your submitted details and try again.';
+            errorBanner.classList.remove('hidden');
+          }
+          if (result.error?.details) {
+            Object.entries(result.error.details).forEach(([field, msg]) => {
+              const fieldError = form.querySelector(`[data-error-for="${field}"]`);
+              if (fieldError) {
+                fieldError.textContent = msg as string;
+                fieldError.classList.remove('hidden');
+              }
+            });
+          }
+        }
+      } catch (err) {
+        if (errorBanner && errorMessage) {
+          errorMessage.textContent = 'Network or connection error. Please try again or reach out directly.';
+          errorBanner.classList.remove('hidden');
+        }
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        if (btnText) btnText.textContent = 'REQUEST A FREE CONSULTATION';
+        if (btnIcon) btnIcon.classList.remove('hidden');
+        if (btnSpinner) btnSpinner.classList.add('hidden');
+      }
+    });
+  }
+
+  // Initialize on load and view transitions
+  initContactForm();
+  document.addEventListener('astro:page-load', initContactForm);
+</script>

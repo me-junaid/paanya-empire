@@ -1,0 +1,73 @@
+---
+import BaseLayout from '../../layouts/BaseLayout.astro';
+import { getServiceBySlug } from '../../lib/services';
+import ServiceHero from '../../components/services/ServiceHero.astro';
+import ServiceConcept from '../../components/services/ServiceConcept.astro';
+import ServiceComparison from '../../components/services/ServiceComparison.astro';
+import ServiceScope from '../../components/services/ServiceScope.astro';
+import ServiceBenefits from '../../components/services/ServiceBenefits.astro';
+import ServiceProcess from '../../components/services/ServiceProcess.astro';
+import ServiceCTA from '../../components/services/ServiceCTA.astro';
+import RelatedProjects from '../../components/projects/RelatedProjects.astro';
+import { getFeaturedProjects } from '../../lib/projects';
+
+const { slug } = Astro.params;
+
+const service = await getServiceBySlug(slug as string);
+const projects = await getFeaturedProjects();
+
+if (!service) {
+  return Astro.redirect('/404');
+}
+---
+
+<BaseLayout 
+  title={`${service.title} — Paanya Empire Services`}
+  description={service.shortDescription}
+>
+  <main class="flex-1 flex flex-col w-full bg-surface">
+    <!-- 1. Hero -->
+    <ServiceHero 
+      title={service.title}
+      subtitle={service.overview.subtitle}
+      heroImage={service.heroImage}
+      description={service.shortDescription}
+    />
+    
+    <!-- 2. Concept & Capabilities -->
+    <ServiceConcept 
+      title={service.overview.title}
+      subtitle={service.overview.subtitle}
+      description={service.overview.description}
+      capabilities={service.overview.capabilities}
+    />
+    
+    <!-- 3. Comparison (if turnkey) -->
+    {service.comparison && (
+      <ServiceComparison comparison={service.comparison} />
+    )}
+    
+    <!-- 4. Scope of Work -->
+    {service.scope && (
+      <ServiceScope scope={service.scope} />
+    )}
+    
+    <!-- 5. Benefits & Advantages -->
+    {service.benefits && (
+      <ServiceBenefits benefits={service.benefits} />
+    )}
+    
+    <!-- 6. Process & Timeline -->
+    {service.process && (
+      <ServiceProcess process={service.process} />
+    )}
+     
+    <!-- 7. Related Projects Showcase -->
+    <div class="max-w-6xl mx-auto w-full px-4 sm:px-6 lg:px-8 py-12">
+      <RelatedProjects projects={projects} />
+    </div>
+    
+    <!-- 8. Service CTA -->
+    <ServiceCTA serviceName={service.title} />
+  </main>
+</BaseLayout>

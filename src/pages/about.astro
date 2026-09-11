@@ -1,0 +1,54 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import AboutHero from '../components/about/AboutHero.astro';
+import AboutIntro from '../components/about/AboutIntro.astro';
+import AboutApproach from '../components/about/AboutApproach.astro';
+import AboutPurpose from '../components/about/AboutPurpose.astro';
+import AboutValues from '../components/about/AboutValues.astro';
+import AboutJourney from '../components/about/AboutJourney.astro';
+import AboutTeam from '../components/about/AboutTeam.astro';
+import AboutQuality from '../components/about/AboutQuality.astro';
+import AboutTransparency from '../components/about/AboutTransparency.astro';
+import AboutMetrics from '../components/about/AboutMetrics.astro';
+import CTA from '../components/home/CTA.astro';
+---
+
+<BaseLayout 
+  title="About Us"
+  description="Discover the philosophy, engineering standards, and multidisciplinary team behind Paanya Empire. We bring architecture, construction, and interior design together into one cohesive journey."
+>
+  <div class="flex flex-col w-full bg-surface">
+    <!-- 1. Hero -->
+    <AboutHero />
+
+    <!-- 2. Company Introduction (Who We Are) -->
+    <AboutIntro />
+
+    <!-- 3. Our Approach (4-Step Lifecycle) -->
+    <AboutApproach />
+
+    <!-- 4. Our Purpose (Why Paanya Empire Exists) -->
+    <AboutPurpose />
+
+    <!-- 5. What We Believe (Our Values) -->
+    <AboutValues />
+
+    <!-- 6. One Complete Journey (9-Stage Roadmap) -->
+    <AboutJourney />
+
+    <!-- 7. The Team Behind The Project -->
+    <AboutTeam />
+
+    <!-- 8. Quality Control & Management -->
+    <AboutQuality />
+
+    <!-- 9. Transparency Protocol -->
+    <AboutTransparency />
+
+    <!-- 10. Company Metrics & Reflection -->
+    <AboutMetrics />
+
+    <!-- 11. Final Conversion CTA -->
+    <CTA />
+  </div>
+</BaseLayout>

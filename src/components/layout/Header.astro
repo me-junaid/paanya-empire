@@ -1,4 +1,8 @@
 ---
+const pathname = Astro.url.pathname;
+const normalize = (path: string) => (path === '/' ? '/' : path.replace(/\/$/, ''));
+const currentPath = normalize(pathname);
+
 const links = [
   { text: 'Home', href: '/' },
   { text: 'Services', href: '/services' },
@@ -6,48 +10,163 @@ const links = [
   { text: 'About', href: '/about' },
   { text: 'Process', href: '/process' },
 ];
+
+function isLinkActive(href: string): boolean {
+  if (href === '/') {
+    return currentPath === '/';
+  }
+  return currentPath === href || currentPath.startsWith(href + '/');
+}
+
+const isContactActive = currentPath === '/contact';
 ---
 
-<header class="bg-surface sticky top-0 z-50 border-b border-outline-variant/30">
+<header class="sticky top-0 z-50 bg-surface/92 backdrop-blur-md border-b border-outline-variant/30 shadow-[0_2px_12px_rgba(0,0,0,0.03)] transition-all duration-300">
   <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div class="flex justify-between items-center h-20">
-      <!-- Logo -->
-      <div class="flex-shrink-0 flex items-center">
-        <a href="/" class="text-2xl font-bold text-primary tracking-tight">
-          PAANYA EMPIRE
+    <div class="flex items-center justify-between h-20">
+      
+      <!-- Brand Logo (Left Column) -->
+      <div class="flex-1 flex items-center justify-start">
+        <a href="/" class="flex flex-col group py-1" aria-label="Paanya Empire Homepage">
+          <span class="font-headline font-extrabold text-xl tracking-[0.16em] uppercase text-primary group-hover:text-primary-container transition-colors">
+            PAANYA EMPIRE
+          </span>
+          <span class="font-headline text-[8.5px] tracking-[0.28em] font-semibold text-outline uppercase group-hover:text-primary transition-colors -mt-0.5">
+            DESIGN • BUILD • DELIVER
+          </span>
         </a>
       </div>
       
-      <!-- Desktop Menu -->
-      <nav class="hidden md:flex space-x-8">
-        {links.map(link => (
-          <a 
-            href={link.href} 
-            class="text-label-md text-on-surface hover:text-primary transition-colors"
-          >
-            {link.text}
-          </a>
-        ))}
+      <!-- Desktop Navigation Menu (Dead Center) -->
+      <nav class="hidden md:flex items-center justify-center space-x-1 lg:space-x-3">
+        {links.map(link => {
+          const active = isLinkActive(link.href);
+          return (
+            <a 
+              href={link.href} 
+              aria-current={active ? 'page' : undefined}
+              class={`relative px-3.5 py-2 text-xs uppercase tracking-widest transition-all duration-200 flex items-center ${
+                active 
+                  ? 'text-primary font-bold' 
+                  : 'text-on-surface-variant hover:text-primary font-semibold'
+              }`}
+            >
+              <span>{link.text}</span>
+            </a>
+          );
+        })}
       </nav>
 
-      <!-- CTA Button -->
-      <div class="hidden md:flex items-center">
+      <!-- Desktop Action CTA (Right Column) -->
+      <div class="hidden md:flex flex-1 items-center justify-end">
         <a 
           href="/contact" 
-          class="bg-primary-container text-on-primary text-label-md px-6 py-2.5 rounded-lg hover:bg-primary transition-colors"
+          class={`text-xs uppercase tracking-wider font-bold px-5 py-3 rounded-xl transition-all shadow-sm flex items-center gap-2 ${
+            isContactActive
+              ? 'bg-primary text-on-primary ring-2 ring-primary ring-offset-2 ring-offset-surface'
+              : 'bg-primary hover:bg-primary-container text-on-primary'
+          }`}
         >
-          Contact Us
+          <span>Contact Us</span>
         </a>
       </div>
 
-      <!-- Mobile menu button (placeholder) -->
+      <!-- Mobile Menu Button -->
       <div class="md:hidden flex items-center">
-        <button class="text-on-surface hover:text-primary">
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16" />
-          </svg>
+        <button 
+          id="mobileMenuToggle" 
+          type="button" 
+          aria-label="Toggle navigation menu" 
+          aria-expanded="false"
+          class="w-10 h-10 rounded-xl bg-surface-container flex items-center justify-center text-on-surface hover:text-primary transition-colors cursor-pointer border border-outline-variant/30"
+        >
+          <span id="menuToggleIcon" class="material-symbols-outlined text-[24px] select-none pointer-events-none">menu</span>
         </button>
       </div>
+
+    </div>
+  </div>
+
+  <!-- Mobile Navigation Drawer -->
+  <div 
+    id="mobileMenuDrawer" 
+    class="hidden md:hidden border-t border-outline-variant/30 bg-surface/98 backdrop-blur-lg px-4 py-5 flex flex-col gap-3 shadow-lg"
+  >
+    <nav class="flex flex-col gap-1.5">
+      {links.map(link => {
+        const active = isLinkActive(link.href);
+        return (
+          <a 
+            href={link.href} 
+            aria-current={active ? 'page' : undefined}
+            class={`flex items-center justify-between px-4 py-3 rounded-xl text-xs uppercase tracking-wider font-bold transition-all ${
+              active 
+                ? 'bg-primary/10 text-primary border-l-4 border-primary pl-3.5' 
+                : 'text-on-surface-variant hover:text-primary hover:bg-surface-container/60'
+            }`}
+          >
+            <span>{link.text}</span>
+            {active && (
+              <span class="material-symbols-outlined text-[16px] text-primary">check</span>
+            )}
+          </a>
+        );
+      })}
+    </nav>
+
+    <div class="pt-3 border-t border-outline-variant/20">
+      <a 
+        href="/contact" 
+        class={`w-full h-11 rounded-xl text-xs uppercase tracking-wider font-bold flex items-center justify-center gap-2 transition-all shadow-sm ${
+          isContactActive
+            ? 'bg-primary text-on-primary ring-2 ring-primary ring-offset-2'
+            : 'bg-primary hover:bg-primary-container text-on-primary'
+        }`}
+      >
+        <span>Contact Us</span>
+        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+      </a>
     </div>
   </div>
 </header>
+
+<script>
+  function initHeaderMenu() {
+    const toggleBtn = document.getElementById('mobileMenuToggle');
+    const menuDrawer = document.getElementById('mobileMenuDrawer');
+    const menuToggleIcon = document.getElementById('menuToggleIcon');
+
+    if (!toggleBtn || !menuDrawer || !menuToggleIcon) return;
+
+    const btn = toggleBtn;
+    const drawer = menuDrawer;
+    const icon = menuToggleIcon;
+
+    function setMenuState(isOpen: boolean) {
+      btn.setAttribute('aria-expanded', String(isOpen));
+      if (isOpen) {
+        drawer.classList.remove('hidden');
+        icon.textContent = 'close';
+      } else {
+        drawer.classList.add('hidden');
+        icon.textContent = 'menu';
+      }
+    }
+
+    // Toggle button click
+    btn.addEventListener('click', () => {
+      const isCurrentlyOpen = btn.getAttribute('aria-expanded') === 'true';
+      setMenuState(!isCurrentlyOpen);
+    });
+
+    // Close when clicking any nav link in the drawer
+    drawer.querySelectorAll('a').forEach(a => {
+      a.addEventListener('click', () => {
+        setMenuState(false);
+      });
+    });
+  }
+
+  initHeaderMenu();
+  document.addEventListener('astro:page-load', initHeaderMenu);
+</script>

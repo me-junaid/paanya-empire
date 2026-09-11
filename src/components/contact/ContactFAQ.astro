@@ -1,0 +1,107 @@
+---
+const faqs = [
+  {
+    question: 'What information should I provide in the enquiry form?',
+    answer: 'Basic plot location, estimated built-up area or dimensions, intended lifestyle usage, and whether you already possess sanctioned architectural blueprints. Even if your parameters are still exploratory, our preliminary consultation clarifies zoning, permits, and feasibility.',
+  },
+  {
+    question: 'Can I contact Paanya Empire if I am still in early planning or land selection?',
+    answer: 'Absolutely. In fact, consulting before finalizing plot acquisition or permits often saves substantial time and capital, enabling early orientation analysis, soil suitability testing, and zoning compliance checks.',
+  },
+  {
+    question: 'Do you handle complete turnkey projects as well as standalone architectural or interior scopes?',
+    answer: 'While our core strength is turnkey design-to-build (where single-point accountability delivers maximum efficiency), we regularly execute standalone bespoke architectural design commissions and luxury interior architecture for qualified residential projects.',
+  },
+  {
+    question: 'Can I visit your design studio or inspect an active construction job site?',
+    answer: 'Yes. We welcome clients to our design atelier at Metropolis Tower in Kozhikode. We also arrange escorted site walkthroughs of active ongoing construction sites and finished residences with client consent.',
+  },
+  {
+    question: 'How do I request a preliminary project cost estimate?',
+    answer: 'Submit the inquiry form above with your anticipated square footage and finish category. Our quantity surveyors will compile a transparent preliminary ballpark estimate detailing civil, structural, and interior line items.',
+  },
+];
+---
+
+<!-- 10. FREQUENTLY ASKED QUESTIONS (FAQ Accordion) -->
+<section class="w-full bg-surface-container-low border-y border-outline-variant/20 py-12 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-4xl mx-auto flex flex-col gap-6">
+    
+    <div class="flex flex-col gap-1.5">
+      <div class="flex items-center gap-2">
+        <span class="font-headline text-[10px] sm:text-[11px] font-bold tracking-[0.18em] uppercase text-primary">
+          COMMON QUERIES
+        </span>
+        <div class="h-0.5 w-6 bg-primary/30"></div>
+      </div>
+      <h2 class="font-headline text-xl sm:text-2xl font-bold uppercase tracking-tight text-on-surface">
+        FREQUENTLY ASKED QUESTIONS
+      </h2>
+      <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed max-w-2xl">
+        Clear answers regarding preliminary meetings, site visits, and consultation preparations.
+      </p>
+    </div>
+
+    <div class="flex flex-col gap-3" id="contactFaqAccordion">
+      {faqs.map((faq) => (
+        <div class="contact-faq-item rounded-2xl bg-surface-container-lowest border border-outline-variant/30 overflow-hidden shadow-xs transition-all">
+          <button 
+            type="button" 
+            class="contact-faq-trigger w-full p-4 sm:p-5 flex items-center justify-between text-left gap-4 hover:bg-surface-container-low/50 transition-colors cursor-pointer"
+          >
+            <span class="text-xs sm:text-sm font-bold text-on-surface leading-snug">
+              {faq.question}
+            </span>
+            <span class="contact-faq-icon material-symbols-outlined text-[20px] text-primary transition-transform duration-300 shrink-0">
+              expand_more
+            </span>
+          </button>
+          
+          <div class="contact-faq-content max-h-0 overflow-hidden transition-all duration-300 ease-in-out px-4 sm:px-5">
+            <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed font-light pb-4 sm:pb-5">
+              {faq.answer}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+
+  </div>
+</section>
+
+<script>
+  function initContactFaq() {
+    const container = document.getElementById('contactFaqAccordion');
+    if (!container) return;
+
+    const triggers = container.querySelectorAll('.contact-faq-trigger');
+
+    triggers.forEach((trigger) => {
+      trigger.addEventListener('click', () => {
+        const item = trigger.closest('.contact-faq-item');
+        if (!item) return;
+
+        const content = item.querySelector('.contact-faq-content') as HTMLElement;
+        const icon = item.querySelector('.contact-faq-icon') as HTMLElement;
+        const isOpen = content.style.maxHeight && content.style.maxHeight !== '0px';
+
+        // Close all items
+        container.querySelectorAll('.contact-faq-content').forEach((c) => {
+          (c as HTMLElement).style.maxHeight = '0px';
+        });
+        container.querySelectorAll('.contact-faq-icon').forEach((i) => {
+          (i as HTMLElement).style.transform = 'rotate(0deg)';
+        });
+
+        // Toggle clicked
+        if (!isOpen && content) {
+          content.style.maxHeight = `${content.scrollHeight}px`;
+          if (icon) icon.style.transform = 'rotate(180deg)';
+        }
+      });
+    });
+  }
+
+  initContactFaq();
+  document.addEventListener('astro:page-load', initContactFaq);
+</script>

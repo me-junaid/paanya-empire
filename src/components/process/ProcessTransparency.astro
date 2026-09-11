@@ -1,0 +1,78 @@
+---
+---
+
+<!-- 5. TRANSPARENCY THROUGH THE PROCESS -->
+<section class="w-full bg-surface-container-low border-y border-outline-variant/20 py-16 px-4 sm:px-6 lg:px-8">
+  <div class="max-w-7xl mx-auto flex flex-col gap-10">
+    <div class="flex flex-col gap-3">
+      <div class="flex items-center gap-2">
+        <span class="font-headline text-[11px] font-bold tracking-[0.2em] uppercase text-primary">
+          Governance &amp; Trust
+        </span>
+        <div class="h-0.5 w-8 bg-primary/30"></div>
+      </div>
+      
+      <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-on-surface">
+        Know Where Your Project Stands
+      </h2>
+      
+      <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed max-w-2xl">
+        Complete operational visibility at every juncture. Binding specifications, verified milestones, and zero hidden contingencies.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+      {[
+        {
+          num: '01',
+          title: 'Clear Contractual Scope',
+          desc: 'Exhaustive architectural specifications identifying exact cement grades, steel ratios, and brands up front.'
+        },
+        {
+          num: '02',
+          title: 'Milestone-Linked Gates',
+          desc: 'Progressive capital draws tied strictly to third-party inspected and verified engineering sign-offs.'
+        },
+        {
+          num: '03',
+          title: 'Material Traceability',
+          desc: 'Batch-mix test cylinders, steel tensile reports, and physical sample approvals prior to site placement.'
+        },
+        {
+          num: '04',
+          title: 'Weekly Digital Briefs',
+          desc: 'High-definition drone orthomosaic imagery, 360-degree site walkthroughs, and schedule index tracking.'
+        },
+        {
+          num: '05',
+          title: '240-Point QA Protocol',
+          desc: 'Systematic technical checklists and multi-stage testing prior to closing subterranean or internal conduits.'
+        },
+        {
+          num: '06',
+          title: 'Single Executive Lead',
+          desc: 'Direct mobile contact with your appointed Senior Project Director who commands complete site authority.'
+        }
+      ].map((item) => (
+        <div class="bg-surface-container-lowest p-6 rounded-2xl border border-outline-variant/30 flex flex-col justify-between gap-3 hover:border-primary/40 hover:shadow-xs transition-all">
+          <div class="flex items-center justify-between">
+            <span class="w-8 h-8 rounded-lg bg-surface-container text-primary font-headline font-bold text-xs flex items-center justify-center">
+              {item.num}
+            </span>
+            <span class="text-[10px] uppercase font-bold tracking-widest text-secondary">
+              Verified Metric
+            </span>
+          </div>
+          <div class="flex flex-col gap-1">
+            <h4 class="font-headline text-sm font-bold text-on-surface uppercase tracking-tight">
+              {item.title}
+            </h4>
+            <p class="text-xs text-on-surface-variant leading-relaxed">
+              {item.desc}
+            </p>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

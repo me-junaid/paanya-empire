@@ -1,0 +1,59 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  heroImage: string;
+  description: string;
+}
+
+const { title, subtitle, heroImage, description } = Astro.props;
+---
+
+<!-- 1. SERVICE HERO SECTION -->
+<section class="relative w-full overflow-hidden bg-on-surface text-on-primary">
+  <div class="relative w-full min-h-[560px] sm:min-h-[640px] lg:min-h-[700px] flex items-end">
+    <!-- Background Hero Image -->
+    <div 
+      class="absolute inset-0 z-0 bg-cover bg-center transition-transform duration-1000 scale-105"
+      style={`background-image: url('${heroImage}');`}
+    ></div>
+    
+    <!-- Architectural Gradient Scrim -->
+    <div class="absolute inset-0 z-10 bg-gradient-to-t from-[#071A33] via-[#071A33]/70 to-transparent"></div>
+    <div class="absolute inset-0 z-10 bg-gradient-to-r from-[#071A33]/85 via-[#071A33]/40 to-transparent"></div>
+
+    <!-- Hero Content -->
+    <div class="relative z-20 w-full px-4 sm:px-6 lg:px-8 py-16 max-w-6xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-surface-container-lowest/15 backdrop-blur-md mb-4">
+        <span class="w-2 h-2 rounded-full bg-primary-container animate-pulse"></span>
+        <span class="font-headline tracking-[0.2em] text-[11px] font-bold uppercase text-primary-fixed">
+          SERVICE / {subtitle}
+        </span>
+      </div>
+
+      <h1 class="font-headline text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-on-primary uppercase leading-tight mb-4 max-w-4xl">
+        {title}
+      </h1>
+
+      <p class="text-sm sm:text-base text-surface-container-low max-w-2xl font-light leading-relaxed mb-8">
+        {description}
+      </p>
+
+      <!-- Interaction Actions -->
+      <div class="flex flex-col sm:flex-row gap-3 pt-2">
+        <a 
+          href="/contact"
+          class="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-primary text-on-primary text-xs font-semibold uppercase tracking-wider shadow-lg hover:bg-primary-container transition-colors"
+        >
+          Consult Our Engineers
+        </a>
+        <a 
+          href="/projects"
+          class="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-surface-container-lowest/15 backdrop-blur-md text-on-primary text-xs font-semibold uppercase tracking-wider hover:bg-surface-container-lowest/25 transition-colors"
+        >
+          View Case Studies
+        </a>
+      </div>
+    </div>
+  </div>
+</section>

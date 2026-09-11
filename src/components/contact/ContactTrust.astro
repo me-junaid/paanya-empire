@@ -1,0 +1,58 @@
+---
+const pillars = [
+  {
+    icon: 'verified',
+    title: 'Precision Quality',
+    desc: 'Stringent multi-tier structural concrete, steel, and material quality audits with third-party testing.',
+  },
+  {
+    icon: 'visibility',
+    title: 'Radical Transparency',
+    desc: 'Digital project portal milestone tracking, photographic logs, and zero hidden variance charges.',
+  },
+  {
+    icon: 'hub',
+    title: 'Single-Window Synergy',
+    desc: 'Architects, structural engineers, MEP specialists, and master craftsmen under one unified roof.',
+  },
+  {
+    icon: 'shield',
+    title: 'Full Accountability',
+    desc: 'Comprehensive structural warranties and single-point contractual responsibility from start to handover.',
+  },
+];
+---
+
+<!-- 9. TRUST & INTEGRITY PILLARS -->
+<section class="w-full max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col gap-6">
+  <div class="flex flex-col gap-1.5">
+    <div class="flex items-center gap-2">
+      <span class="font-headline text-[10px] sm:text-[11px] font-bold tracking-[0.18em] uppercase text-primary">
+        THE PAANYA ETHOS
+      </span>
+      <div class="h-0.5 w-6 bg-primary/30"></div>
+    </div>
+    <h2 class="font-headline text-xl sm:text-2xl font-bold uppercase tracking-tight text-on-surface">
+      BUILT ON RIGOR &amp; TRANSPARENCY
+    </h2>
+    <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed max-w-2xl">
+      We eliminate the conflict of interest between disparate contractors, aligning every trade toward flawless execution.
+    </p>
+  </div>
+
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    {pillars.map((pillar) => (
+      <div class="p-5 rounded-2xl bg-surface-container flex flex-col gap-3 shadow-xs border border-outline-variant/30 hover:border-primary/40 transition-colors">
+        <div class="w-10 h-10 rounded-xl bg-primary-fixed text-on-primary-fixed flex items-center justify-center">
+          <span class="material-symbols-outlined text-[20px]">{pillar.icon}</span>
+        </div>
+        <span class="text-xs font-bold uppercase tracking-wider text-on-surface">
+          {pillar.title}
+        </span>
+        <p class="text-[11px] sm:text-xs text-on-surface-variant leading-relaxed font-light">
+          {pillar.desc}
+        </p>
+      </div>
+    ))}
+  </div>
+</section>

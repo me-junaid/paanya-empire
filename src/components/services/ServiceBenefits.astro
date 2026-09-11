@@ -1,0 +1,40 @@
+---
+import type { ServiceBenefits } from '../../types/service';
+
+interface Props {
+  benefits: ServiceBenefits;
+}
+
+const { benefits } = Astro.props;
+---
+
+<!-- 5. SERVICE BENEFITS -->
+<section class="w-full bg-surface-container-low py-16 px-4 sm:px-6 lg:px-8 border-y border-outline-variant/20">
+  <div class="max-w-6xl mx-auto flex flex-col gap-10 items-center text-center">
+    <div class="flex flex-col gap-2 items-center">
+      <span class="text-[11px] font-bold uppercase tracking-widest text-primary">
+        {benefits.subtitle}
+      </span>
+      <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-on-surface max-w-2xl">
+        {benefits.title}
+      </h2>
+      <p class="text-sm sm:text-base text-on-surface-variant max-w-xl mx-auto leading-relaxed">
+        {benefits.description}
+      </p>
+    </div>
+    
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+      {benefits.items.map((item) => (
+        <div class="p-6 sm:p-8 rounded-2xl bg-surface-container-lowest shadow-xs flex flex-col items-center text-center gap-4 hover:shadow-md transition-shadow border border-outline-variant/30">
+          <div class="w-12 h-12 rounded-xl bg-surface-container text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px] text-primary">{item.icon}</span>
+          </div>
+          <h3 class="font-headline text-base font-bold text-on-surface uppercase tracking-tight">{item.title}</h3>
+          <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+            {item.description}
+          </p>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

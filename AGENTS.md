@@ -1166,8 +1166,8 @@ Development follows these phases. Do not skip phases.
 
 ### Phase 4 — Services
 
-- [ ] Services listing, data model, dynamic service pages
-- [ ] Verify: dynamic routes work
+- [x] Services listing, data model, dynamic service pages
+- [x] Verify: dynamic routes work
 
 ### Phase 5 — Company Pages
 
