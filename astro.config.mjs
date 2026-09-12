@@ -5,7 +5,8 @@ import node from '@astrojs/node';
 import vercel from '@astrojs/vercel';
 import tailwindcss from '@tailwindcss/vite';
 
-const isVercel = process.env.VERCEL === '1';
+// @ts-ignore
+const isVercel = typeof process !== 'undefined' && process.env.VERCEL === '1';
 
 // https://astro.build/config
 export default defineConfig({
