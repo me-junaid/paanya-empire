@@ -16,7 +16,7 @@
     <!-- Instant First-Frame Fallback (Behind canvas — guarantees 0ms paint, zero flicker) -->
     <img 
       id="hero-fallback-img" 
-      src="/paanya-landing-page-animation/frame_001.jpg" 
+      src="/paanya-landing-page-animation/frame_001.webp" 
       alt="Paanya Empire Luxury Villa - The Obsidian" 
       class="absolute inset-0 w-full h-full object-cover z-0 pointer-events-none"
       loading="eager"
@@ -103,7 +103,7 @@
 
   const CONFIG = {
     totalFrames: 149,
-    framePath: (index: number) => `/paanya-landing-page-animation/frame_${String(index).padStart(3, '0')}.jpg`,
+    framePath: (index: number) => `/paanya-landing-page-animation/frame_${String(index).padStart(3, '0')}.webp`,
     initialFrame: 1,
     // Frame-rate independent smoothing speed (higher = snappier, lower = dreamier)
     // Apple typically uses ~8-12 for scroll-linked animations

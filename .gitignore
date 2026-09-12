@@ -25,3 +25,7 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# Original unoptimized frames backup
+public/paanya-landing-page-animation-originals/
+optimize-frames.mjs
