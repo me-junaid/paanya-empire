@@ -1,5 +1,6 @@
 ---
 // Paanya Empire — Pinned Scroll-Driven Architectural Hero Animation
+// Apple-class smooth scroll engine with frame-rate independent exponential decay
 ---
 
 <section 
@@ -12,7 +13,7 @@
     id="hero-sticky-frame" 
     class="hero-sticky-frame sticky top-20 h-[calc(100dvh-5rem)] w-full overflow-hidden bg-[#050e1a] flex items-center justify-center select-none"
   >
-    <!-- Instant First-Frame Fallback (Behind canvas to guarantee 0ms paint with zero flicker) -->
+    <!-- Instant First-Frame Fallback (Behind canvas — guarantees 0ms paint, zero flicker) -->
     <img 
       id="hero-fallback-img" 
       src="/paanya-landing-page-animation/frame_001.jpg" 
@@ -22,10 +23,11 @@
       fetchpriority="high"
     />
 
-    <!-- Hardware-Accelerated 2D Frame Canvas -->
+    <!-- Hardware-Accelerated 2D Frame Canvas (starts invisible — revealed after first paint) -->
     <canvas 
       id="hero-frame-canvas" 
       class="absolute inset-0 w-full h-full block z-[1] cursor-default touch-none"
+      style="opacity: 0; transition: opacity 0.45s ease-out; will-change: opacity;"
       aria-hidden="true"
     ></canvas>
 
@@ -95,33 +97,41 @@
 
 <script>
   // =========================================================================
-  // ANIMATION CONFIGURATION
+  // APPLE-CLASS SCROLL ANIMATION ENGINE
+  // Frame-rate independent · Flicker-free · Exponential decay smoothing
   // =========================================================================
+
   const CONFIG = {
     totalFrames: 149,
     framePath: (index: number) => `/paanya-landing-page-animation/frame_${String(index).padStart(3, '0')}.jpg`,
     initialFrame: 1,
-    // Lerp factor: smooth cinematic response
-    lerpFactor: 0.14,
+    // Frame-rate independent smoothing speed (higher = snappier, lower = dreamier)
+    // Apple typically uses ~8-12 for scroll-linked animations
+    smoothingSpeed: 9,
+    // Snap to target when within this distance (prevents infinite micro-iterations)
+    snapThreshold: 0.06,
     // Max parallel background downloads
     maxConcurrentDownloads: 6,
-    // Number of frames to keep buffered immediately ahead of scroll position
-    lookaheadBuffer: 16,
+    // Number of frames to buffer ahead of scroll position
+    lookaheadBuffer: 20,
     // Source image aspect ratio (1920 / 1080 = 16:9)
     imageAspectRatio: 1920 / 1080,
   };
 
-  // State
+  // ─── State ────────────────────────────────────────────────────────────────
   let currentFrame = 1;
   let targetFrame = 1;
   let isAnimating = false;
-  let lastRenderedIndex = 1;
-  let scrollDirection = 1; // 1 = down/forward, -1 = up/backward
+  let lastRenderedIndex = -1;         // -1 = nothing painted yet
+  let scrollDirection = 1;            // 1 = forward, -1 = backward
+  let canvasRevealed = false;         // Has canvas been shown to the user?
+  let lastTimestamp = 0;              // For frame-rate independent dt
 
-  // DOM Elements
+  // ─── DOM Elements ─────────────────────────────────────────────────────────
   const container = document.getElementById('hero-scroll-container');
   const stickyFrame = document.getElementById('hero-sticky-frame');
   const canvas = document.getElementById('hero-frame-canvas') as HTMLCanvasElement | null;
+  const fallbackImg = document.getElementById('hero-fallback-img') as HTMLImageElement | null;
   const overlayDark = document.getElementById('hero-overlay-dark');
   const bottomBlend = document.getElementById('hero-bottom-blend');
   const heroContent = document.getElementById('hero-content');
@@ -130,13 +140,13 @@
   if (canvas && container && stickyFrame) {
     const ctx = canvas.getContext('2d', { alpha: false });
 
-    // Cache of loaded images (index -> HTMLImageElement)
+    // Image cache & download management
     const imageCache = new Map<number, HTMLImageElement>();
     const loadingSet = new Set<number>();
     const pendingQueue: number[] = [];
     let activeDownloads = 0;
 
-    // Check for reduced motion preference
+    // Detect reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
     if (prefersReducedMotion) {
@@ -146,99 +156,102 @@
       stickyFrame.classList.add('relative', 'h-[85vh]');
       if (heroScrollHint) heroScrollHint.style.display = 'none';
     } else {
-      // =========================================================================
-      // CANVAS SIZING & RENDERING (Aspect Ratio Cover with Retinal Sharpness)
-      // =========================================================================
-      let canvasWidth = 0;
-      let canvasHeight = 0;
 
+      // =====================================================================
+      // CANVAS SIZING (Retinal-sharp with mobile-optimized DPR)
+      // =====================================================================
       function resizeCanvas() {
         if (!canvas || !ctx) return;
         const rect = canvas.getBoundingClientRect();
-        const dpr = Math.min(window.devicePixelRatio || 1, 2);
+        // Mobile caps at 1.5x DPR to reduce GPU pressure
+        const isMobile = window.innerWidth < 768;
+        const dpr = Math.min(window.devicePixelRatio || 1, isMobile ? 1.5 : 2);
 
-        canvasWidth = Math.round(rect.width * dpr);
-        canvasHeight = Math.round(rect.height * dpr);
+        const newW = Math.round(rect.width * dpr);
+        const newH = Math.round(rect.height * dpr);
 
-        if (canvas.width !== canvasWidth || canvas.height !== canvasHeight) {
-          canvas.width = canvasWidth;
-          canvas.height = canvasHeight;
+        if (canvas.width !== newW || canvas.height !== newH) {
+          canvas.width = newW;
+          canvas.height = newH;
         }
 
-        // Redraw currently active frame
-        const currentImg = imageCache.get(lastRenderedIndex) || imageCache.get(1);
-        if (currentImg) {
-          renderImageCover(currentImg);
+        // Repaint currently displayed frame after resize
+        if (lastRenderedIndex > 0) {
+          const img = imageCache.get(lastRenderedIndex);
+          if (img) renderImageCover(img);
         }
       }
 
-      // Draw image onto canvas with cover aspect ratio
+      // =====================================================================
+      // CANVAS RENDERING (Aspect-ratio cover)
+      // =====================================================================
       function renderImageCover(img: HTMLImageElement) {
         if (!ctx || !canvas) return;
 
-        const imgWidth = img.naturalWidth || 1920;
-        const imgHeight = img.naturalHeight || 1080;
-        const imgRatio = imgWidth / imgHeight;
+        const imgW = img.naturalWidth || 1920;
+        const imgH = img.naturalHeight || 1080;
+        const imgRatio = imgW / imgH;
         const cRatio = canvas.width / canvas.height;
 
-        let renderW: number;
-        let renderH: number;
-        let renderX: number;
-        let renderY: number;
+        let rW: number, rH: number, rX: number, rY: number;
 
         if (cRatio > imgRatio) {
-          renderW = canvas.width;
-          renderH = canvas.width / imgRatio;
-          renderX = 0;
-          renderY = (canvas.height - renderH) / 2;
+          rW = canvas.width;
+          rH = canvas.width / imgRatio;
+          rX = 0;
+          rY = (canvas.height - rH) / 2;
         } else {
-          renderH = canvas.height;
-          renderW = canvas.height * imgRatio;
-          renderX = (canvas.width - renderW) / 2;
-          renderY = 0;
+          rH = canvas.height;
+          rW = canvas.height * imgRatio;
+          rX = (canvas.width - rW) / 2;
+          rY = 0;
         }
 
-        ctx.drawImage(img, renderX, renderY, renderW, renderH);
+        ctx.drawImage(img, rX, rY, rW, rH);
       }
 
-      // Directionally consistent frame lookup:
-      // When scrolling forward, NEVER jump backward to an older frame!
-      // When scrolling backward, NEVER jump forward to a newer frame!
+      // =====================================================================
+      // CANVAS REVEAL (Eliminates black-flash / flicker on hard refresh)
+      // =====================================================================
+      function revealCanvas() {
+        if (canvasRevealed || !canvas) return;
+        canvasRevealed = true;
+        // Fade in the canvas over the fallback image
+        canvas.style.opacity = '1';
+        // After the CSS transition completes, hide fallback to save memory
+        setTimeout(() => {
+          if (fallbackImg) {
+            fallbackImg.style.visibility = 'hidden';
+          }
+        }, 500);
+      }
+
+      // =====================================================================
+      // DIRECTIONAL FRAME LOOKUP (Monotonic — never jumps against scroll)
+      // =====================================================================
       function getBestAvailableFrame(requestedIdx: number): { img: HTMLImageElement; index: number } | null {
-        // 1. Exact match is always preferred
+        // Exact match
         if (imageCache.has(requestedIdx)) {
           return { img: imageCache.get(requestedIdx)!, index: requestedIdx };
         }
 
+        const anchor = lastRenderedIndex > 0 ? lastRenderedIndex : 1;
+
         if (scrollDirection >= 0) {
-          // Scrolling forward: look backward from requestedIdx towards lastRenderedIndex
-          for (let i = requestedIdx; i >= lastRenderedIndex; i--) {
-            if (imageCache.has(i)) {
-              return { img: imageCache.get(i)!, index: i };
-            }
-          }
-          // If none found in between, hold lastRenderedIndex
-          if (imageCache.has(lastRenderedIndex)) {
-            return { img: imageCache.get(lastRenderedIndex)!, index: lastRenderedIndex };
+          // Forward: walk backward from requested to anchor
+          for (let i = requestedIdx; i >= anchor; i--) {
+            if (imageCache.has(i)) return { img: imageCache.get(i)!, index: i };
           }
         } else {
-          // Scrolling backward: look forward from requestedIdx up to lastRenderedIndex
-          for (let i = requestedIdx; i <= lastRenderedIndex; i++) {
-            if (imageCache.has(i)) {
-              return { img: imageCache.get(i)!, index: i };
-            }
-          }
-          // If none found in between, hold lastRenderedIndex
-          if (imageCache.has(lastRenderedIndex)) {
-            return { img: imageCache.get(lastRenderedIndex)!, index: lastRenderedIndex };
+          // Backward: walk forward from requested to anchor
+          for (let i = requestedIdx; i <= anchor; i++) {
+            if (imageCache.has(i)) return { img: imageCache.get(i)!, index: i };
           }
         }
 
-        // Fallback to frame 1 if initial frame is still in cache
-        if (imageCache.has(1)) {
-          return { img: imageCache.get(1)!, index: 1 };
-        }
-
+        // Absolute fallback
+        if (imageCache.has(anchor)) return { img: imageCache.get(anchor)!, index: anchor };
+        if (imageCache.has(1)) return { img: imageCache.get(1)!, index: 1 };
         return null;
       }
 
@@ -246,20 +259,21 @@
         const frameData = getBestAvailableFrame(targetIdx);
         if (!frameData) return;
 
-        // ONLY repaint when the rendered frame changes (saves GPU cycles & prevents micro-stutters)
+        // Only repaint when frame actually changes (saves GPU + prevents micro-stutters)
         if (frameData.index !== lastRenderedIndex) {
           renderImageCover(frameData.img);
           lastRenderedIndex = frameData.index;
+
+          // First paint → reveal canvas smoothly over fallback
+          if (!canvasRevealed) revealCanvas();
         }
       }
 
-      // =========================================================================
-      // PROGRESSIVE PRELOADING ENGINE (Sliding Directional Window)
-      // =========================================================================
+      // =====================================================================
+      // PROGRESSIVE PRELOADING ENGINE
+      // =====================================================================
       function fetchFrame(index: number): Promise<void> {
-        if (imageCache.has(index) || loadingSet.has(index)) {
-          return Promise.resolve();
-        }
+        if (imageCache.has(index) || loadingSet.has(index)) return Promise.resolve();
 
         loadingSet.add(index);
         activeDownloads++;
@@ -273,7 +287,7 @@
             loadingSet.delete(index);
             activeDownloads--;
 
-            // If this newly arrived frame fills the current position, advance immediately
+            // If newly loaded frame fills current scroll position, draw immediately
             const currentInt = Math.round(currentFrame);
             if (index === currentInt || (scrollDirection >= 0 && index > lastRenderedIndex && index <= currentInt)) {
               drawFrame(currentInt);
@@ -299,173 +313,179 @@
 
       function pumpQueue() {
         while (activeDownloads < CONFIG.maxConcurrentDownloads && pendingQueue.length > 0) {
-          const nextIndex = pendingQueue.shift();
-          if (nextIndex !== undefined) {
-            fetchFrame(nextIndex);
-          }
+          const nextIdx = pendingQueue.shift();
+          if (nextIdx !== undefined) fetchFrame(nextIdx);
         }
       }
 
       function queueFrame(index: number) {
-        if (imageCache.has(index) || loadingSet.has(index) || pendingQueue.includes(index)) {
-          return;
-        }
+        if (imageCache.has(index) || loadingSet.has(index) || pendingQueue.includes(index)) return;
         pendingQueue.push(index);
         pumpQueue();
       }
 
-      // Dynamically pushes the next lookahead frames in front of scroll direction to top of queue
+      // Slides lookahead window to front of queue based on scroll direction
       function prioritizeWindow(centerIdx: number, forward: boolean) {
-        const priorityBatch: number[] = [];
+        const batch: number[] = [];
         const windowSize = CONFIG.lookaheadBuffer;
 
         if (forward) {
           for (let i = 1; i <= windowSize; i++) {
             const idx = centerIdx + i;
-            if (idx <= CONFIG.totalFrames && !imageCache.has(idx) && !loadingSet.has(idx)) {
-              priorityBatch.push(idx);
-            }
+            if (idx <= CONFIG.totalFrames && !imageCache.has(idx) && !loadingSet.has(idx)) batch.push(idx);
           }
         } else {
           for (let i = 1; i <= windowSize; i++) {
             const idx = centerIdx - i;
-            if (idx >= 1 && !imageCache.has(idx) && !loadingSet.has(idx)) {
-              priorityBatch.push(idx);
-            }
+            if (idx >= 1 && !imageCache.has(idx) && !loadingSet.has(idx)) batch.push(idx);
           }
         }
 
-        // Prepend priority batch to the FRONT of pendingQueue
-        for (let i = priorityBatch.length - 1; i >= 0; i--) {
-          const idx = priorityBatch[i];
+        // Prepend to front of queue
+        for (let i = batch.length - 1; i >= 0; i--) {
+          const idx = batch[i];
           const existing = pendingQueue.indexOf(idx);
-          if (existing !== -1) {
-            pendingQueue.splice(existing, 1);
-          }
+          if (existing !== -1) pendingQueue.splice(existing, 1);
           pendingQueue.unshift(idx);
         }
-
         pumpQueue();
       }
 
-      // Priority initialization: Ensure immediate scroll runway before downloading distant frames
       function initializePreloading() {
-        // 1. Immediately load frame 1 (poster)
+        // 1. Poster frame (frame 1)
         fetchFrame(1).then(() => {
           lastRenderedIndex = 1;
           renderImageCover(imageCache.get(1)!);
+          revealCanvas();
 
-          // 2. Immediately buffer frames 2 through 16 (the initial scroll runway)
-          for (let i = 2; i <= 16 && i <= CONFIG.totalFrames; i++) {
-            queueFrame(i);
-          }
+          // 2. Immediate scroll runway (frames 2-20)
+          for (let i = 2; i <= 20 && i <= CONFIG.totalFrames; i++) queueFrame(i);
 
-          // 3. Buffer sparse milestone keyframes for long jumps
-          for (let i = 24; i <= CONFIG.totalFrames; i += 8) {
-            queueFrame(i);
-          }
+          // 3. Sparse milestone keyframes for fast-scroll resilience
+          for (let i = 28; i <= CONFIG.totalFrames; i += 8) queueFrame(i);
 
-          // 4. Fill in remaining frames as background low-priority
-          for (let i = 17; i <= CONFIG.totalFrames; i++) {
-            if (!pendingQueue.includes(i) && !imageCache.has(i)) {
-              queueFrame(i);
-            }
+          // 4. Background fill for remaining frames
+          for (let i = 21; i <= CONFIG.totalFrames; i++) {
+            if (!pendingQueue.includes(i) && !imageCache.has(i)) queueFrame(i);
           }
         });
       }
 
-      // =========================================================================
-      // SCROLL POSITION & MOMENTUM LERP LOOP
-      // =========================================================================
+      // =====================================================================
+      // SCROLL POSITION CALCULATION
+      // =====================================================================
       function calculateScrollProgress(): number {
         if (!container) return 0;
         const rect = container.getBoundingClientRect();
         const headerOffset = 80;
         const viewportHeight = window.innerHeight - headerOffset;
         const totalScrollableDistance = rect.height - viewportHeight;
-
         if (totalScrollableDistance <= 0) return 0;
-
         const scrolled = headerOffset - rect.top;
         return Math.min(Math.max(scrolled / totalScrollableDistance, 0), 1);
       }
 
+      // =====================================================================
+      // OVERLAY / PARALLAX EFFECTS
+      // =====================================================================
       function updateOverlayElements(progress: number) {
-        // 1. Hero Content fade & translate (0% to 25% of scroll)
         if (heroContent) {
           const fadeProgress = Math.min(progress / 0.22, 1);
           const opacity = Math.max(0, 1 - fadeProgress);
           const translateY = -fadeProgress * 45;
           const scale = 1 - fadeProgress * 0.04;
-
           heroContent.style.opacity = String(opacity);
           heroContent.style.transform = `translate3d(0, ${translateY}px, 0) scale(${scale})`;
           heroContent.style.pointerEvents = opacity < 0.1 ? 'none' : 'auto';
         }
 
-        // 2. Scroll hint indicator
         if (heroScrollHint) {
-          const hintOpacity = Math.max(0, 1 - progress * 7);
-          heroScrollHint.style.opacity = String(hintOpacity);
+          heroScrollHint.style.opacity = String(Math.max(0, 1 - progress * 7));
         }
 
-        // 3. Dark Overlay
         if (overlayDark) {
           const darkProgress = Math.min(progress / 0.45, 1);
           overlayDark.style.opacity = String(0.85 - darkProgress * 0.6);
         }
 
-        // 4. Bottom blend
         if (bottomBlend) {
           const blendProgress = Math.max(0, (progress - 0.85) / 0.15);
           bottomBlend.style.opacity = String(blendProgress);
         }
       }
 
-      function animationTick() {
+      // =====================================================================
+      // ANIMATION LOOP (Frame-rate independent exponential decay)
+      // =====================================================================
+      // Uses `1 - exp(-speed * dt)` for consistent buttery motion at
+      // 60Hz, 120Hz, and 144Hz displays without any tuning.
+      // =====================================================================
+      function animationTick(timestamp: number) {
+        // Calculate delta time (capped at 50ms to prevent huge jumps after tab-switch)
+        if (!lastTimestamp) lastTimestamp = timestamp;
+        const dt = Math.min((timestamp - lastTimestamp) / 1000, 0.05);
+        lastTimestamp = timestamp;
+
         const delta = targetFrame - currentFrame;
 
-        if (Math.abs(delta) > 0.02) {
-          currentFrame += delta * CONFIG.lerpFactor;
+        if (Math.abs(delta) > CONFIG.snapThreshold) {
+          // Exponential decay: frame-rate independent smoothing
+          const factor = 1 - Math.exp(-CONFIG.smoothingSpeed * dt);
+          currentFrame += delta * factor;
           drawFrame(Math.round(currentFrame));
           requestAnimationFrame(animationTick);
         } else {
+          // Snap to target and stop the loop
           currentFrame = targetFrame;
           drawFrame(Math.round(currentFrame));
           isAnimating = false;
+          lastTimestamp = 0;
         }
       }
 
+      // =====================================================================
+      // SCROLL HANDLER
+      // =====================================================================
       function onScroll() {
         const progress = calculateScrollProgress();
         const newTarget = 1 + progress * (CONFIG.totalFrames - 1);
 
         // Detect direction
-        if (newTarget > targetFrame) {
-          scrollDirection = 1;
-        } else if (newTarget < targetFrame) {
-          scrollDirection = -1;
-        }
+        if (newTarget > targetFrame) scrollDirection = 1;
+        else if (newTarget < targetFrame) scrollDirection = -1;
         targetFrame = newTarget;
 
-        // Update UI overlays
+        // Update parallax overlays
         updateOverlayElements(progress);
 
         // Prioritize frames ahead of the user's scroll direction
         prioritizeWindow(Math.round(currentFrame), scrollDirection >= 0);
 
-        // Start smooth lerp loop if not already running
+        // Start the smooth animation loop if not already running
         if (!isAnimating) {
           isAnimating = true;
+          lastTimestamp = 0; // Reset for fresh dt calculation
           requestAnimationFrame(animationTick);
         }
       }
 
-      // Event Listeners
+      // =====================================================================
+      // VISIBILITY API (Pause when tab hidden, resync on return)
+      // =====================================================================
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden) {
+          // Coming back to tab — reset timestamp and resync
+          lastTimestamp = 0;
+          if (!isAnimating) onScroll();
+        }
+      });
+
+      // =====================================================================
+      // INITIALIZE
+      // =====================================================================
       window.addEventListener('scroll', onScroll, { passive: true });
       window.addEventListener('resize', resizeCanvas, { passive: true });
 
-      // Initialize
       resizeCanvas();
       initializePreloading();
       onScroll();
