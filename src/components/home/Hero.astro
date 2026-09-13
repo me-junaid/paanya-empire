@@ -364,15 +364,11 @@
           renderImageCover(imageCache.get(1)!);
           revealCanvas();
 
-          // 2. Immediate scroll runway (frames 2-20)
-          for (let i = 2; i <= 20 && i <= CONFIG.totalFrames; i++) queueFrame(i);
-
-          // 3. Sparse milestone keyframes for fast-scroll resilience
-          for (let i = 28; i <= CONFIG.totalFrames; i += 8) queueFrame(i);
-
-          // 4. Background fill for remaining frames
-          for (let i = 21; i <= CONFIG.totalFrames; i++) {
-            if (!pendingQueue.includes(i) && !imageCache.has(i)) queueFrame(i);
+          // 2. Queue all remaining frames in sequential order
+          // This prevents network saturation by sparse keyframes,
+          // allowing 'prioritizeWindow' on scroll to respond instantly.
+          for (let i = 2; i <= CONFIG.totalFrames; i++) {
+            queueFrame(i);
           }
         });
       }
