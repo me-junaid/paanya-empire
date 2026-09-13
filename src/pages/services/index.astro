@@ -96,50 +96,56 @@ const otherServices = services.filter((s) => s.id !== flagshipService.id);
 
   <!-- 3. FLAGSHIP SPOTLIGHT (Turnkey Construction) -->
   {flagshipService && (
-    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-      <div class="relative w-full rounded-2xl overflow-hidden bg-[#071A33] text-on-primary shadow-lg border border-outline-variant/30 flex flex-col lg:flex-row">
+    <section class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+      <div class="relative w-full rounded-2xl overflow-hidden bg-[#071A33] text-white shadow-xl border border-outline-variant/30 flex flex-col lg:flex-row lg:h-[340px]">
         <!-- Spotlight Media -->
-        <div class="relative w-full lg:w-3/5 min-h-[340px] sm:min-h-[420px] bg-cover bg-center overflow-hidden group">
+        <div class="relative w-full lg:w-1/2 h-60 sm:h-72 lg:h-full overflow-hidden group shrink-0">
           <img 
             src={flagshipService.listingImage} 
             alt={flagshipService.title}
-            class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
             loading="lazy"
           />
-          <div class="absolute inset-0 bg-gradient-to-t from-[#071A33] via-[#071A33]/40 to-transparent"></div>
+          <div class="absolute inset-0 bg-gradient-to-t from-[#071A33] via-[#071A33]/25 to-transparent"></div>
           
-          <div class="absolute top-4 left-4 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface-container-lowest/90 backdrop-blur-md text-[10px] font-bold uppercase tracking-wider text-primary">
-            <span class="w-1.5 h-1.5 rounded-full bg-primary animate-pulse"></span>
+          <div class="absolute top-3.5 left-3.5 inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/60 backdrop-blur-md text-[10px] font-bold uppercase tracking-wider text-sky-300 border border-white/15">
+            <span class="w-1.5 h-1.5 rounded-full bg-primary-container animate-pulse"></span>
             Flagship Offering · All-Inclusive
           </div>
 
-          <div class="absolute bottom-4 left-4 right-4 text-on-primary">
-            <span class="text-[10px] font-semibold tracking-widest uppercase text-secondary-fixed">
+          <div class="absolute bottom-3.5 left-4 right-4 text-white">
+            <span class="text-[10px] font-semibold tracking-widest uppercase text-sky-200">
               One Team · End-to-End Governance
             </span>
-            <h3 class="font-headline text-2xl sm:text-3xl font-bold uppercase tracking-tight text-on-primary mt-1">
+            <h3 class="font-headline text-xl sm:text-2xl font-bold uppercase tracking-tight text-white mt-0.5">
               {flagshipService.title}
             </h3>
           </div>
         </div>
 
         <!-- Spotlight Content -->
-        <div class="p-6 sm:p-8 flex flex-col justify-between gap-6 bg-[#092244] lg:w-2/5">
+        <div class="p-6 sm:p-7 flex flex-col justify-between bg-[#092244] lg:w-1/2 lg:h-full">
           <div class="flex flex-col gap-3">
-            <span class="text-[10px] font-bold uppercase tracking-widest text-primary-fixed">
-              Zero Contractor Handoffs
-            </span>
-            <p class="text-xs sm:text-sm text-surface-container-high leading-relaxed">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] font-bold uppercase tracking-widest text-sky-300">
+                Zero Contractor Handoffs
+              </span>
+              <span class="text-[10px] font-semibold text-white/70 uppercase tracking-wider">
+                100% Fixed BOQ
+              </span>
+            </div>
+            
+            <p class="text-xs sm:text-[13px] text-white/85 leading-relaxed line-clamp-3">
               {flagshipService.shortDescription}
             </p>
 
-            <div class="flex flex-col gap-2 pt-2 border-t border-white/10">
-              <span class="text-[10px] uppercase font-bold tracking-widest text-secondary-fixed">
+            <div class="flex flex-col gap-1.5 pt-2 border-t border-white/10">
+              <span class="text-[10px] uppercase font-bold tracking-widest text-sky-200">
                 Complete Project Journey
               </span>
               <div class="flex flex-wrap gap-1.5">
                 {['Design', 'Approvals', 'Construction', 'MEP', 'Interiors', 'Handover'].map((stage) => (
-                  <span class="px-2.5 py-1 rounded-md bg-[#13305a] text-[10px] font-semibold text-primary-fixed uppercase tracking-wider">
+                  <span class="px-2.5 py-1 rounded-md bg-white/10 text-[10px] font-semibold text-white tracking-wider uppercase border border-white/10">
                     {stage}
                   </span>
                 ))}
@@ -147,15 +153,17 @@ const otherServices = services.filter((s) => s.id !== flagshipService.id);
             </div>
           </div>
 
-          <a 
-            href={`/services/${flagshipService.slug}`}
-            class="inline-flex items-center justify-between w-full h-12 px-5 rounded-xl bg-primary text-on-primary text-xs font-semibold tracking-wider uppercase hover:bg-primary-container transition-colors shadow-xs"
-          >
-            <span>Explore {flagshipService.title}</span>
-            <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-            </svg>
-          </a>
+          <div class="pt-3">
+            <a 
+              href={`/services/${flagshipService.slug}`}
+              class="inline-flex items-center justify-between w-full h-11 px-5 rounded-xl bg-primary text-white text-xs font-semibold tracking-wider uppercase hover:bg-primary-container transition-all shadow-md active:scale-[0.99]"
+            >
+              <span>Explore {flagshipService.title}</span>
+              <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              </svg>
+            </a>
+          </div>
         </div>
       </div>
     </section>

@@ -14,6 +14,21 @@
   --color-outline-variant: #c1c6d5;
   --color-error: #ba1a1a;
 
+  /* Additional Design Tokens (Stitch Fidelity Modern) */
+  --color-primary-fixed: #d8e2ff;
+  --color-primary-fixed-dim: #adc7ff;
+  --color-on-primary-fixed: #001b3f;
+  --color-secondary-fixed: #dbe2f9;
+  --color-secondary-fixed-dim: #b0c7ed;
+  --color-on-secondary-fixed: #121c2b;
+  --color-surface-container-lowest: #ffffff;
+  --color-surface-container-low: #f3f3f9;
+  --color-surface-container: #ededf4;
+  --color-surface-container-high: #e7e7ee;
+  --color-surface-container-highest: #e1e2e8;
+  --color-inverse-surface: #2e3036;
+  --color-inverse-on-surface: #f0f0f7;
+
   /* Typography */
   --font-inter: "Inter", sans-serif;
   --font-sans: var(--font-inter);

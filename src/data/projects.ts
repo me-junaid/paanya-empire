@@ -16,7 +16,7 @@ export const projectsData: Project[] = [
     executionScope: 'Full Turnkey EPC',
     timelineDuration: '14 Months Total',
     guarantee: 'Covered under PAANYA 10-Year Structural Defect Guarantee & 24-Month Comprehensive Fit-out Assurance.',
-    thumbnail: 'https://images.unsplash.com/photo-1613490908677-8df7d013f9f3?auto=format&fit=crop&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80',
     heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80',
     summary: 'An architectural residence designed around contemporary living, cantilevered geometric volumes, bespoke structural glazing, and refined monolithic stone craftsmanship.',
     description: 'A contemporary cliffside residence balancing cantilevered geometric concrete volumes, floor-to-ceiling structural glazing, and bespoke monolithic craftsmanship, coordinated from deep foundation to final turnkey interior handover.',
@@ -115,7 +115,7 @@ export const projectsData: Project[] = [
         span: 'half'
       },
       {
-        url: 'https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&q=80',
+        url: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80',
         alt: 'Site Calibration & Post-Tension Slab Rigging',
         caption: 'Site Calibration & Post-Tension Slab Rigging',
         categoryLabel: 'Execution Engineering',
@@ -150,7 +150,7 @@ export const projectsData: Project[] = [
       tagline: 'Behind the Finished Facade',
       headline: 'Structural Subtlety Built from Heavy Civil Might',
       description: 'The delicate lightness of the finished residence is an optical trick supported by massive geotechnical infrastructure. To achieve the 6.2-meter floating living terrace, we poured 380 cubic meters of high-density C45/55 structural concrete tied into deep tension anchors.',
-      image: 'https://images.unsplash.com/photo-1541888946425-d0fbb18086f6?auto=format&fit=crop&q=80',
+      image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80',
       imageAlt: 'Site managers reviewing blueprints on concrete deck',
       badges: ['BUILD', 'REFINE', 'COMPLETE'],
       checkpoints: [
