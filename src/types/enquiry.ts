@@ -45,11 +45,11 @@ export const PROPERTY_TYPES = [
 
 export const SERVICE_OPTIONS = [
   'Turnkey Construction (Design to Key Handover)',
-  'Architectural & Engineering Only',
+  'Real Estate & Land Development',
+  'Security Services & Facility Guarding',
+  'Skilled Manpower Deployment',
   'Civil Structural Contracting',
-  'Interior Architecture & Bespoke Millwork',
-  'Comprehensive Project Management',
-  'Heritage or Structural Renovation',
+  'Architectural & Engineering Only',
   'Not Sure Yet (Need Advisory)',
 ] as const;
 

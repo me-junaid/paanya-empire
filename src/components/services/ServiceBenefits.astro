@@ -23,7 +23,7 @@ const { benefits } = Astro.props;
       </p>
     </div>
     
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 w-full">
+    <div class={`grid grid-cols-1 ${benefits.items.length === 4 ? 'sm:grid-cols-2 lg:grid-cols-4' : 'md:grid-cols-3'} gap-6 w-full`}>
       {benefits.items.map((item) => (
         <div class="p-6 sm:p-8 rounded-2xl bg-surface-container-lowest shadow-xs flex flex-col items-center text-center gap-4 hover:shadow-md transition-shadow border border-outline-variant/30">
           <div class="w-12 h-12 rounded-xl bg-surface-container text-primary flex items-center justify-center">

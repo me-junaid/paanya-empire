@@ -1,11 +1,15 @@
 ---
+import { getServices } from '../../lib/services';
+
 const pathname = Astro.url.pathname;
 const normalize = (path: string) => (path === '/' ? '/' : path.replace(/\/$/, ''));
 const currentPath = normalize(pathname);
 
+const services = await getServices();
+
 const links = [
   { text: 'Home', href: '/' },
-  { text: 'Services', href: '/services' },
+  { text: 'Services', href: '/services', hasDropdown: true },
   { text: 'Projects', href: '/projects' },
   { text: 'About', href: '/about' },
   { text: 'Process', href: '/process' },
@@ -27,13 +31,14 @@ const isContactActive = currentPath === '/contact';
       
       <!-- Brand Logo (Left Column) -->
       <div class="flex-1 flex items-center justify-start">
-        <a href="/" class="flex flex-col group py-1" aria-label="Paanya Empire Homepage">
-          <span class="font-headline font-extrabold text-xl tracking-[0.16em] uppercase text-primary group-hover:text-primary-container transition-colors">
-            PAANYA EMPIRE
-          </span>
-          <span class="font-headline text-[8.5px] tracking-[0.28em] font-semibold text-outline uppercase group-hover:text-primary transition-colors -mt-0.5">
-            DESIGN • BUILD • DELIVER
-          </span>
+        <a href="/" class="flex items-center group py-1" aria-label="Paanya Empire Homepage">
+          <img 
+            src="/images/logo.webp" 
+            alt="Paanya Empire - Anything Can Be Built" 
+            class="h-9 sm:h-10 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]"
+            width="193"
+            height="40"
+          />
         </a>
       </div>
       
@@ -41,6 +46,73 @@ const isContactActive = currentPath === '/contact';
       <nav class="hidden md:flex items-center justify-center space-x-1 lg:space-x-3">
         {links.map(link => {
           const active = isLinkActive(link.href);
+          if (link.hasDropdown) {
+            return (
+              <div class="relative group py-2">
+                <a 
+                  href={link.href} 
+                  aria-current={active ? 'page' : undefined}
+                  class={`relative px-3.5 py-2 text-xs uppercase tracking-widest transition-all duration-200 flex items-center gap-1.5 ${
+                    active 
+                      ? 'text-primary font-bold' 
+                      : 'text-on-surface-variant group-hover:text-primary font-semibold'
+                  }`}
+                >
+                  <span>{link.text}</span>
+                  <svg 
+                    class="w-3.5 h-3.5 text-current transition-transform duration-200 group-hover:rotate-180 shrink-0" 
+                    viewBox="0 0 24 24" 
+                    fill="none" 
+                    stroke="currentColor" 
+                    stroke-width="2.5" 
+                    aria-hidden="true"
+                  >
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M19 9l-7 7-7-7" />
+                  </svg>
+                </a>
+
+                <!-- Dropdown Menu -->
+                <div 
+                  class="absolute left-1/2 -translate-x-1/2 top-full pt-1 opacity-0 translate-y-1 invisible pointer-events-none group-hover:opacity-100 group-hover:translate-y-0 group-hover:visible group-hover:pointer-events-auto transition-all duration-200 z-50 w-80"
+                  style="position: absolute;"
+                >
+                  <div class="p-3 bg-surface/98 backdrop-blur-xl rounded-2xl shadow-xl border border-outline-variant/30 flex flex-col gap-1.5">
+                    <div class="px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-outline border-b border-outline-variant/20 mb-1">
+                      Our Disciplines
+                    </div>
+                    {services.map((s) => (
+                      <a 
+                        href={`/services/${s.slug}`}
+                        class="flex items-center gap-3 p-2.5 rounded-xl hover:bg-surface-container transition-all group/item"
+                      >
+                        <div class="w-9 h-9 rounded-lg bg-surface-container text-primary group-hover/item:bg-primary group-hover/item:text-on-primary transition-colors flex items-center justify-center shrink-0">
+                          <span class="material-symbols-outlined text-[20px]">{s.icon}</span>
+                        </div>
+                        <div class="flex flex-col">
+                          <span class="text-xs font-bold text-on-surface group-hover/item:text-primary transition-colors">
+                            {s.title}
+                          </span>
+                          <span class="text-[10px] text-on-surface-variant line-clamp-1">
+                            {s.overview.subtitle}
+                          </span>
+                        </div>
+                      </a>
+                    ))}
+                    <div class="pt-2 mt-1 border-t border-outline-variant/20 px-2">
+                      <a 
+                        href="/services" 
+                        class="flex items-center justify-between text-[11px] font-bold uppercase tracking-wider text-primary hover:text-primary-container transition-colors py-1"
+                      >
+                        <span>All Services Overview</span>
+                        <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            );
+          }
+
           return (
             <a 
               href={link.href} 
@@ -96,20 +168,35 @@ const isContactActive = currentPath === '/contact';
       {links.map(link => {
         const active = isLinkActive(link.href);
         return (
-          <a 
-            href={link.href} 
-            aria-current={active ? 'page' : undefined}
-            class={`flex items-center justify-between px-4 py-3 rounded-xl text-xs uppercase tracking-wider font-bold transition-all ${
-              active 
-                ? 'bg-primary/10 text-primary border-l-4 border-primary pl-3.5' 
-                : 'text-on-surface-variant hover:text-primary hover:bg-surface-container/60'
-            }`}
-          >
-            <span>{link.text}</span>
-            {active && (
-              <span class="material-symbols-outlined text-[16px] text-primary">check</span>
+          <div class="flex flex-col">
+            <a 
+              href={link.href} 
+              aria-current={active ? 'page' : undefined}
+              class={`flex items-center justify-between px-4 py-3 rounded-xl text-xs uppercase tracking-wider font-bold transition-all ${
+                active 
+                  ? 'bg-primary/10 text-primary border-l-4 border-primary pl-3.5' 
+                  : 'text-on-surface-variant hover:text-primary hover:bg-surface-container/60'
+              }`}
+            >
+              <span>{link.text}</span>
+              {active && (
+                <span class="material-symbols-outlined text-[16px] text-primary">check</span>
+              )}
+            </a>
+            {link.hasDropdown && (
+              <div class="flex flex-col gap-1 pl-6 pr-2 py-1.5 border-l-2 border-primary/20 ml-5 my-1">
+                {services.map(s => (
+                  <a 
+                    href={`/services/${s.slug}`}
+                    class="flex items-center gap-2.5 py-2 text-xs text-on-surface-variant hover:text-primary font-medium transition-colors"
+                  >
+                    <span class="material-symbols-outlined text-[18px] text-primary">{s.icon}</span>
+                    <span>{s.title}</span>
+                  </a>
+                ))}
+              </div>
             )}
-          </a>
+          </div>
         );
       })}
     </nav>

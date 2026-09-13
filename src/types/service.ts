@@ -56,6 +56,18 @@ export interface ServiceProcessPhase {
   description: string;
 }
 
+export interface ServicePlan {
+  name: string;
+  badge?: string;
+  idealFor: string;
+  features: string[];
+}
+
+export interface ServiceStat {
+  label: string;
+  value: string;
+}
+
 export interface Service {
   id: string;
   slug: string;
@@ -75,4 +87,6 @@ export interface Service {
   scope: ServiceScope;
   benefits?: ServiceBenefits;
   process?: ServiceProcessPhase[];
+  plans?: ServicePlan[];
+  stats?: ServiceStat[];
 }

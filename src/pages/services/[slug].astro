@@ -33,6 +33,24 @@ if (!service) {
       heroImage={service.heroImage}
       description={service.shortDescription}
     />
+
+    <!-- Key Metrics / Stats Bar (if defined) -->
+    {service.stats && service.stats.length > 0 && (
+      <section class="w-full bg-surface-container-low border-b border-outline-variant/30 py-8 px-4 sm:px-6 lg:px-8">
+        <div class="max-w-6xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+          {service.stats.map((stat) => (
+            <div class="flex flex-col gap-1 items-center">
+              <span class="font-headline text-2xl sm:text-3xl font-extrabold text-primary tracking-tight">
+                {stat.value}
+              </span>
+              <span class="text-[10px] sm:text-xs font-semibold uppercase tracking-wider text-on-surface-variant">
+                {stat.label}
+              </span>
+            </div>
+          ))}
+        </div>
+      </section>
+    )}
     
     <!-- 2. Concept & Capabilities -->
     <ServiceConcept 
@@ -41,6 +59,64 @@ if (!service) {
       description={service.overview.description}
       capabilities={service.overview.capabilities}
     />
+
+    <!-- 2.5 Plans & Packages (if defined) -->
+    {service.plans && service.plans.length > 0 && (
+      <section class="w-full py-16 px-4 sm:px-6 lg:px-8 bg-surface-container-low border-y border-outline-variant/20">
+        <div class="max-w-6xl mx-auto flex flex-col gap-10">
+          <div class="flex flex-col gap-2 items-center text-center">
+            <span class="text-[11px] font-bold uppercase tracking-widest text-primary">
+              Protection Packages
+            </span>
+            <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-on-surface">
+              Service Plans &amp; Tiers
+            </h2>
+            <p class="text-xs sm:text-sm text-on-surface-variant max-w-xl leading-relaxed">
+              Tailored security and workforce deployment frameworks designed for residential communities, healthcare institutions, and corporate facilities.
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+            {service.plans.map((plan, idx) => (
+              <div class={`rounded-2xl p-6 sm:p-8 flex flex-col justify-between gap-6 border transition-all ${idx === 0 ? 'bg-surface border-primary shadow-md ring-2 ring-primary/20' : 'bg-surface-container-lowest border-outline-variant/30 shadow-xs'}`}>
+                <div class="flex flex-col gap-4">
+                  <div class="flex items-center justify-between gap-2">
+                    <h3 class="font-headline text-xl font-bold uppercase text-on-surface">
+                      {plan.name}
+                    </h3>
+                    {plan.badge && (
+                      <span class={`px-2.5 py-1 rounded-full text-[10px] font-bold uppercase tracking-wider ${idx === 0 ? 'bg-primary text-on-primary' : 'bg-surface-container text-secondary'}`}>
+                        {plan.badge}
+                      </span>
+                    )}
+                  </div>
+
+                  <div class="p-3 rounded-xl bg-surface-container-low text-[11px] text-on-surface-variant leading-relaxed">
+                    <span class="font-bold text-on-surface">Ideal For:</span> {plan.idealFor}
+                  </div>
+
+                  <ul class="flex flex-col gap-2.5 pt-2">
+                    {plan.features.map((feat) => (
+                      <li class="flex items-start gap-2.5 text-xs text-on-surface-variant">
+                        <span class="material-symbols-outlined text-[18px] text-primary shrink-0 mt-0.5">check_circle</span>
+                        <span>{feat}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+
+                <a 
+                  href="/contact" 
+                  class={`w-full h-11 rounded-xl text-xs font-bold uppercase tracking-wider flex items-center justify-center transition-colors ${idx === 0 ? 'bg-primary text-on-primary hover:bg-primary-container shadow-xs' : 'bg-surface-container text-on-surface hover:bg-primary hover:text-on-primary'}`}
+                >
+                  Request Deployment Quote
+                </a>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+    )}
     
     <!-- 3. Comparison (if turnkey) -->
     {service.comparison && (

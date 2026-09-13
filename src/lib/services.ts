@@ -17,7 +17,7 @@ export async function getServices(): Promise<Service[]> {
  */
 export async function getServiceBySlug(slug: string): Promise<Service | undefined> {
   const allServices = await getServices();
-  return allServices.find((s) => s.slug === slug);
+  return allServices.find((s) => s.slug === slug || (slug === 'turnkey-construction' && s.slug === 'construction'));
 }
 
 /**
