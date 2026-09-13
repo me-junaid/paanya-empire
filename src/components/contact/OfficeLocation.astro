@@ -23,17 +23,21 @@
     <!-- Map & Physical Address Card -->
     <div class="flex flex-col lg:flex-row rounded-2xl overflow-hidden bg-surface-container shadow-xs border border-outline-variant/30">
       
-      <!-- Studio Location Image -->
-      <div class="w-full lg:w-1/2 h-56 lg:h-auto min-h-[240px] relative overflow-hidden bg-surface-container-high">
-        <div 
-          class="w-full h-full bg-cover bg-center transition-transform duration-700 hover:scale-105" 
-          role="img" 
-          aria-label="Paanya Empire Central Design Bureau in Bengaluru" 
-          style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuD9-gWI8yIwFSLQMXcDiLIZYbUwyNuQaYqMm0ft8SnjP73Vgsf21pTYdn_7cJ3PbQ18Hp9n3xp7_y_9G66bD68bhut4jnVYZUKJWTk_adJOMiiH7tU9zUzwtchXxj_XBsYPVmMo8975KGwl5vRVOLrMZ22ZsvhnpHDaAQo8VG7NJLUFpPEWMWh8zlPIPv69mPw40HfGNZik78RPgCv9YcaX_Eoitrt24LohUJ_YjtIW8fFRqyWhlOFxHA')"
-        >
-        </div>
-        <div class="absolute top-4 left-4 bg-inverse-surface/85 backdrop-blur-md px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-wider uppercase text-inverse-on-surface flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
+      <!-- Interactive Google Map Embed -->
+      <div class="w-full lg:w-1/2 h-72 sm:h-80 lg:h-auto min-h-[300px] lg:min-h-[360px] relative overflow-hidden bg-surface-container-high">
+        <iframe 
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3886.6344727810065!2d77.58491547538308!3d13.058923212957136!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bae3d0213ed8e45%3A0x28e1fee18b669def!2s1Aset.com!5e0!3m2!1sen!2sin!4v1789310280026!5m2!1sen!2sin" 
+          width="100%" 
+          height="100%" 
+          style="border:0;" 
+          allowfullscreen="" 
+          loading="lazy" 
+          referrerpolicy="strict-origin-when-cross-origin"
+          title="Paanya Empire Office Location Map"
+          class="w-full h-full min-h-[300px] lg:min-h-[360px] border-0"
+        ></iframe>
+        <div class="absolute top-4 left-4 bg-inverse-surface/90 backdrop-blur-md px-3 py-1.5 rounded-lg text-[10px] font-bold tracking-wider uppercase text-inverse-on-surface flex items-center gap-1.5 pointer-events-none shadow-sm">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
           <span>Flagship Atelier</span>
         </div>
       </div>

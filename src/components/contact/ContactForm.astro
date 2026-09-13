@@ -185,9 +185,10 @@ import { PROPERTY_TYPES, SERVICE_OPTIONS, BUDGET_OPTIONS, PROJECT_STAGES } from 
               <button 
                 type="button" 
                 data-stage={stage}
+                aria-pressed={idx === 0 ? 'true' : 'false'}
                 class={`stage-btn py-2 px-2 text-[10px] font-bold rounded-xl tracking-tight uppercase text-center transition-all cursor-pointer border ${
                   idx === 0 
-                    ? 'bg-primary text-on-primary border-primary shadow-xs' 
+                    ? 'bg-primary text-on-primary border-primary shadow-xs hover:bg-primary-container' 
                     : 'bg-surface-container text-on-surface border-outline-variant/30 hover:bg-surface-container-high'
                 }`}
               >
@@ -262,17 +263,21 @@ import { PROPERTY_TYPES, SERVICE_OPTIONS, BUDGET_OPTIONS, PROJECT_STAGES } from 
     if (!form) return;
 
     // Stage button selection logic
-    const stageBtns = form.querySelectorAll('.stage-btn');
+    const stageBtns = form.querySelectorAll<HTMLButtonElement>('.stage-btn');
     const stageInput = document.getElementById('selectedStageInput') as HTMLInputElement | null;
+    const unselectedStageClasses = ['bg-surface-container', 'text-on-surface', 'border-outline-variant/30', 'hover:bg-surface-container-high'];
+    const selectedStageClasses = ['bg-primary', 'text-on-primary', 'border-primary', 'shadow-xs', 'hover:bg-primary-container'];
 
     stageBtns.forEach(btn => {
       btn.addEventListener('click', () => {
         stageBtns.forEach(b => {
-          b.classList.remove('bg-primary', 'text-on-primary', 'border-primary', 'shadow-xs');
-          b.classList.add('bg-surface-container', 'text-on-surface', 'border-outline-variant/30');
+          b.classList.remove(...selectedStageClasses);
+          b.classList.add(...unselectedStageClasses);
+          b.setAttribute('aria-pressed', 'false');
         });
-        btn.classList.add('bg-primary', 'text-on-primary', 'border-primary', 'shadow-xs');
-        btn.classList.remove('bg-surface-container', 'text-on-surface', 'border-outline-variant/30');
+        btn.classList.remove(...unselectedStageClasses);
+        btn.classList.add(...selectedStageClasses);
+        btn.setAttribute('aria-pressed', 'true');
         
         if (stageInput) {
           stageInput.value = btn.getAttribute('data-stage') || 'Just Exploring';
