@@ -254,9 +254,10 @@ const services: Service[] = [
     title: 'FortMan Security & Manpower',
     isFlagship: false,
     shortDescription: 'A Division of Paanya Empire Pvt Ltd. Established in 2018 (originally Good Life Associates, merged with Paanya Empire in 2024), FortMan delivers disciplined security guards, ex-army personnel, dynamic ERP monitoring, and facility manpower across Karnataka and Andhra Pradesh.',
-    heroImage: 'https://images.unsplash.com/photo-1557804506-669a67965ba0?auto=format&fit=crop&q=80',
+    heroImage: '/images/fortman-hero.webp',
     listingImage: 'https://images.unsplash.com/photo-1582139329536-e7284fece509?auto=format&fit=crop&q=80',
     icon: 'shield_person',
+    brandLogo: '/images/fortman-logo.webp',
     stats: [
       { label: 'Guards & Manpower Deployed', value: '1,000+' },
       { label: 'Satisfied Institutional Clients', value: '100+' },

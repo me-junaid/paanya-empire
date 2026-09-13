@@ -77,6 +77,7 @@ export interface Service {
   heroImage: string;
   listingImage: string;
   icon: string;
+  brandLogo?: string;
   overview: {
     subtitle: string;
     title: string;

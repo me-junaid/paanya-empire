@@ -4,9 +4,10 @@ interface Props {
   subtitle: string;
   heroImage: string;
   description: string;
+  brandLogo?: string;
 }
 
-const { title, subtitle, heroImage, description } = Astro.props;
+const { title, subtitle, heroImage, description, brandLogo } = Astro.props;
 ---
 
 <!-- 1. SERVICE HERO SECTION -->
@@ -31,9 +32,22 @@ const { title, subtitle, heroImage, description } = Astro.props;
         </span>
       </div>
 
-      <h1 class="font-headline text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-on-primary uppercase leading-tight mb-4 max-w-4xl">
-        {title}
-      </h1>
+      <div class="flex items-center gap-4 sm:gap-6 mb-4">
+        <h1 class="font-headline text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-on-primary uppercase leading-tight max-w-4xl">
+          {title}
+        </h1>
+        {brandLogo && (
+          <div class="shrink-0 p-2 sm:p-2.5 rounded-2xl bg-white/10 backdrop-blur-md border border-white/20 shadow-2xl">
+            <img 
+              src={brandLogo} 
+              alt={`${title} Logo`}
+              class="h-14 sm:h-20 md:h-24 lg:h-28 w-auto object-contain"
+              width="112"
+              height="112"
+            />
+          </div>
+        )}
+      </div>
 
       <p class="text-sm sm:text-base text-surface-container-low max-w-2xl font-light leading-relaxed mb-8">
         {description}
