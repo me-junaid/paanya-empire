@@ -111,10 +111,16 @@
     smoothingSpeed: 9,
     // Snap to target when within this distance (prevents infinite micro-iterations)
     snapThreshold: 0.06,
-    // Max parallel background downloads
-    maxConcurrentDownloads: 6,
-    // Number of frames to buffer ahead of scroll position
-    lookaheadBuffer: 20,
+    // Max parallel downloads when user is actively scrolling
+    activeConcurrentDownloads: 6,
+    // Max parallel downloads during background idle prefetching (keeps network free)
+    idleConcurrentDownloads: 2,
+    // Number of frames to buffer ahead of active scroll position
+    lookaheadBuffer: 18,
+    // Immediate high-priority buffer on startup (guarantees instantaneous initial touch response)
+    initialBuffer: 14,
+    // Keyframe scaffold step interval for whole-track instant fallback
+    keyframeStep: 6,
     // Source image aspect ratio (1920 / 1080 = 16:9)
     imageAspectRatio: 1920 / 1080,
   };
@@ -152,6 +158,9 @@
     const loadingSet = new Set<number>();
     const pendingQueue: number[] = [];
     let activeDownloads = 0;
+    let isUserScrolling = false;
+    let scrollStopTimer: ReturnType<typeof setTimeout> | null = null;
+    let idleScheduleId: any = null;
 
     // Detect reduced motion preference
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -319,7 +328,11 @@
       }
 
       function pumpQueue() {
-        while (activeDownloads < CONFIG.maxConcurrentDownloads && pendingQueue.length > 0) {
+        const maxConcurrent = isUserScrolling
+          ? CONFIG.activeConcurrentDownloads
+          : CONFIG.idleConcurrentDownloads;
+
+        while (activeDownloads < maxConcurrent && pendingQueue.length > 0) {
           const nextIdx = pendingQueue.shift();
           if (nextIdx !== undefined) fetchFrame(nextIdx);
         }
@@ -337,18 +350,30 @@
         const windowSize = CONFIG.lookaheadBuffer;
 
         if (forward) {
+          // Lookahead in direction of scroll
           for (let i = 1; i <= windowSize; i++) {
             const idx = centerIdx + i;
             if (idx <= CONFIG.totalFrames && !imageCache.has(idx) && !loadingSet.has(idx)) batch.push(idx);
           }
+          // Cushion behind for swift reversals
+          for (let i = 1; i <= 3; i++) {
+            const idx = centerIdx - i;
+            if (idx >= 1 && !imageCache.has(idx) && !loadingSet.has(idx)) batch.push(idx);
+          }
         } else {
+          // Lookahead in reverse direction
           for (let i = 1; i <= windowSize; i++) {
             const idx = centerIdx - i;
             if (idx >= 1 && !imageCache.has(idx) && !loadingSet.has(idx)) batch.push(idx);
           }
+          // Cushion ahead
+          for (let i = 1; i <= 3; i++) {
+            const idx = centerIdx + i;
+            if (idx <= CONFIG.totalFrames && !imageCache.has(idx) && !loadingSet.has(idx)) batch.push(idx);
+          }
         }
 
-        // Prepend to front of queue
+        // Prepend prioritized batch to front of queue
         for (let i = batch.length - 1; i >= 0; i--) {
           const idx = batch[i];
           const existing = pendingQueue.indexOf(idx);
@@ -358,19 +383,63 @@
         pumpQueue();
       }
 
+      // Progressively fill remaining frames during idle time without blocking network
+      function scheduleIdlePrefetch() {
+        if (idleScheduleId !== null) return;
+
+        const requestIdle = typeof (window as any).requestIdleCallback === 'function'
+          ? (window as any).requestIdleCallback
+          : (cb: Function) => setTimeout(cb, 60);
+
+        function idleWork() {
+          idleScheduleId = null;
+          if (imageCache.size >= CONFIG.totalFrames) return;
+
+          // If user is actively scrolling, yield 100% bandwidth to active lookahead
+          if (isUserScrolling) return;
+
+          // Enqueue up to 3 unloaded frames into pendingQueue
+          let queued = 0;
+          for (let i = 2; i <= CONFIG.totalFrames; i++) {
+            if (!imageCache.has(i) && !loadingSet.has(i) && !pendingQueue.includes(i)) {
+              pendingQueue.push(i);
+              queued++;
+              if (queued >= 3) break;
+            }
+          }
+
+          if (queued > 0) {
+            pumpQueue();
+          }
+
+          // If more frames remain, schedule the next idle slice
+          if (imageCache.size + loadingSet.size + pendingQueue.length < CONFIG.totalFrames) {
+            idleScheduleId = requestIdle(idleWork);
+          }
+        }
+
+        idleScheduleId = requestIdle(idleWork);
+      }
+
       function initializePreloading() {
-        // 1. Poster frame (frame 1)
+        // 1. Poster frame (frame 1) - preloaded via HTML link
         fetchFrame(1).then(() => {
           lastRenderedIndex = 1;
           renderImageCover(imageCache.get(1)!);
           revealCanvas();
 
-          // 2. Queue all remaining frames in sequential order
-          // This prevents network saturation by sparse keyframes,
-          // allowing 'prioritizeWindow' on scroll to respond instantly.
-          for (let i = 2; i <= CONFIG.totalFrames; i++) {
+          // 2. High-priority immediate forward buffer (frames 2..initialBuffer)
+          for (let i = 2; i <= Math.min(CONFIG.initialBuffer, CONFIG.totalFrames); i++) {
             queueFrame(i);
           }
+
+          // 3. Keyframe scaffold across entire animation track for instant fallback anywhere
+          for (let i = CONFIG.initialBuffer + CONFIG.keyframeStep; i <= CONFIG.totalFrames; i += CONFIG.keyframeStep) {
+            queueFrame(i);
+          }
+
+          // 4. Progressively fill remaining gaps during idle time
+          scheduleIdlePrefetch();
         });
       }
 
@@ -450,6 +519,15 @@
       // SCROLL HANDLER
       // =====================================================================
       function onScroll() {
+        // Mark user actively scrolling & boost download concurrency
+        isUserScrolling = true;
+        if (scrollStopTimer) clearTimeout(scrollStopTimer);
+        scrollStopTimer = setTimeout(() => {
+          isUserScrolling = false;
+          pumpQueue();
+          scheduleIdlePrefetch();
+        }, 350);
+
         const progress = calculateScrollProgress();
         const newTarget = 1 + progress * (CONFIG.totalFrames - 1);
 

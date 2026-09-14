@@ -16,8 +16,8 @@ export const projectsData: Project[] = [
     executionScope: 'Full Turnkey EPC',
     timelineDuration: '14 Months Total',
     guarantee: 'Covered under PAANYA 10-Year Structural Defect Guarantee & 24-Month Comprehensive Fit-out Assurance.',
-    thumbnail: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80',
-    heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=800',
+    heroImage: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1400',
     summary: 'An architectural residence designed around contemporary living, cantilevered geometric volumes, bespoke structural glazing, and refined monolithic stone craftsmanship.',
     description: 'A contemporary cliffside residence balancing cantilevered geometric concrete volumes, floor-to-ceiling structural glazing, and bespoke monolithic craftsmanship, coordinated from deep foundation to final turnkey interior handover.',
     tags: ['Architecture', 'Construction', 'Interiors', 'Smart Grid'],
@@ -85,7 +85,7 @@ export const projectsData: Project[] = [
         }
       ],
       featureImage: {
-        url: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80',
+        url: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1200',
         alt: 'Double-height ultra-luxury living room featuring a massive split stone fireplace monolithic column and panoramic windows',
         label: 'Internal Atmosphere',
         caption: 'Double-Height Monolithic Stone Hearth & Open Living Volume'
@@ -94,28 +94,28 @@ export const projectsData: Project[] = [
 
     gallery: [
       {
-        url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80',
+        url: 'https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?auto=format&fit=crop&q=80&w=1200',
         alt: 'Cantilevered Twilight Ocean Pavilion',
         caption: 'Cantilevered Twilight Ocean Pavilion',
         categoryLabel: 'Exterior Elevation',
         span: 'large'
       },
       {
-        url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80',
+        url: 'https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?auto=format&fit=crop&q=80&w=1200',
         alt: 'Double-Height Hearth & Minimalist Lounge',
         caption: 'Double-Height Hearth & Minimalist Lounge',
         categoryLabel: 'Great Room',
         span: 'split'
       },
       {
-        url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80',
+        url: 'https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200',
         alt: 'Structural Glass Balustrade & Infinity Basin',
         caption: 'Structural Glass Balustrade & Infinity Basin',
         categoryLabel: 'Perimeter',
         span: 'half'
       },
       {
-        url: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80',
+        url: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1200',
         alt: 'Site Calibration & Post-Tension Slab Rigging',
         caption: 'Site Calibration & Post-Tension Slab Rigging',
         categoryLabel: 'Execution Engineering',
@@ -150,7 +150,7 @@ export const projectsData: Project[] = [
       tagline: 'Behind the Finished Facade',
       headline: 'Structural Subtlety Built from Heavy Civil Might',
       description: 'The delicate lightness of the finished residence is an optical trick supported by massive geotechnical infrastructure. To achieve the 6.2-meter floating living terrace, we poured 380 cubic meters of high-density C45/55 structural concrete tied into deep tension anchors.',
-      image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80',
+      image: 'https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&q=80&w=1200',
       imageAlt: 'Site managers reviewing blueprints on concrete deck',
       badges: ['BUILD', 'REFINE', 'COMPLETE'],
       checkpoints: [
@@ -165,14 +165,14 @@ export const projectsData: Project[] = [
       headline: 'FROM RAW HILLSIDE TO FINISHED LANDMARK',
       description: 'Observe the dramatic metamorphosis from an inaccessible rugged slope into an architectural sanctuary.',
       before: {
-        image: 'https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1590381105924-c72589b9ef3f?auto=format&fit=crop&q=80&w=1200',
         alt: 'Excavation site on steep cliffside',
         tag: 'Phase 0: Ground Zero',
         title: 'Untamed Topography',
         description: '40-degree incline, dense marine scrub, zero direct utility access.'
       },
       after: {
-        image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80',
+        image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=1200',
         alt: 'Completed Obsidian Villa at twilight',
         tag: 'Phase 9: Completed Handover',
         title: 'The Obsidian Villa',
@@ -291,8 +291,8 @@ export const projectsData: Project[] = [
     executionScope: 'Architecture + Construction',
     timelineDuration: '10 Months In Progress',
     guarantee: 'Full PAANYA Turnkey Structural & Fit-out Warranty',
-    thumbnail: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80',
-    heroImage: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=800',
+    heroImage: 'https://images.unsplash.com/photo-1600585154526-990dced4db0d?auto=format&fit=crop&q=80&w=1400',
     summary: 'Multi-generational custom layout featuring split-level private terraces, sound-insulated concrete floor assemblies, and seamless indoor-outdoor transition corridors.',
     description: 'A contemporary two-tier duplex residence with layered warm cedar wood siding, stone veneer facades, black-framed floor-to-ceiling glass windows, and split-level private gardens.',
     tags: ['Duplex', 'Architecture', 'Civil Construction', 'Acoustic Insulation']
@@ -312,8 +312,8 @@ export const projectsData: Project[] = [
     executionScope: 'Interiors + Finishing',
     timelineDuration: '8 Months Total',
     guarantee: 'PAANYA 24-Month Comprehensive Fit-out Assurance',
-    thumbnail: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80',
-    heroImage: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=800',
+    heroImage: 'https://images.unsplash.com/photo-1600210492486-724fe5c67fb0?auto=format&fit=crop&q=80&w=1400',
     summary: 'Full interior architectural styling, custom monolithic masonry fireplace design, imported Italian slab flooring, and smart climate-responsive architectural shading.',
     description: 'Double-height luxury living room featuring an enormous rough-hewn natural stone fireplace hearth, minimalist black steel structural columns, and panoramic glass walls opening onto manicured estate gardens.',
     tags: ['Luxury Interior', 'Bespoke Stone', 'Frameless Glass', 'Smart Shading']
@@ -333,8 +333,8 @@ export const projectsData: Project[] = [
     executionScope: 'Structural + MEP Contracting',
     timelineDuration: '24 Months Total',
     guarantee: 'Institutional Commercial Structural Warranty',
-    thumbnail: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80',
-    heroImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=800',
+    heroImage: 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=1400',
     summary: 'Comprehensive multi-level structural engineering, curtain-wall exterior envelope fabrication, and high-efficiency MEP infrastructure integration.',
     description: 'High-rise modern commercial glass building with structural steel framework, curtain wall facade, and high-efficiency green building MEP certifications.',
     tags: ['Commercial', 'Structural Steel', 'MEP Infrastructure', 'LEED Gold Standard']
@@ -354,8 +354,8 @@ export const projectsData: Project[] = [
     executionScope: 'Full Turnkey EPC',
     timelineDuration: '11 Months Total',
     guarantee: 'PAANYA 10-Year Structural Defect Guarantee',
-    thumbnail: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80',
-    heroImage: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=800',
+    heroImage: 'https://images.unsplash.com/photo-1580587771525-78b9dba3b914?auto=format&fit=crop&q=80&w=1400',
     summary: 'A standalone architectural home balancing privacy and light, incorporating passive cooling techniques, rainwater harvesting, and custom timber joinery.',
     description: 'Custom independent home featuring modern linear geometry, cantilevered shade canopies, open-concept family spaces, and sustainable solar power generation.',
     tags: ['Independent Home', 'Passive Solar', 'Custom Joinery', 'Turnkey EPC']
@@ -375,8 +375,8 @@ export const projectsData: Project[] = [
     executionScope: 'Adaptive Reuse & Modernization',
     timelineDuration: '9 Months Total',
     guarantee: 'PAANYA Heritage Restoration Structural Warranty',
-    thumbnail: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80',
-    heroImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80',
+    thumbnail: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=800',
+    heroImage: 'https://images.unsplash.com/photo-1513694203232-719a280e022f?auto=format&fit=crop&q=80&w=1400',
     summary: 'Structural underpinning, delicate lime mortar restoration, and complete modern MEP retrofitting of a classic colonial estate with contemporary minimalist interiors.',
     description: 'Full structural strengthening of load-bearing masonry walls combined with hidden smart climate systems, restored teak wood ceilings, and seamless glass extensions.',
     tags: ['Renovation', 'Historic Restoration', 'Structural Underpinning', 'Retrofitting']
