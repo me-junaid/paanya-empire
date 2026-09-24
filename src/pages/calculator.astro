@@ -1,0 +1,121 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import ConstructionCalculator from '../components/calculator/ConstructionCalculator.astro';
+---
+
+<BaseLayout
+  title="Construction Cost Calculator"
+  description="Free construction cost estimator by Paanya Empire. Calculate your residential or commercial build cost with material breakdowns, quantity estimates, and package comparisons — instantly."
+>
+  <!-- Page Hero -->
+  <section class="pt-16 pb-8 bg-surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumb -->
+      <nav class="flex items-center gap-2 text-[11px] text-on-surface-variant font-medium mb-8" aria-label="Breadcrumb">
+        <a href="/" class="hover:text-primary transition-colors">Home</a>
+        <span class="material-symbols-outlined text-[14px] text-outline">chevron_right</span>
+        <span class="text-on-surface font-semibold">Cost Calculator</span>
+      </nav>
+
+      <!-- Hero text -->
+      <div class="max-w-3xl">
+        <div class="flex items-center gap-3 mb-4">
+          <div class="w-11 h-11 rounded-xl bg-primary/10 text-primary flex items-center justify-center">
+            <span class="material-symbols-outlined text-[24px]">calculate</span>
+          </div>
+          <p class="text-[11px] font-bold tracking-[0.2em] uppercase text-primary">Free Tool</p>
+        </div>
+        <h1 class="text-headline-lg text-on-surface mb-4">
+          Construction Cost Calculator
+        </h1>
+        <p class="text-body-md text-on-surface-variant max-w-2xl">
+          Plan your construction budget with confidence. Configure your project's built-up area, 
+          floor count, quality package, and structural add-ons — and receive an instant indicative 
+          cost estimate with material breakdown and quantity guidance.
+        </p>
+
+        <!-- Trust badges -->
+        <div class="flex flex-wrap items-center gap-4 mt-6">
+          {[
+            { icon: 'verified', text: 'Industry Benchmarked Rates' },
+            { icon: 'update', text: 'Updated 2025–26' },
+            { icon: 'shield', text: 'No Data Collected' },
+          ].map(badge => (
+            <div class="flex items-center gap-1.5 text-[11px] text-on-surface-variant font-medium">
+              <span class="material-symbols-outlined text-[16px] text-primary">{badge.icon}</span>
+              <span>{badge.text}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <ConstructionCalculator />
+
+  <!-- Disclaimer + CTA section -->
+  <section class="py-16 bg-surface">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+
+        <!-- Disclaimer box -->
+        <div class="bg-surface-container-low rounded-2xl border border-outline-variant/30 p-6">
+          <h2 class="text-sm font-bold text-on-surface uppercase tracking-wider mb-3 flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px] text-outline">info</span>
+            Important Notes
+          </h2>
+          <ul class="flex flex-col gap-2.5">
+            {[
+              'This calculator provides indicative estimates for civil and structural construction work only.',
+              'Costs exclude land, design & architectural fees, government sanctions, GST, and landscaping.',
+              'Interior design, furniture, and movable fixtures are not included in this estimate.',
+              'Actual costs may vary ±10–15% based on site conditions, soil type, and market fluctuations.',
+              'A formal Bill of Quantities (BOQ) by a licensed structural engineer is recommended before finalizing any budget.',
+              'Rates are benchmarked for Bangalore, Hyderabad, and Tier-1 South India markets (2025–26).',
+            ].map(note => (
+              <li class="flex items-start gap-2 text-[11px] text-on-surface-variant leading-relaxed">
+                <span class="material-symbols-outlined text-[14px] text-outline mt-0.5 shrink-0">fiber_manual_record</span>
+                <span>{note}</span>
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <!-- Why get a detailed BOQ -->
+        <div class="bg-primary/5 rounded-2xl border border-primary/20 p-6">
+          <h2 class="text-sm font-bold text-on-surface uppercase tracking-wider mb-3 flex items-center gap-2">
+            <span class="material-symbols-outlined text-[18px] text-primary">description</span>
+            Get a Detailed BOQ — Free
+          </h2>
+          <p class="text-[12px] text-on-surface-variant leading-relaxed mb-4">
+            A Bill of Quantities is the most accurate way to plan your construction budget. 
+            Paanya Empire provides a complimentary detailed BOQ with every project consultation, 
+            broken down by trade, material, quantity, and unit rate.
+          </p>
+          <ul class="flex flex-col gap-2 mb-6">
+            {[
+              'Line-by-line civil & structural breakdown',
+              'Branded material schedule with specs',
+              'Stage-wise payment milestone plan',
+              'Contingency & supervision cost allocation',
+            ].map(item => (
+              <li class="flex items-center gap-2 text-[11px] text-on-surface font-medium">
+                <span class="material-symbols-outlined text-[16px] text-primary">check_circle</span>
+                <span>{item}</span>
+              </li>
+            ))}
+          </ul>
+          <a
+            href="/contact"
+            class="flex items-center justify-center gap-2 w-full h-11 rounded-xl bg-primary text-on-primary text-xs font-bold uppercase tracking-wider hover:bg-primary-container transition-colors shadow-sm"
+          >
+            <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+            Request Free BOQ & Consultation
+          </a>
+        </div>
+
+      </div>
+    </div>
+  </section>
+</BaseLayout>
