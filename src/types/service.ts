@@ -68,6 +68,13 @@ export interface ServiceStat {
   value: string;
 }
 
+export interface ServiceClient {
+  name: string;
+  category?: string;
+  logo: string;
+  description?: string;
+}
+
 export interface Service {
   id: string;
   slug: string;
@@ -90,4 +97,5 @@ export interface Service {
   process?: ServiceProcessPhase[];
   plans?: ServicePlan[];
   stats?: ServiceStat[];
+  clients?: ServiceClient[];
 }

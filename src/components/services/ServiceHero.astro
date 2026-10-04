@@ -5,9 +5,48 @@ interface Props {
   heroImage: string;
   description: string;
   brandLogo?: string;
+  serviceSlug?: string;
 }
 
-const { title, subtitle, heroImage, description, brandLogo } = Astro.props;
+const { title, subtitle, heroImage, description, brandLogo, serviceSlug = '' } = Astro.props;
+
+// Determine project type options based on service
+const isSecurity = serviceSlug === 'security-and-manpower';
+const isRealEstate = serviceSlug === 'real-estate';
+
+const projectTypes = isSecurity 
+  ? [
+      'Residential Apartment Security',
+      'Commercial & Tech Park Security',
+      'Industrial Plant Security',
+      'Hospital & Institutional Security',
+      'Facility Management & Housekeeping',
+      'Skilled & Technical Workforce',
+    ]
+  : isRealEstate
+  ? [
+      'Plot / Land Banking',
+      'Luxury Villa Development',
+      'Commercial Real Estate Investment',
+      'Joint Development (JD)',
+      'Title Due Diligence & Legal Vetting',
+    ]
+  : [
+      'Residential Construction',
+      'Commercial Construction',
+      'Schools & Educational Institutions',
+      'Hospitals & Healthcare Facilities',
+      'Residential Interiors',
+      'Commercial Interiors',
+      'Plan Approval + Construction',
+      'Complete Turnkey Project',
+    ];
+
+const headingText = isSecurity 
+  ? "Let's Plan Your Security" 
+  : isRealEstate 
+  ? "Let's Plan Your Property" 
+  : "Let's Plan Your Project";
 ---
 
 <!-- 1. SERVICE HERO SECTION -->
@@ -32,8 +71,8 @@ const { title, subtitle, heroImage, description, brandLogo } = Astro.props;
         </span>
       </div>
 
-      <div class="flex items-center gap-4 sm:gap-6 mb-4">
-        <h1 class="font-headline text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-on-primary uppercase leading-tight max-w-4xl">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 mb-4">
+        <h1 class="font-headline text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-on-primary uppercase leading-tight max-w-3xl">
           {title}
         </h1>
         {brandLogo && (
@@ -53,17 +92,30 @@ const { title, subtitle, heroImage, description, brandLogo } = Astro.props;
         {description}
       </p>
 
-      <!-- Interaction Actions -->
-      <div class="flex flex-col sm:flex-row gap-3 pt-2">
-        <a 
-          href="/contact"
-          class="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-primary text-on-primary text-xs font-semibold uppercase tracking-wider shadow-lg hover:bg-primary-container transition-colors"
+      <!-- Interaction Actions (Popup Trigger + WhatsApp + Case Studies) -->
+      <div class="flex flex-wrap items-center gap-3 pt-2">
+        <button 
+          type="button" 
+          id="heroOpenModalBtn"
+          class="inline-flex items-center justify-center gap-2 h-12 px-6 rounded-xl bg-primary hover:bg-primary-container text-on-primary text-xs font-bold uppercase tracking-wider shadow-lg transition-all active:scale-[0.99] cursor-pointer"
         >
-          Consult Our Engineers
+          <span class="material-symbols-outlined text-base">edit_note</span>
+          <span>Enquire Now</span>
+        </button>
+
+        <a 
+          href="https://wa.me/919110436625" 
+          target="_blank" 
+          rel="noopener noreferrer"
+          class="inline-flex items-center justify-center gap-1.5 h-12 px-5 rounded-xl bg-[#25D366]/20 hover:bg-[#25D366]/30 text-emerald-300 border border-[#25D366]/40 text-xs font-semibold uppercase tracking-wider transition-colors"
+        >
+          <span class="material-symbols-outlined text-base">chat</span>
+          <span>WhatsApp Us</span>
         </a>
+
         <a 
           href="/projects"
-          class="inline-flex items-center justify-center h-12 px-6 rounded-xl bg-surface-container-lowest/15 backdrop-blur-md text-on-primary text-xs font-semibold uppercase tracking-wider hover:bg-surface-container-lowest/25 transition-colors"
+          class="inline-flex items-center justify-center h-12 px-5 rounded-xl bg-surface-container-lowest/15 backdrop-blur-md text-on-primary text-xs font-semibold uppercase tracking-wider hover:bg-surface-container-lowest/25 transition-colors"
         >
           View Case Studies
         </a>
@@ -71,3 +123,340 @@ const { title, subtitle, heroImage, description, brandLogo } = Astro.props;
     </div>
   </div>
 </section>
+
+<!-- 2. ENQUIRY MODAL POPUP DIALOG (PAANYA EMPIRE BRANDED) -->
+<div 
+  id="serviceEnquiryModal" 
+  class="fixed inset-0 z-50 flex items-center justify-center p-3 sm:p-6 bg-black/80 backdrop-blur-md opacity-0 pointer-events-none transition-all duration-300"
+  role="dialog"
+  aria-modal="true"
+  aria-labelledby="modalTitle"
+>
+  <div 
+    id="modalBox"
+    class="bg-surface-container-lowest text-on-surface rounded-3xl max-w-lg w-full shadow-2xl relative transform scale-95 transition-all duration-300 max-h-[92vh] flex flex-col overflow-hidden border border-outline-variant/30"
+  >
+    <!-- Top Brand Accent Strip -->
+    <div class="h-1.5 w-full bg-gradient-to-r from-primary via-primary-container to-secondary shrink-0"></div>
+
+    <!-- Modal Close Button -->
+    <button 
+      type="button" 
+      id="closeModalBtn"
+      class="absolute top-4 right-4 w-9 h-9 rounded-full bg-surface-container hover:bg-surface-container-high text-on-surface flex items-center justify-center transition-colors cursor-pointer z-10"
+      aria-label="Close modal"
+    >
+      <span class="material-symbols-outlined text-xl">close</span>
+    </button>
+
+    <!-- Scrollable Content Area -->
+    <div class="p-6 sm:p-8 overflow-y-auto flex-1 flex flex-col gap-5">
+      <!-- Modal Header with Paanya Empire Logo -->
+      <div class="flex flex-col gap-2.5 pr-6">
+        <div class="flex items-center gap-3">
+          <img 
+            src="/images/logo.webp" 
+            alt="Paanya Empire - Anything Can Be Built" 
+            class="h-8 sm:h-9 w-auto object-contain"
+            width="170"
+            height="36"
+          />
+        </div>
+
+        <div class="inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-widest text-primary pt-1">
+          <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+          <span>Paanya Empire · {title} Desk</span>
+        </div>
+
+        <h2 id="modalTitle" class="font-headline text-2xl sm:text-3xl font-bold tracking-tight text-on-surface uppercase">
+          {headingText}
+        </h2>
+        <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+          Share your project parameters and our executive engineering team will connect with you within 24 business hours.
+        </p>
+      </div>
+
+      <!-- Enquiry Form -->
+      <form id="popupEnquiryForm" class="flex flex-col gap-4" data-service-slug={serviceSlug}>
+        <input type="hidden" name="serviceRequired" value={title} />
+
+        <!-- 1. Full Name -->
+        <div class="flex flex-col gap-1.5">
+          <label for="modal-name" class="text-xs font-bold uppercase tracking-wider text-on-surface">
+            Full Name <span class="text-primary">*</span>
+          </label>
+          <input 
+            id="modal-name"
+            name="name" 
+            type="text" 
+            required 
+            placeholder="Enter your full name"
+            class="h-12 px-4 rounded-xl bg-surface-container-low border border-outline-variant/30 text-sm text-on-surface placeholder:text-outline/60 focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+          />
+          <span class="popup-error-msg text-[11px] text-error font-medium hidden" data-error-for="name"></span>
+        </div>
+
+        <!-- 2. Email Address -->
+        <div class="flex flex-col gap-1.5">
+          <label for="modal-email" class="text-xs font-bold uppercase tracking-wider text-on-surface">
+            Email Address <span class="text-primary">*</span>
+          </label>
+          <input 
+            id="modal-email"
+            name="email" 
+            type="email" 
+            required 
+            placeholder="Enter your email address"
+            class="h-12 px-4 rounded-xl bg-surface-container-low border border-outline-variant/30 text-sm text-on-surface placeholder:text-outline/60 focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+          />
+          <span class="popup-error-msg text-[11px] text-error font-medium hidden" data-error-for="email"></span>
+        </div>
+
+        <!-- 3. Phone Number -->
+        <div class="flex flex-col gap-1.5">
+          <label for="modal-phone" class="text-xs font-bold uppercase tracking-wider text-on-surface">
+            Phone Number <span class="text-primary">*</span>
+          </label>
+          <div class="flex gap-2">
+            <div class="h-12 px-3.5 rounded-xl bg-surface-container border border-outline-variant/30 flex items-center justify-center text-sm font-semibold text-on-surface select-none shrink-0">
+              +91
+            </div>
+            <input 
+              id="modal-phone"
+              name="phone" 
+              type="tel" 
+              required 
+              placeholder="Enter phone number"
+              class="h-12 px-4 rounded-xl bg-surface-container-low border border-outline-variant/30 text-sm text-on-surface placeholder:text-outline/60 focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 outline-none transition-all flex-1"
+            />
+          </div>
+          <span class="popup-error-msg text-[11px] text-error font-medium hidden" data-error-for="phone"></span>
+        </div>
+
+        <!-- 4. Project Type -->
+        <div class="flex flex-col gap-1.5">
+          <label for="modal-project-type" class="text-xs font-bold uppercase tracking-wider text-on-surface">
+            Project Type <span class="text-primary">*</span>
+          </label>
+          <div class="relative">
+            <select 
+              id="modal-project-type"
+              name="projectType" 
+              required
+              class="w-full h-12 px-4 pr-10 rounded-xl bg-surface-container-low border border-outline-variant/30 text-sm text-on-surface focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 outline-none transition-all appearance-none cursor-pointer"
+            >
+              <option value="" disabled selected>Select Project Type</option>
+              {projectTypes.map((type) => (
+                <option value={type}>{type}</option>
+              ))}
+            </select>
+            <span class="material-symbols-outlined absolute right-3.5 top-3.5 text-on-surface-variant pointer-events-none text-xl">
+              expand_more
+            </span>
+          </div>
+          <span class="popup-error-msg text-[11px] text-error font-medium hidden" data-error-for="projectType"></span>
+        </div>
+
+        <!-- 5. Project Location -->
+        <div class="flex flex-col gap-1.5">
+          <label for="modal-location" class="text-xs font-bold uppercase tracking-wider text-on-surface">
+            Project Location <span class="text-primary">*</span>
+          </label>
+          <input 
+            id="modal-location"
+            name="projectLocation" 
+            type="text" 
+            required 
+            placeholder="Example: Hebbal, Whitefield, Sahakar Nagar"
+            class="h-12 px-4 rounded-xl bg-surface-container-low border border-outline-variant/30 text-sm text-on-surface placeholder:text-outline/60 focus:border-primary focus:bg-surface-bright focus:ring-2 focus:ring-primary/20 outline-none transition-all"
+          />
+          <span class="popup-error-msg text-[11px] text-error font-medium hidden" data-error-for="projectLocation"></span>
+        </div>
+
+        <!-- Error Alert Banner -->
+        <div id="modalErrorBanner" class="hidden p-3.5 rounded-xl bg-error-container text-on-error-container text-xs flex items-center gap-2">
+          <span class="material-symbols-outlined text-error text-base shrink-0">error</span>
+          <span id="modalErrorMessage" class="leading-tight"></span>
+        </div>
+
+        <!-- Success Confirmation Banner -->
+        <div id="modalSuccessBanner" class="hidden p-4 rounded-xl bg-primary-fixed text-on-primary-fixed text-xs flex flex-col gap-1.5 border border-primary/20">
+          <div class="flex items-center gap-2">
+            <span class="material-symbols-outlined text-primary text-xl shrink-0">check_circle</span>
+            <span class="font-bold text-sm">Consultation Booked with Paanya Empire!</span>
+          </div>
+          <p id="modalSuccessDetail" class="text-[11px] text-on-primary-fixed/90 leading-relaxed">
+            Our architectural &amp; engineering director will connect with you within 24 business hours to evaluate your project.
+          </p>
+          <div class="flex items-center gap-1.5 pt-1 text-[11px]">
+            <span class="font-bold text-primary uppercase tracking-wider">Reference Code:</span>
+            <span id="modalSuccessRef" class="font-mono font-bold bg-surface-container-lowest px-2 py-0.5 rounded text-primary border border-primary/20"></span>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- Bottom Action Bar (Book Free Consultation & WhatsApp) -->
+    <div class="bg-surface-container-low/90 backdrop-blur-md p-4 sm:p-5 flex flex-col sm:flex-row items-stretch sm:items-center gap-3 border-t border-outline-variant/25 shrink-0">
+      <!-- Primary Submit Button -->
+      <button 
+        type="submit" 
+        form="popupEnquiryForm"
+        id="modalSubmitBtn"
+        class="flex-1 h-12 px-5 rounded-2xl bg-gradient-to-r from-primary to-primary-container hover:from-primary-container hover:to-primary text-on-primary font-bold text-xs sm:text-[13px] uppercase tracking-wider shadow-md shadow-primary/25 hover:shadow-lg hover:shadow-primary/35 transition-all duration-200 flex items-center justify-center gap-2 cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed active:scale-[0.99]"
+      >
+        <span id="modalBtnText">Book Free Consultation</span>
+        <span id="modalBtnIcon" class="material-symbols-outlined text-[18px] transition-transform group-hover:translate-x-0.5">arrow_forward</span>
+        <svg id="modalBtnSpinner" class="hidden animate-spin h-4 w-4 text-on-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+          <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+          <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+        </svg>
+      </button>
+
+      <!-- WhatsApp Direct Action Button -->
+      <a 
+        href="https://wa.me/919110436625"
+        target="_blank" 
+        rel="noopener noreferrer"
+        class="h-12 px-5 rounded-2xl bg-[#25D366] hover:bg-[#20bd5a] text-white font-bold text-xs sm:text-[13px] tracking-wide flex items-center justify-center gap-2 shadow-sm shadow-[#25D366]/20 hover:shadow-md hover:shadow-[#25D366]/30 transition-all duration-200 shrink-0 active:scale-[0.99]"
+      >
+        <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+        </svg>
+        <span>WhatsApp</span>
+      </a>
+    </div>
+  </div>
+</div>
+
+<script>
+  function initServiceEnquiryModal() {
+    const modal = document.getElementById('serviceEnquiryModal');
+    const modalBox = document.getElementById('modalBox');
+    const openBtn = document.getElementById('heroOpenModalBtn');
+    const closeBtn = document.getElementById('closeModalBtn');
+    const form = document.getElementById('popupEnquiryForm') as HTMLFormElement | null;
+
+    if (!modal || !modalBox) return;
+
+    function openModal() {
+      modal?.classList.remove('opacity-0', 'pointer-events-none');
+      modal?.classList.add('opacity-100', 'pointer-events-auto');
+      modalBox?.classList.remove('scale-95');
+      modalBox?.classList.add('scale-100');
+      document.body.style.overflow = 'hidden';
+      setTimeout(() => {
+        (modal?.querySelector('#modal-name') as HTMLInputElement | null)?.focus();
+      }, 100);
+    }
+
+    function closeModal() {
+      modal?.classList.add('opacity-0', 'pointer-events-none');
+      modal?.classList.remove('opacity-100', 'pointer-events-auto');
+      modalBox?.classList.add('scale-95');
+      modalBox?.classList.remove('scale-100');
+      document.body.style.overflow = '';
+    }
+
+    openBtn?.addEventListener('click', openModal);
+    closeBtn?.addEventListener('click', closeModal);
+
+    // Close on background click
+    modal.addEventListener('click', (e) => {
+      if (e.target === modal) {
+        closeModal();
+      }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !modal.classList.contains('pointer-events-none')) {
+        closeModal();
+      }
+    });
+
+    // Form submission
+    if (!form) return;
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const submitBtn = document.getElementById('modalSubmitBtn') as HTMLButtonElement | null;
+      const btnText = document.getElementById('modalBtnText');
+      const btnSpinner = document.getElementById('modalBtnSpinner');
+      const errorBanner = document.getElementById('modalErrorBanner');
+      const errorMessage = document.getElementById('modalErrorMessage');
+      const successBanner = document.getElementById('modalSuccessBanner');
+      const successRef = document.getElementById('modalSuccessRef');
+      const successDetail = document.getElementById('modalSuccessDetail');
+
+      // Clear previous error messages
+      form.querySelectorAll('.popup-error-msg').forEach(el => {
+        el.textContent = '';
+        el.classList.add('hidden');
+      });
+      if (errorBanner) errorBanner.classList.add('hidden');
+
+      // Gather form data
+      const formData = new FormData(form);
+      const payload: Record<string, string> = {};
+      formData.forEach((val, key) => {
+        payload[key] = val.toString();
+      });
+
+      // Set Loading State
+      if (submitBtn) submitBtn.disabled = true;
+      if (btnText) btnText.textContent = 'Booking Consultation...';
+      if (btnSpinner) btnSpinner.classList.remove('hidden');
+
+      try {
+        const response = await fetch('/api/enquiry', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(payload),
+        });
+
+        const result = await response.json();
+
+        if (response.ok && result.success) {
+          if (successBanner) {
+            successBanner.classList.remove('hidden');
+            if (successRef) successRef.textContent = result.data?.referenceId || 'CONFIRMED';
+            if (successDetail && result.data?.message) successDetail.textContent = result.data.message;
+            successBanner.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          }
+          form.reset();
+        } else {
+          if (errorBanner && errorMessage) {
+            errorMessage.textContent = result.error?.message || 'Please verify your details and try again.';
+            errorBanner.classList.remove('hidden');
+          }
+          if (result.error?.details) {
+            Object.entries(result.error.details).forEach(([field, msg]) => {
+              const fieldError = form.querySelector(`[data-error-for="${field}"]`);
+              if (fieldError) {
+                fieldError.textContent = msg as string;
+                fieldError.classList.remove('hidden');
+              }
+            });
+          }
+        }
+      } catch (err) {
+        if (errorBanner && errorMessage) {
+          errorMessage.textContent = 'Network connection issue. Please try again or connect directly via WhatsApp.';
+          errorBanner.classList.remove('hidden');
+        }
+      } finally {
+        if (submitBtn) submitBtn.disabled = false;
+        if (btnText) btnText.textContent = 'Book Free Consultation →';
+        if (btnSpinner) btnSpinner.classList.add('hidden');
+      }
+    });
+  }
+
+  initServiceEnquiryModal();
+  document.addEventListener('astro:page-load', initServiceEnquiryModal);
+</script>

@@ -1,0 +1,121 @@
+---
+import type { ServiceClient } from '../../types/service';
+
+interface Props {
+  clients?: ServiceClient[];
+  title?: string;
+  subtitle?: string;
+  description?: string;
+}
+
+const {
+  clients = [],
+  title = "Trusted by Premier Institutions & Developers",
+  subtitle = "Client Portfolio & Deployments",
+  description = "From higher education campuses and gated residential enclaves to agro-living estates and industrial enterprises, FortMan provides vetted, disciplined manpower and technology-backed protection."
+} = Astro.props;
+
+if (!clients || clients.length === 0) {
+  return null;
+}
+---
+
+<section class="w-full py-16 sm:py-20 px-4 sm:px-6 lg:px-8 bg-surface-container-lowest border-y border-outline-variant/20 relative overflow-hidden">
+  <!-- Subtle ambient background accents -->
+  <div class="absolute top-0 right-0 -mr-24 -mt-24 w-96 h-96 rounded-full bg-primary/5 blur-3xl pointer-events-none"></div>
+  <div class="absolute bottom-0 left-0 -ml-24 -mb-24 w-96 h-96 rounded-full bg-secondary/5 blur-3xl pointer-events-none"></div>
+
+  <div class="max-w-6xl mx-auto flex flex-col gap-12 relative z-10">
+    <!-- Section Header -->
+    <div class="flex flex-col items-center text-center gap-3 max-w-3xl mx-auto">
+      <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-primary/10 text-primary text-[11px] font-bold uppercase tracking-widest">
+        <span class="w-2 h-2 rounded-full bg-primary animate-pulse"></span>
+        <span>{subtitle}</span>
+      </div>
+
+      <h2 class="font-headline text-2xl sm:text-3xl lg:text-4xl font-extrabold uppercase tracking-tight text-on-surface">
+        {title}
+      </h2>
+
+      <p class="text-xs sm:text-sm text-on-surface-variant leading-relaxed">
+        {description}
+      </p>
+    </div>
+
+    <!-- Client Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      {clients.map((client) => (
+        <div class="group flex flex-col rounded-2xl bg-surface border border-outline-variant/30 hover:border-primary/50 hover:shadow-lg transition-all duration-300 p-6 gap-5 relative overflow-hidden">
+          <!-- Top Accent Line -->
+          <div class="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-primary/40 via-primary to-primary/40 opacity-0 group-hover:opacity-100 transition-opacity"></div>
+
+          <!-- Logo Display Frame -->
+          <div class="w-full h-32 rounded-xl bg-white p-4 flex items-center justify-center border border-outline-variant/25 shadow-xs group-hover:scale-[1.02] transition-transform duration-300">
+            <img 
+              src={client.logo} 
+              alt={`${client.name} Logo`}
+              class="max-h-24 max-w-full w-auto object-contain transition-all duration-300 group-hover:brightness-105"
+              loading="lazy"
+            />
+          </div>
+
+          <!-- Client Details -->
+          <div class="flex flex-col gap-2 flex-1 justify-between">
+            <div class="flex flex-col gap-2">
+              {client.category && (
+                <div class="flex items-center gap-1.5">
+                  <span class="inline-block w-1.5 h-1.5 rounded-full bg-primary"></span>
+                  <span class="text-[10px] font-bold uppercase tracking-wider text-primary">
+                    {client.category}
+                  </span>
+                </div>
+              )}
+              <h3 class="font-headline text-base sm:text-lg font-bold uppercase text-on-surface tracking-tight group-hover:text-primary transition-colors">
+                {client.name}
+              </h3>
+              {client.description && (
+                <p class="text-xs text-on-surface-variant leading-relaxed line-clamp-3">
+                  {client.description}
+                </p>
+              )}
+            </div>
+
+            <!-- Verified Protection Badge -->
+            <div class="pt-3 border-t border-outline-variant/20 flex items-center justify-between text-[11px] text-on-surface-variant">
+              <span class="inline-flex items-center gap-1 font-semibold text-secondary">
+                <span class="material-symbols-outlined text-[16px] text-primary">verified</span>
+                <span>Active Deployment</span>
+              </span>
+              <span class="text-[10px] uppercase font-bold text-outline">FortMan Vetted</span>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <!-- Bottom Institutional Trust Strip -->
+    <div class="rounded-2xl p-6 sm:p-8 bg-surface-container-low border border-outline-variant/30 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div class="flex items-center gap-4 text-left">
+        <div class="w-12 h-12 rounded-xl bg-primary text-on-primary flex items-center justify-center shrink-0 shadow-sm">
+          <span class="material-symbols-outlined text-2xl">shield_person</span>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-headline text-sm sm:text-base font-bold uppercase text-on-surface">
+            Looking for Institutional Security & Manpower?
+          </span>
+          <span class="text-xs text-on-surface-variant">
+            Custom manpower deployment packages with ERP GPS attendance & Field Officer inspections.
+          </span>
+        </div>
+      </div>
+
+      <a 
+        href="/contact"
+        class="inline-flex items-center justify-center px-6 py-3 rounded-xl bg-primary text-on-primary text-xs font-bold uppercase tracking-wider hover:bg-primary-container shadow-xs transition-colors shrink-0 whitespace-nowrap"
+      >
+        <span>Request Site Survey</span>
+        <span class="material-symbols-outlined text-sm ml-2">arrow_forward</span>
+      </a>
+    </div>
+  </div>
+</section>

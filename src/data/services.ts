@@ -332,7 +332,7 @@ const services: Service[] = [
       items: [
         {
           icon: 'military_tech',
-          title: 'Ex-Army & RAXA Academy Trained',
+          title: 'Ex-Army & Academy Trained',
           description: 'Personnel trained through professional academies like RAXA Academy, instilling military discipline, vigilance, and physical readiness.'
         },
         {
@@ -420,6 +420,38 @@ const services: Service[] = [
         title: 'Continuous Supervision & Night Audits',
         duration: 'Ongoing',
         description: 'Routine weekly Field Officer evaluations, surprise midnight checks, and ongoing emergency response drills.'
+      }
+    ],
+    clients: [
+      {
+        name: 'B.E.S.T Innovation University',
+        category: 'Higher Education & Campus',
+        logo: '/man-power-clients/man-power-client1.jpeg',
+        description: 'Bharatiya Engineering, Science & Technology Innovation University — Full campus security deployment, gate management & visitor tracking.'
+      },
+      {
+        name: 'Vedha Sree Parivar LLP',
+        category: 'Luxury Real Estate & Communities',
+        logo: '/man-power-clients/man-power-client2.jpeg',
+        description: 'Residential community security, round-the-clock entry screening, and ERP digital attendance management.'
+      },
+      {
+        name: 'Vaibhav Habitats',
+        category: 'Gated Communities & Living',
+        logo: '/man-power-clients/man-power-client3.jpeg',
+        description: 'Trained security staff, night patrol supervision, and residential gate surveillance.'
+      },
+      {
+        name: 'Vedha Bhoomi',
+        category: 'Agro Estates & Farmland Living',
+        logo: '/man-power-clients/man-power-client4.jpeg',
+        description: 'Farm to Heaven — Large-scale estate perimeter protection, checkpoint security, and grounds management personnel.'
+      },
+      {
+        name: 'ORM Group',
+        category: 'Industrial & Corporate Enterprises',
+        logo: '/man-power-clients/man-power-client6.jpeg',
+        description: 'Industrial facility protection, commercial premise access control, and specialized manpower deployment.'
       }
     ]
   }

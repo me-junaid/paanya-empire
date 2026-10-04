@@ -8,6 +8,7 @@ import ServiceScope from '../../components/services/ServiceScope.astro';
 import ServiceBenefits from '../../components/services/ServiceBenefits.astro';
 import ServiceProcess from '../../components/services/ServiceProcess.astro';
 import ServiceCTA from '../../components/services/ServiceCTA.astro';
+import ServiceClients from '../../components/services/ServiceClients.astro';
 import RelatedProjects from '../../components/projects/RelatedProjects.astro';
 import { getFeaturedProjects } from '../../lib/projects';
 
@@ -33,6 +34,7 @@ if (!service) {
       heroImage={service.heroImage}
       description={service.shortDescription}
       brandLogo={service.brandLogo}
+      serviceSlug={service.slug}
     />
 
     <!-- Key Metrics / Stats Bar (if defined) -->
@@ -117,6 +119,16 @@ if (!service) {
           </div>
         </div>
       </section>
+    )}
+
+    <!-- 2.7 Trusted Clients & Deployments (if defined) -->
+    {service.clients && service.clients.length > 0 && (
+      <ServiceClients 
+        clients={service.clients} 
+        title="Trusted by Premier Institutions & Developers"
+        subtitle="Active Deployments & Clientele"
+        description="FortMan delivers disciplined security guards, ex-army personnel, dynamic ERP attendance, and specialized facility manpower across leading universities, luxury gated communities, and industrial facilities in Karnataka and Andhra Pradesh."
+      />
     )}
     
     <!-- 3. Comparison (if turnkey) -->
